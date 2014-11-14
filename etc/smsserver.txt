@@ -1,0 +1,24 @@
+================================
+从ihost切换到独立sms server
+================================
+# 关squid3 shutdown squid3 
+echo manual > /media/ihostdata/sys/squid3/squid3.override
+ln  -sf  /media/ihostdata/sys/squid3/squid3.override  /etc/init/squid3.override
+
+# 修改mysql的启动文件 mysql start up shell without squid3
+cp  /media/ihostdata/sys/mysql/mysql.conf.nosquid   /etc/init/mysql.conf
+
+# 关chilli shutdown chilli
+update-rc.d -f chilli remove
+
+# 检查定时启动项，去掉不需要的任务
+crontab -e
+
+# 重启
+reboot
+
+# 检查squid3是否运行 check squid3
+ps aux | grep squid
+
+# 检查chilli是否运行 check chilli
+ps aux | grep chilli

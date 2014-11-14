@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+	<title>usspoint iBroker Admin</title>
+<link rel="stylesheet" type="text/css" href="css/nav.css" />
+<base target="mainframe" />
+</head>
+
+<body>
+
+<dl>
+    <dt>Status</dt>
+    <dd><ul>
+                        <li><a href="wmon/viewsta.php">Stations</a></li>
+                        <li><a href="wmon/viewact.php">Station Actions</a></li>
+                        <li><a href="nmon/viewvst.php">Website Visits</a></li>
+                        <li><a href="auth/viewuser.php">User Accounts</a></li>    
+
+        </ul></dd>
+</dl>
+
+
+<dl>
+    <dt>Configuration</dt>
+    <dd><ul>
+                        <li><a href="sys/clientdnsget.php">Client DNS</a></li>
+                        <li><a href="sys/hotspottimeget.php">Time Limits</a></li>
+                        <li><a href="sys/hotspotrateget.php">Rate Limits</a></li>
+                        <li><a href="sys/hotspotdomainget.php">Domains Allowed</a></li>
+                        <li><a href="sys/hotspothostget.php">Hosts Allowed</a></li>
+                        <li><a href="auth/clrauthget.php">Reset Auth</a></li>
+                        <li><a href="auth/tblsmsget.php">SMS Def.</a></li>
+
+
+
+			
+	</ul></dd>
+</dl>
+<dl>
+    <dt>Administration</dt>
+    <dd><ul>
+                        <li><a href="sys/timeget.php">Reset Systime</a></li>
+                        <li><a href="sys/dipset.php">Set Dynamic IP</a></li>
+                        <li><a href="sys/sipget.php">Set Static IP</a></li>
+                        <li><a href="sys/locdnsget.php">Set DNS</a></li>
+                        <li><a href="sys/pingstr.php">Ping</a></li>
+			
+	</ul></dd>
+</dl>
+<dl><dt>Maintenance</dt>
+	<dd><ul>
+                        <li><a href="sys/pwdmsg.php">Change Password</a></li>
+                        <li><a href="sys/rbtmsg.php">Reboot</a></li>
+			
+	</ul></dd>
+</dl>
+</body>
+</html>

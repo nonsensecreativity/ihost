@@ -1,0 +1,19 @@
+server {
+        listen 8181;
+        root /opt/id-images;
+        index index.html index.htm;
+
+        location ~ / {
+            auth_basic "closed website";
+            auth_basic_user_file /opt/id-images/admin/.htpasswd;
+            location ~ \.php$ {
+                fastcgi_pass 127.0.0.1:9000;
+                fastcgi_index index.php;
+                include fastcgi_params;
+
+            }
+        }
+}
+
+
+

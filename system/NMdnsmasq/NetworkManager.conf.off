@@ -1,0 +1,9 @@
+
+[main]
+plugins=ifupdown,keyfile
+#dns=dnsmasq
+
+no-auto-default=00:C0:08:88:12:30,EE:96:E2:69:9E:70,00:C0:08:88:30:82,5A:E6:21:22:3E:1D,
+
+[ifupdown]
+managed=false

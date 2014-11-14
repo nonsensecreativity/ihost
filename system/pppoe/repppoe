@@ -1,0 +1,8 @@
+#!/bin/bash
+if [ -e /var/run/ppp0.pid ]; then
+    exit 0
+else
+    pon dsl-provider
+fi
+exit 0
+

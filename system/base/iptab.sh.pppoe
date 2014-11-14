@@ -1,0 +1,11 @@
+iptables -F
+iptables -X
+iptables -t nat -F
+iptables -t nat -X
+iptables -t mangle -F
+iptables -t mangle -X
+
+iptables -t nat -A POSTROUTING -o ppp0 -j MASQUERADE
+iptables -A FORWARD -i ppp0 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT
+iptables -A FORWARD -i wlan0 -o ppp0 -j ACCEPT
+iptables -t nat -I PREROUTING -d 172.16.0.0/16 -j ACCEPT

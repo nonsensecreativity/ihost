@@ -1,0 +1,9 @@
+body, ul, li, dl, dt, dd { margin: 0; padding: 0; }
+body { padding-right: 7px; font: normal 10px "Trebuchet MS", Verdana, Geneva, Arial, Helvetica, sans-serif; background: #fff url(/admin/images/bg_nav.gif) top right repeat-y; }
+body, a { color: #000; }
+dl { border-bottom: 1px solid #cacaca; padding: 7px 0 10px 0; }
+dt { padding-left: 10px; font-size: 1.5em; font-weight: bold; color: #035678; }
+li { display: inline; list-style: none outside; }
+li a { display: block; padding: 2px 2px 2px 20px; text-decoration: none; font-size: 1.1em; }
+li a:hover { background-color: #d5e4f3; }
+

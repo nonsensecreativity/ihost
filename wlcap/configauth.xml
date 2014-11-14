@@ -1,0 +1,10 @@
+<config>
+    <dbconn user="auth" pwd="authatussp" host="127.0.0.1" db="wlsp" />
+    <auth>
+        <dev addr="192.168.1.251"  user="super" passwd="sp-admin" port="22" >
+            <wlan name="wlan0" />
+            <wlan name="wlan1" />
+        </dev>
+    </auth>
+    <onsitechk onsite="360" online="600" leave="1800" />
+</config>

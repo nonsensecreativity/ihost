@@ -1,0 +1,10 @@
+<config>
+    <dbconn user="actrec" pwd="actrecatussp" host="127.0.0.1" db="wlsp" />
+    <interface ifname="eth0" pktpipe="/home/actpipe" 
+       filter="(src net 172.16.0.0/16) and (not (dst net 172.16.0.0/16)) and (dst port http or 8080 or https) and 
+         ((tcp-syn)!=0) and (not ether src 00:c0:08:88:25:b6)" />
+    <netlog csite="270000" cfilter="12000" maxtimediff="5" />
+</config>
+
+                            
+            

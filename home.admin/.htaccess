@@ -1,0 +1,5 @@
+AuthName "Please Login"
+AuthType basic
+AuthUserFile /opt/id-images/admin/.htpasswd
+require valid-user
+

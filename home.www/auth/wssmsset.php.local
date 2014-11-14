@@ -1,0 +1,24 @@
+<?php
+// call webservice
+/*    $passwd = "1234567890";
+    $secret = "ab";        
+    $cred = crypt($passwd,$secret);
+    try{
+        $soap = new SoapClient(null,array('location'=>"http://192.168.1.254/auth/sms.php",'uri'=>'sms.php'));
+        $result = $soap->rcv2db($cred, $_SERVER ['HTTP_HOST'],"zgbdh001", $msg, $_POST['sphone']);
+        //echo $result."<br/>";
+        if ($result != 0){                     
+            echo "Warning: update central authlist failed!<br />";
+        }   
+    }catch(SoapFault $e){
+        echo "Warning: ".$e->getMessage() . "<br />";
+    }catch(Exception $e){
+        echo "Warning: ".$e->getMessage() . "<br />";
+    }
+*/
+// call local sms gateway
+    $str = "sudo echo " . $msg ."  | gnokii --config /etc/xdg/gnokii/config --sendsms " . $_POST['sphone'];
+    //echo $str;
+    $output = shell_exec($str);
+    echo "<pre>$output</pre>";
+?>

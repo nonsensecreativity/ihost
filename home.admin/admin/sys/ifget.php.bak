@@ -1,0 +1,26 @@
+<html>
+<title>gif</title>
+<body>
+<script>
+function settext(str){
+document.getElementById("if").innerText=str;
+//document.write(str);
+}
+</script>
+<?php
+$str = "sudo cat /etc/network/interfaces";
+//echo $str;
+$output = shell_exec($str);
+//echo "<pre>$output</pre>";
+?> 
+<form action="ifset.php" method="POST">  
+    <textarea name="if" id="if" cols="80" rows="30"></textarea> 
+    <input type="submit" value="Set"/>  
+</form> 
+<input type="hidden" name="txtbridge" value="<?=$output;?>">
+<script>                  
+var ifstr = txtbridge.value;
+settext(ifstr);             
+</script> 
+</body>
+

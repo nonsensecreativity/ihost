@@ -1,0 +1,15 @@
+server {
+        listen 80;
+        root /var/www;
+        index index.html index.htm;
+        client_max_body_size 1m;      
+        location ~ \.php$ {
+                fastcgi_pass 127.0.0.1:9000;
+                fastcgi_index index.php;
+                include fastcgi_params;
+        }
+
+}
+
+
+

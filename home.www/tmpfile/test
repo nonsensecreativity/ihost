@@ -1,0 +1,27 @@
+auto lo
+
+iface lo inet loopback
+#iface eth0 inet dhcp
+
+#allow-hotplug wlan0
+#iface wlan0 inet manual
+#wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
+#iface default inet dhcp
+
+iface eth0 inet static               
+    name Ethernet alias NTV card
+    address 192.168.1.252
+    netmask 255.255.255.0
+    network 192.168.1.0
+    broadcast 192.168.1.255
+    gateway 192.168.1.254
+
+
+auto eth0:9
+iface eth0:9 inet static
+    name Ethernet alias MAN card
+    address 192.168.254.254
+    netmask 255.255.255.0
+    network 192.168.254.0
+    broadcast 192.168.254.255
+

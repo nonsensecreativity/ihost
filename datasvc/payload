@@ -1,0 +1,20 @@
+payload sample
+
+authclient
+{"id":0,"srcid":"1852","cid":"11110000","ctype":"1000","stat":"100","phone":"18833500052","sphone":"18833500052","msg":null,"plan":null,"question":null,"answer":null,"token":null,"mac":"00-16-6D-C0-76-3C","img":null,"imgchk1":null,"imgchk2":null,"imgchk3":null,"manstat":null,"manchker":null,"manid":null,"mantype":null,"mantime":null,"optflag":null,"srcip":"172.168.0.200","srcname":null,"rectime":null,"sender":"node011","netid":"SSID-B","progid":"d2iserver.py","optime":"2014-10-04T23:07:09.000+0800"}
+
+authmac
+{"id":0,"srcid":"70","mac":"00-16-6D-C0-76-3C","ip":"172.168.0.200","stat":"100","fromtime":null,"lasting":null,"pushflag":null,"pushurl":null,"pushtime":null,"cid":"11110000","phone":"18833500052","token":null,"base":"ihost","srcip":"172.168.0.10","srcname":null,"rectime":null,"sender":"node011","netid":"SSID-B","progid":"d2iserver.py","optime":"2014-10-04T23:07:09.000+0800"}
+
+authmacip
+{"id":0,"srcid":"70","mac":"00-16-6D-C0-76-3C","ip":"172.168.0.200","called":"B8-27-EB-61-27-F0","srcip":"172.168.0.10","procid":null,"orgurl":"http://webserver ip/ihost.php?res=notyet            &uamip=192.168.10.1&uamport=3990            &challenge=d250bf0a4396dfafbf1df4051759fb3b            &called=B8-27-EB-61-27-F0&mac=00-15-58-C3-BB-E5            &ip=192.168.10.131&nasid=nas01            &sessionid=539108d100000003            &userurl=http%3a%2f%2fwww.baidu.com%2f","userurl":"http%3a%2f%2fwww.baidu.com%2f","token":null,"rectime":null,"sender":"node011","netid":"SSID-B","progid":"d2iserver.py","optime":"2014-10-04T23:07:09.000+0800"}
+
+actvst
+{"id":0,"srcid":"70","pkttime":"2014-10-04T23:07:09.000+0800","timefrac":"80.0","srcmac":"00-16-6D-C0-76-3C","srcip":"172.168.0.200","destip":"192.168.0.1","url":"http://www.sina.com","rectime":null,"sender":"node011","netid":"SSID-B","progid":"d2iserver.py","optime":"2014-10-04T23:07:09.000+0800"}
+
+wlact 
+{"id":0,"srcid":"214","event":"coming","mac":"00-16-6D-C0-76-3C","subevent":"stat","oldvalue":null,"newvalue":"100","firstseen":"2014-10-04T23:07:09.000+0800","lastseen":"2014-10-04T23:07:09.000+0800","stat":"100","ssid":"免费WIFI","action":"1","tcount":null,"srcip":"172.168.0.200","rectime":null,"sender":"node011","netid":"SSID-B","progid":"d2iserver.py","optime":"2014-10-04T23:07:09.000+0800"}
+
+wlsta
+{"id":0,"srcid":"68","tcount":"300","mac":"00-16-6D-C0-76-3C","ssid":"免费WIFI","rssi":"-65.0","stat":"100","setby":"rdpp.py","keepalive":"100","firstseen":"2014-10-04T23:07:09.000+0800","lastseen":"2014-10-04T23:07:09.000+0800","rtrend":null,"npacket":"120","ptrend":null,"action":"1","ostype":null,"alivetime":null,"srcip":"172.168.0.200","rectime":null,"sender":"node011","netid":"SSID-B","progid":"d2iserver.py","optime":"2014-10-04T23:07:09.000+0800"}
+

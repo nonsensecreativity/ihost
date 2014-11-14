@@ -1,0 +1,31 @@
+auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet dhcp
+#iface eth0 inet static
+#    name Ethernet alias WAN card
+#    address 192.168.0.200 
+#    netmask 255.255.255.0
+#    network 192.168.0.0 
+#    broadcast 192.168.0.255 
+#    gateway 192.168.0.1 
+
+auto eth0:9
+iface eth0:9 inet static
+    name Ethernet alias MAN card
+    address 192.168.254.254
+    netmask 255.255.255.0
+    network 192.168.254.0
+    broadcast 192.168.254.255
+
+auto wlan0
+iface wlan0 inet static
+    name Ethernet alias LAN card
+    address 172.16.0.1
+    netmask 255.255.0.0
+    netmask 255.255.255.0
+    network 172.16.0.0
+    broadcast 172.16.255.255
+
+up iptables-restore < /etc/iptables.ipv4.nat

@@ -1,0 +1,4 @@
+<?php
+$response = "{\"data\":true}";
+?>
+
