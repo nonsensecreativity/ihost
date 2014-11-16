@@ -210,3 +210,4 @@ HS_LOC_NAME="My HotSpot"	   # WISPr Location Name and used in portal
 # HS_REG_MODE="tos" # or self, other
 # HS_RAD_PROTO="pap" # or mschapv2, chap
 # HS_USE_MAP=on
+
