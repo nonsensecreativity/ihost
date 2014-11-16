@@ -22,10 +22,11 @@ HS_DYNIP=172.16.0.100
 HS_DYNIP_MASK=255.255.0.0
 HS_STATIP=172.16.0.10
 HS_STATIP_MASK=255.255.0.0
-HS_DNS_DOMAIN=usspoint.com
+HS_DNS_DOMAIN=""
+#HS_DNS_DOMAIN=usspoint.com
 
 # OpenDNS Servers
-HS_DNS1=127.0.0.1
+HS_DNS1=172.16.0.1
 HS_DNS2=202.99.166.4
 
 ###
@@ -57,7 +58,7 @@ HS_UAMALIASNAME=chilli
 # HS_UAMAAAURL=http://my-site/script.php
 
 #   Put entire domains in the walled-garden with DNS inspection
-HS_UAMDOMAINS=".aliyun.com"
+HS_UAMDOMAINS="ntp.ruckuswireless.com"
 
 #   Optional initial redirect and RADIUS settings
 # HS_SSID=<ssid>	   # To send to the captive portal
@@ -209,3 +210,4 @@ HS_LOC_NAME="My HotSpot"	   # WISPr Location Name and used in portal
 # HS_REG_MODE="tos" # or self, other
 # HS_RAD_PROTO="pap" # or mschapv2, chap
 # HS_USE_MAP=on
+
