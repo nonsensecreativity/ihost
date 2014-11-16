@@ -343,7 +343,7 @@ if [ $BUTTON -eq 3 ] ; then
 [gammu]
 
 #port = ${PORT:-$D_PORT}
-port = /dev/ttyACM0
+port = /dev/ttyUSB2
 model = ${MODEL:-$D_MODEL}
 #connection = ${CONNECTION:-$D_CONNECTION}
 connection = at19200
