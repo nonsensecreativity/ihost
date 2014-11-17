@@ -11,7 +11,7 @@
 # 
 
 HS_WANIF=eth0            # WAN Interface toward the Internet
-HS_LANIF=eth0:10		   # Subscriber Interface for client devices
+HS_LANIF=wlan0		   # Subscriber Interface for client devices
 HS_NETWORK=172.16.0.1	   # HotSpot Network (must include HS_UAMLISTEN)
 HS_NETMASK=255.255.0.0   # HotSpot Network Netmask
 HS_UAMLISTEN=172.16.0.1	   # HotSpot IP Address (on subscriber network)
@@ -210,4 +210,5 @@ HS_LOC_NAME="My HotSpot"	   # WISPr Location Name and used in portal
 # HS_REG_MODE="tos" # or self, other
 # HS_RAD_PROTO="pap" # or mschapv2, chap
 # HS_USE_MAP=on
+
 
