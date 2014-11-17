@@ -33,7 +33,7 @@ $dns3 = str_replace("\n","",$myArray[1]);
 
 ?> 
 Please input DNS servers:<br />
-<form action="locdnsset.php" method="POST">  
+<form action="ldnsset.php" method="POST">  
     <label>DNS1: <br /></label>
     <input type="text" name="dns1" size="16" value="<?php echo $dns1; ?>">
     <label><br />DNS2: <br /></label>

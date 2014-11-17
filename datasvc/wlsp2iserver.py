@@ -16,7 +16,7 @@ if __name__ == '__main__':
     sys.setdefaultencoding('utf-8')
     
     #wait for mysql server is ready 
-    #time.sleep(45)
+    time.sleep(45)
 
     #read configurations here
 

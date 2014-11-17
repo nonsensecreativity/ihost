@@ -10,7 +10,8 @@ import gammu
 
 if __name__ == '__main__':
     
-    time.sleep(30)
+    # wait for mysql get up
+    time.sleep(45)
     
     #set default coding utf-8
     reload(sys)

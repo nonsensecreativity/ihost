@@ -7,7 +7,7 @@ $str = "sudo cat /etc/resolv.conf";
 $output = shell_exec($str);
 //echo "<pre>$output</pre>";
 ?> 
-<form action="localdnsset.php" method="POST">  
+<form action="ldnsset.php" method="POST">  
     <textarea name="if" id="if" cols="80" rows="30">
     <?php
         echo "$output";
