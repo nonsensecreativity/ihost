@@ -393,7 +393,9 @@ CREATE TABLE `useraccounts` (	#
   `answer` varchar(30) DEFAULT NULL,	#	密码答案，用于找回密码
   `fname` varchar(20) DEFAULT NULL,	#	名字
   `lname` varchar(20) DEFAULT NULL,	#	姓
-  `usertype` varchar(10) DEFAULT NULL,	#	用户类型：代表，专家，媒体，会务（microma用）
+  `userrole` varchar(20) default NULL, #	不同角色，每个mac在每个userrole中有一个default userid
+  										#   100-代表 200-嘉宾 300-媒体 400-会务
+  `usertype` varchar(10) DEFAULT NULL,	#	用户类型：预注册/现场注册
   `integral` int DEFAULT NULL,	#	userid下的积分
   `byear` smallint DEFAULT NULL,	#	生日，年
   `bmonth` smallint DEFAULT NULL,	#	生日，月
