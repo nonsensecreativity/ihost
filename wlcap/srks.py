@@ -141,7 +141,7 @@ def setget (setorget):
 if __name__ == '__main__':
     
     #read configurations here
-    dom = minidom.parse("config.xml")
+    dom = minidom.parse("configsrks.xml")
     for node in dom.getElementsByTagName("interface"):
         iftype = node.getAttribute("iftype")
         hname = node.getAttribute("host")

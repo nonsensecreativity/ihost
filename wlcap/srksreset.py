@@ -121,7 +121,7 @@ if __name__ == '__main__':
     time.sleep(90)
     
     #read configurations here
-    dom = minidom.parse("config.xml")
+    dom = minidom.parse("configsrks.xml")
     for node in dom.getElementsByTagName("interface"):
         iftype = node.getAttribute("iftype")
         hname = node.getAttribute("host")
