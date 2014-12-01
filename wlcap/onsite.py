@@ -72,7 +72,7 @@ if __name__ == '__main__':
                         mac ='" + strmac + "' and \
                         userid is not null and \
                         userid <> '' \
-                        order by dft desc, prio desc, updtime desc, id desc limit 1"
+                        order by pntmaster desc, dft desc, prio desc, updtime desc, id desc limit 1"
                         #print sel_str
                         try:
                             cursor3 = cnx.cursor()
