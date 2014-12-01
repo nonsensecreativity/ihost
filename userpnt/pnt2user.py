@@ -34,7 +34,7 @@ if __name__ == '__main__':
             
         str_sql = "SELECT t1.id, t1.mac, t1.points, t1.action, t1.updtime as updtime1, \
             t2.mac as mac2, t2.userid as userid2, t2.userrole as userrole2, \
-            t3.id as id3, t3.userid, t3.integral, t3.updtime as updtime3  \
+            t3.id as id3, t3.userid, t3.integral, t3.updtime as updtime3, t3.pntfactor  \
             FROM (userpoints t1  \
             INNER JOIN useractive t2 ON t1.mac = t2.mac)  \
             INNER JOIN useraccounts t3 ON t2.userid = t3.userid"
@@ -47,9 +47,10 @@ if __name__ == '__main__':
                 #print "datarow:", datarow, type(datarow)
                 
                 if  datarow[2] != None  and  int(datarow[2]) > 0:
-                    points = "0" if datarow[2] == None else ( str(datarow[2]) ) 
+                    points = str(datarow[2]) 
                     integral = "0" if datarow[10] == None else ( str(datarow[10]) )
-                    nintegral = str(int(points) + int(integral))
+                    pntfactor = "1000" if datarow[12] == None else ( str(datarow[12]) )
+                    nintegral = str(int(points) + (int(integral) * int(pntfactor) / 1000))
                     # insert record in userlog
                     ins_str = "insert into userlog set \
                 mac = '" + datarow[1] + "', \

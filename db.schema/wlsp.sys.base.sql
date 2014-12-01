@@ -397,6 +397,7 @@ CREATE TABLE `useraccounts` (	#
   										#   100-代表 200-嘉宾 300-媒体 400-会务
   `usertype` varchar(10) DEFAULT NULL,	#	用户类型：预注册/现场注册
   `integral` int DEFAULT '0',	#	userid下的积分
+  `pntfactor` int DEFAULT '1000',	#	points转integral的因子，1000代表1
   `byear` smallint DEFAULT NULL,	#	生日，年
   `bmonth` smallint DEFAULT NULL,	#	生日，月
   `bday` smallint DEFAULT NULL,	#	生日，日
