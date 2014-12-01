@@ -50,7 +50,7 @@ if __name__ == '__main__':
                     points = str(datarow[2]) 
                     integral = "0" if datarow[10] == None else ( str(datarow[10]) )
                     pntfactor = "1000" if datarow[12] == None else ( str(datarow[12]) )
-                    nintegral = str(int(points) + (int(integral) * int(pntfactor) / 1000))
+                    nintegral = str(int(points) + int(int(integral) * int(pntfactor) / 1000))
                     # insert record in userlog
                     ins_str = "insert into userlog set \
                 mac = '" + datarow[1] + "', \
