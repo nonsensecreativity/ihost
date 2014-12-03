@@ -87,7 +87,7 @@ if __name__ == '__main__':
                         cursor1.close() 
 
         except MySQLdb.Error as err:
-            #cnx.rollback()
+            cnx.rollback()
             print("select 'userpoints' failed.")
             print("Error: {}".format(err.args[1]))   
         finally:

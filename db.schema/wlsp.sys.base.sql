@@ -385,6 +385,7 @@ CREATE TABLE `useraccounts` (	#
   `token` int DEFAULT NULL,	#	8位随机数，由ihost产生
   `srcnode` varchar(10) DEFAULT NULL,	#	（预留）
   `usercode` varchar(30) DEFAULT NULL,	#	用户编码（预留）
+  `user_uuid` varchar(36) DEFAULT NULL,	#	用户uuid
   `mac` varchar(36) DEFAULT NULL,	#	mac地址
   `userpass` varchar(30) DEFAULT NULL,	#	用户密码
   `useremail1` varchar(64) DEFAULT NULL,	#	用户email
@@ -427,9 +428,11 @@ CREATE TABLE `useraccounts` (	#
   PRIMARY KEY (`id`),	#	
   KEY `userid` (`userid`),	#	
   KEY `phone` (`phone`)	#	
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;	#	
-	#	
-	#	
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;	#	
+
+## ----------------------------
+## Table structure for usermacs
+## ----------------------------
 DROP TABLE IF EXISTS `usermacs`;	#	记录useraccount 与 终端、电话号码的多对多关系
 CREATE TABLE `usermacs` (	#	
   `id` int NOT NULL AUTO_INCREMENT,	#	
@@ -544,7 +547,7 @@ CREATE TABLE `userpoints` (
   PRIMARY KEY (`id`),
   KEY `userid` (`userid`),
   KEY `mac` (`mac`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 ## ----------------------------
 ## Table structure for userlog
@@ -569,5 +572,5 @@ CREATE TABLE `userlog` (
   `rectime` datetime DEFAULT NULL,	#	记录时间
   PRIMARY KEY (`id`),
   KEY `usercode` (`usercode`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
