@@ -1,7 +1,0 @@
-TYPE=TRIGGERS
-triggers='CREATE DEFINER=`root`@`localhost` TRIGGER `insrec` AFTER INSERT ON `wlsta` FOR EACH ROW insert into wlact set  event = \'coming\',subevent=\'stat\',newvalue=NEW.stat, mac = NEW.mac,  stat=NEW.stat, action=NEW.action,firstseen=NEW.firstseen,lastseen=NEW.lastseen,ssid=NEW.ssid,rectime=now(),srcip=new.srcip' 'CREATE DEFINER=`root`@`localhost` TRIGGER `chgrec` AFTER UPDATE ON `wlsta` FOR EACH ROW BEGIN\n\nIF NEW.stat != OLD.stat THEN\n    CASE NEW.stat\n\n        WHEN \'200\' THEN SET @eventstr=\'staying\';\n        WHEN \'300\' THEN SET @eventstr=\'losting\';\n        ELSE  SET @eventstr=\'UNKNOWN\';\n\n    END CASE;\n    insert into wlact set  event =@eventstr,subevent=\'stat\',oldvalue=OLD.stat,newvalue=NEW.stat , mac = NEW.mac, stat=OLD.stat,action=OLD.action,firstseen=NEW.firstseen,lastseen=NEW.lastseen,ssid=NEW.ssid,rectime=now(),srcip=old.srcip;\nELSEIF NEW.action != OLD.action THEN\n\n    set @tmp=\' \';\nEND IF;\nEND' 'CREATE DEFINER=`root`@`localhost` TRIGGER `delrec` AFTER DELETE ON `wlsta` FOR EACH ROW insert into wlact set  event = \'gone\', subevent=\'stat\', mac = OLD.mac, stat= OLD.stat, action= OLD.action,firstseen=OLD.firstseen,lastseen= OLD.lastseen,ssid=OLD.ssid,rectime=now(),srcip=old.srcip'
-sql_modes=0 0 0
-definers='root@localhost' 'root@localhost' 'root@localhost'
-client_cs_names='latin1' 'latin1' 'latin1'
-connection_cl_names='latin1_swedish_ci' 'latin1_swedish_ci' 'latin1_swedish_ci'
-db_cl_names='latin1_swedish_ci' 'latin1_swedish_ci' 'latin1_swedish_ci'
