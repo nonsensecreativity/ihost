@@ -409,6 +409,7 @@ CREATE TABLE `useraccounts` (	#
   `cid` varchar(30) DEFAULT NULL,	#	证件号
   `ctype` varchar(10) DEFAULT NULL,	#	证件类别
   `regphone` varchar(30) DEFAULT NULL,	#	（预）注册所用的电话号码
+  `captcha` varchar(10) DEFAULT NULL,	#	（预）注册所用的验证码
   `phone` varchar(30) DEFAULT NULL,	#	常用电话号码
   `address` varchar(128) DEFAULT NULL,	#	地址
   `location` varchar(32) DEFAULT NULL,	#	所在区域
@@ -425,6 +426,7 @@ CREATE TABLE `useraccounts` (	#
   `intid` varchar(30) DEFAULT NULL,	#	与phpyun的对应关系（记录学历等其他个人信息）
   `updtime` datetime DEFAULT NULL,	#	记录更新时间
   `rectime` datetime DEFAULT NULL,	#	记录时间
+  `pushflag` tinyint DEFAULT '1',
   PRIMARY KEY (`id`),	#	
   KEY `userid` (`userid`),	#	
   KEY `phone` (`phone`)	#	
@@ -456,6 +458,7 @@ CREATE TABLE `usermacs` (	#
   `progid` varchar(36) DEFAULT NULL, 	#	iserver字段
   `updtime` datetime DEFAULT NULL,	#	记录更新时间
   `rectime` datetime DEFAULT NULL,	#	记录时间
+  `pushflag` tinyint DEFAULT '1',
   PRIMARY KEY (`id`),	#	
   KEY `userid` (`userid`),	#	
   KEY `usercode` (`usercode`)	#	
@@ -478,7 +481,13 @@ CREATE TABLE `useractive` (	#
   `pagelast` datetime DEFAULT '1970-1-1 00:00:00',	#	末次访问站点时间
   `updby` varchar(30) DEFAULT NULL,	#   更新记录的程序
   `insby` varchar(30) DEFAULT NULL,	#   创建记录的程序
-  `rectime` datetime DEFAULT NULL,	#	写入数据库时间
+  `srcip` varchar(64) DEFAULT NULL,	#	iserver字段
+  `sender` varchar(36) DEFAULT NULL, 	#	iserver字段
+  `netid` varchar(36) DEFAULT NULL, 	#	iserver字段
+  `progid` varchar(36) DEFAULT NULL, 	#	iserver字段
+  `updtime` datetime DEFAULT NULL,	#	记录更新时间
+  `rectime` datetime DEFAULT NULL,	#	记录时间
+  `pushflag` tinyint DEFAULT '1',
   PRIMARY KEY (`id`),	#	
   KEY `userid` (`mac`)	#		
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;	#	
