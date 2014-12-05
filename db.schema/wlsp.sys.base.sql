@@ -467,6 +467,7 @@ CREATE TABLE `usermacs` (	#
 DROP TABLE IF EXISTS `useractive`;	#	当前活动用户
 CREATE TABLE `useractive` (	#	
   `id` int NOT NULL AUTO_INCREMENT,	#	
+  `srcid` int DEFAULT NULL,	#	iserver字段
   `mac` varchar(36) DEFAULT NULL,	#	用户的mac地址
   `phone` varchar(30) DEFAULT NULL,	#	用户的手机号（与用户多对多关系）
   `userrole` varchar(30) DEFAULT NULL,	#	不同角色，每个mac在每个userrole中有一个default userid
