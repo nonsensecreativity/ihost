@@ -16,6 +16,7 @@ CREATE TABLE `authmac` (
   `owner` varchar(64) DEFAULT NULL, #the owner of the ihost
   `latitude` varchar(36) DEFAULT NULL,
   `longitude` varchar(36) DEFAULT NULL,
+  `memo` varchar(128) DEFAULT NULL,
   `rectime` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `mac` (`mac`)
