@@ -1,5 +1,5 @@
 <config>
     <dbconn user="auth" pwd="authatussp" host="127.0.0.1" db="wlsp" />
-    <smsremote uri="http://182.92.195.40:8080/authsms" sender="node001" netid="SSID-A" progid="pushsms.py" tzone=".000+0800" />
+    <smsremote uri="http://182.92.195.40:8080/authsms" netid="SSID-A" tzone=".000+0800" />
 </config>
 

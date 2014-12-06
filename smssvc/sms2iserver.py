@@ -29,9 +29,7 @@ if __name__ == '__main__':
         
     for node in dom.getElementsByTagName("smsremote"):
         smsurl = node.getAttribute("uri")
-        sender = node.getAttribute("sender")
         netid = node.getAttribute("netid")
-        progid = node.getAttribute("progid")
         tzone = node.getAttribute("tzone")
         
 
@@ -48,6 +46,10 @@ if __name__ == '__main__':
     timeinterval = 1 # inner loop interval i
     overtime = 180 # ignore overtime messages
     maxretry = 3 #maximun retries for a given phone number
+
+    # scriptname & macaddress
+    progid = os.path.basename(__file__)
+    macaddr = open('/sys/class/net/eth0/address').read()
 
     try:
         #for k in range(1, 60, timeinterval): # for loop 4 times erery minutes
@@ -119,9 +121,9 @@ if __name__ == '__main__':
                             payload = payload + '"token":' + 'null' + ','
                             payload = payload + '"rectime":' + 'null' + ','
                             #payload = payload + '"rectime":' + ('null' if msgrectime == None else ('"' + str(msgrectime).replace(' ','T') + str(tzone) +'"') ) + ','
-                            payload = payload + '"sender":' + ('null' if sender == None else ('"' + str(sender) +'"') ) + ','
+                            payload = payload + '"sender":' + macaddr + ','
                             payload = payload + '"netid":' + ('null' if netid == None else ('"' + str(netid) +'"') )  + ','
-                            payload = payload + '"progid":' + ('null' if progid == None else ('"' + str(progid) +'"') ) + ','
+                            payload = payload + '"progid":' + progid + ','
                             #payload = payload + '"optime":' + 'null' + ','
                             payload = payload + '"optime":' + ('null' if msgrectime == None else ('"' + str(msgrectime).replace(' ','T') + str(tzone) +'"') ) + ','
                             payload = payload + '"sendtime":' + 'null' + ''
