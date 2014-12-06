@@ -313,7 +313,7 @@ if __name__ == '__main__':
 
             # scriptname & macaddress
             progid = os.path.basename(__file__)
-            macaddr = open('/sys/class/net/eth0/address').read()
+            macaddr = open('/sys/class/net/eth0/address').read()[0:17]
 
             #prepare authclient list
             str_sql = "select id,cid,ctype,stat,phone,sphone,msg,plan,mac,optflag,srcip,rectime "

@@ -49,7 +49,7 @@ if __name__ == '__main__':
 
     # scriptname & macaddress
     progid = os.path.basename(__file__)
-    macaddr = open('/sys/class/net/eth0/address').read()
+    macaddr = open('/sys/class/net/eth0/address').read()[0:17]
 
     try:
         #for k in range(1, 60, timeinterval): # for loop 4 times erery minutes

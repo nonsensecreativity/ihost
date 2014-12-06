@@ -114,7 +114,7 @@ if __name__ == '__main__':
 
             # scriptname & macaddress
             progid = os.path.basename(__file__)
-            macaddr = open('/sys/class/net/eth0/address').read()
+            macaddr = open('/sys/class/net/eth0/address').read()[0:17]
 
             #prepare useraccounts list
             str_sql = "select id,userid,srcnode,usercode,user_uuid,mac,useremail1,useremail2,fname,lname,userrole,usertype,integral,pntfactor,byear,bmonth,bday,gender,occup,orgn,title,cid,ctype,regphone,phone,address,location,memo,updtime,rectime "
