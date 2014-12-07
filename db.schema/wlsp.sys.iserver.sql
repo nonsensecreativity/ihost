@@ -20,6 +20,7 @@ CREATE TABLE `authmac` (
   `admin` varchar(36) DEFAULT NULL, #administrator
   `contact` varchar(64) DEFAULT NULL, #contact information
   `memo` varchar(128) DEFAULT NULL,
+  `sender` varchar(36) DEFAULT NULL,
   `rectime` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `mac` (`mac`)
