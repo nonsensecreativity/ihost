@@ -73,8 +73,8 @@ curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
 
 // Set the HTTP request headers
 $headers = array("Content-Type: application/json;charset=UTF-8");
-print_r($headers);
-echo "<br />";
+//print_r($headers);
+//echo "<br />";
 curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
 
 
@@ -99,7 +99,7 @@ $payload = array("id" => 0,
 				 );
 
 //print_r($payload);
-echo "<br />";
+//echo "<br />";
 //echo json_encode($payload,JSON_UNESCAPED_UNICODE);
 
 // Set the HTTP request payload
