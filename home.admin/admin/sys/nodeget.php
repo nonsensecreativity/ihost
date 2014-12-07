@@ -114,7 +114,7 @@ $memo=$myArray[1];
     <label style="font-size:12px;">of a work procedure</label><br />
     <input type="text" name="rpttype" size="36" value="<?php echo $rpttype; ?>">
     <br /> 
-    <label style="font-weight:bold;font-size:12px;">Application Type: 'ma' for meeting affair; 'ms' for automobile station; ''</label><br />
+    <label style="font-weight:bold;font-size:12px;">Application Type: </label><br />
     <label style="font-size:12px;">'ma' for meeting affair; 'ms' for automobile station; 'hr' for human resource</label><br />
     <label style="font-size:12px;">'other' for other application type</label><br />
     <input type="text" name="apptype" size="36" value="<?php echo $apptype; ?>">
