@@ -47,6 +47,13 @@ $output = shell_exec($str);
 $myArray = explode('=', $output);
 $dboutput=$myArray[1];
 
+$str = "sudo  cat  /root/node  | grep city=";
+//echo $str;
+$output = shell_exec($str);
+//echo "<pre>$output</pre>";
+$myArray = explode('=', $output);
+$city=$myArray[1];
+
 $str = "sudo  cat  /root/node  | grep location=";
 //echo $str;
 $output = shell_exec($str);
@@ -89,12 +96,19 @@ $output = shell_exec($str);
 $myArray = explode('=', $output);
 $admin=$myArray[1];
 
-$str = "sudo  cat  /root/node  | grep contact=";
+$str = "sudo  cat  /root/node  | grep phone=";
 //echo $str;
 $output = shell_exec($str);
 //echo "<pre>$output</pre>";
 $myArray = explode('=', $output);
-$contact=$myArray[1];
+$phone=$myArray[1];
+
+$str = "sudo  cat  /root/node  | grep wechatid=";
+//echo $str;
+$output = shell_exec($str);
+//echo "<pre>$output</pre>";
+$myArray = explode('=', $output);
+$wechatid=$myArray[1];
 
 $str = "sudo  cat  /root/node  | grep memo=";
 //echo $str;
@@ -126,6 +140,9 @@ $memo=$myArray[1];
     <label style="font-weight:bold;font-size:12px;">Datebase file export at the end: (github url)</label><br />
     <input type="text" name="dboutput" size="128" value="<?php echo $dboutput; ?>">
     <br />
+    <label style="font-weight:bold;font-size:12px;">City: city name </label><br />
+    <input type="text" name="city" size="64" value="<?php echo $city; ?>">
+    <br /> 
     <label style="font-weight:bold;font-size:12px;">Location: street name or building name </label><br />
     <input type="text" name="location" size="64" value="<?php echo $location; ?>">
     <br /> 
@@ -144,8 +161,11 @@ $memo=$myArray[1];
     <label style="font-weight:bold;font-size:12px;">Administrator: administrator name of the ihost</label><br />
     <input type="text" name="admin" size="36" value="<?php echo $admin; ?>">
     <br />
-    <label style="font-weight:bold;font-size:12px;">Contact: contact info of the administrator</label><br />
+    <label style="font-weight:bold;font-size:12px;">Phone: phone number of the administrator</label><br />
     <input type="text" name="contact" size="64" value="<?php echo $contact; ?>">
+    <br /> 
+    <label style="font-weight:bold;font-size:12px;">Wechatid: wechat id of the administrator </label><br />
+    <input type="text" name="wechatid" size="64" value="<?php echo $wechatid; ?>">
     <br /> 
     <label style="font-weight:bold;font-size:12px;">Memo: </label><br />
     <input type="text" name="memo" size="128" value="<?php echo $memo; ?>">

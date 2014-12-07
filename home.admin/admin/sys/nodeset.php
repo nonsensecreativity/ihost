@@ -14,13 +14,15 @@ $rpttype = $_POST['rpttype'];
 $apptype = $_POST['apptype'];
 $dbinput = $_POST['dbinput'];
 $dboutput = $_POST['dboutput'];
+$city = $_POST['city'];
 $location = $_POST['location'];
 $company = $_POST['company'];
 $owner = $_POST['owner'];
 $latitude = $_POST['latitude'];
 $longitude = $_POST['longitude'];
 $admin = $_POST['admin'];
-$contact = $_POST['contact'];
+$phone = $_POST['phone'];
+$wechatid = $_POST['wechatid'];
 $memo = $_POST['memo'];
 
 $strline1 = "mac="  . $mac;
@@ -29,13 +31,15 @@ $strline1 = $strline1 . "\nrpttype="  . $rpttype;
 $strline1 = $strline1 . "\napptype="  . $apptype;
 $strline1 = $strline1 . "\ndbinput="  . $dbinput;
 $strline1 = $strline1 . "\ndboutput="  . $dboutput;
+$strline1 = $strline1 . "\ncity="  . $city;
 $strline1 = $strline1 . "\nlocation="  . $location;
 $strline1 = $strline1 . "\ncompany="  . $company;
 $strline1 = $strline1 . "\nowner="  . $owner;
 $strline1 = $strline1 . "\nlatitude="  . $latitude;
 $strline1 = $strline1 . "\nlongitude="  . $longitude;
 $strline1 = $strline1 . "\nadmin="  . $admin;
-$strline1 = $strline1 . "\ncontact="  . $contact;
+$strline1 = $strline1 . "\nphone="  . $phone;
+$strline1 = $strline1 . "\nwechatid="  . $wechatid;
 $strline1 = $strline1 . "\nmemo="  . $memo;
 
 //echo $strline1 . "<br />";
@@ -87,13 +91,15 @@ $payload = array("id" => 0,
 				 "apptype" => $apptype,
 				 "dbinput" => $dbinput,
 				 "dboutput" => $dboutput,
+		 		 "city" => $city,
 				 "location" => $location,
 				 "company" => $company,
 				 "owner" => $owner,
 				 "latitude" => $latitude,
 				 "longitude" => $longitude,
 				 "admin" => $admin,
-				 "contact" => $contact,
+				 "phone" => $phone,
+				 "wechatid" => $wechatid,
 				 "memo" => $memo,
 				 "progid" => "php manual"
 				 );
