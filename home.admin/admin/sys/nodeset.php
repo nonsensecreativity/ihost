@@ -1,5 +1,6 @@
 <html>
 <title>cdns</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
 <body>
 <?php
 $fpath = "/opt/id-images/admin/tmpfile/";
@@ -57,7 +58,7 @@ $str = "sudo  cat  " . $orgpath . $orgname ;
 $output = shell_exec($str);
 echo "<pre>$output</pre>";
 
-/*
+
 // Push ihost node info to iserver
 echo "<br />Push to iserver... <br />";
 $url = "http://182.92.195.40:8080/";
@@ -70,13 +71,42 @@ $session = curl_init($url);
 // Tell cURL to return the request data
 curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
 
-// Set the HTTP request authentication headers
-$headers = array("content-type":"application/json;charset=UTF-8");
-print $headers;
+// Set the HTTP request headers
+$headers = array("Content-Type: application/json;charset=UTF-8");
+print_r($headers);
+echo "<br />";
 curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
 
+
+// Prepare payload
+$payload = array("id" => 0,
+				 "mac" => $mac,
+				 "priip" => $ip,
+				 "pubip" => null,
+				 "rpttype" => $rpttype,
+				 "apptype" => $apptype,
+				 "dbinput" => $dbinput,
+				 "dboutput" => $dboutput,
+				 "location" => $location,
+				 "company" => $company,
+				 "owner" => $owner,
+				 "latitude" => $latitude,
+				 "longitude" => $longitude,
+				 "admin" => $admin,
+				 "contact" => $contact,
+				 "memo" => $memo,
+				 "progid" => "php manual"
+				 );
+
+//print_r($payload);
+echo "<br />";
+//echo json_encode($payload,JSON_UNESCAPED_UNICODE);
+
+// Set the HTTP request payload
+curl_setopt($session, CURLOPT_POSTFIELDS, json_encode($payload,JSON_UNESCAPED_UNICODE));
+
 // Execute cURL on the session handle
-$response = curl_exec($session);
+//$response = curl_exec($session);
 
 // Close the cURL session
 curl_close($session);
@@ -85,7 +115,7 @@ echo $response . "<br />";
 echo "<br />";
 echo "Remote Done! <br />";
 
-*/
+
 ?> 
 </body>
 </html>
