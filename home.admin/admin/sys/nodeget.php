@@ -162,7 +162,7 @@ $memo=$myArray[1];
     <input type="text" name="admin" size="36" value="<?php echo $admin; ?>">
     <br />
     <label style="font-weight:bold;font-size:12px;">Phone: phone number of the administrator</label><br />
-    <input type="text" name="contact" size="64" value="<?php echo $contact; ?>">
+    <input type="text" name="phone" size="64" value="<?php echo $contact; ?>">
     <br /> 
     <label style="font-weight:bold;font-size:12px;">Wechatid: wechat id of the administrator </label><br />
     <input type="text" name="wechatid" size="64" value="<?php echo $wechatid; ?>">
