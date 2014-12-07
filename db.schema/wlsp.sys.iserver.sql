@@ -12,10 +12,13 @@ CREATE TABLE `authmac` (
   `apptype` varchar(36) DEFAULT NULL, #ma-meeting affair;hr-human resource;ms-mobile station
   `dbinput` varchar(128) DEFAULT NULL, #db file imported into ihost at the begining (github url)
   `dboutput` varchar(128) DEFAULT NULL, #db file dumped from ihost in the end (github url)
-  `location` varchar(64) DEFAULT NULL, #street name, building name or company name
+  `location` varchar(64) DEFAULT NULL, #street name or building name
+  `company` varchar(64) DEFAULT NULL, #company name
   `owner` varchar(64) DEFAULT NULL, #the owner of the ihost
   `latitude` varchar(36) DEFAULT NULL,
   `longitude` varchar(36) DEFAULT NULL,
+  `admin` varchar(36) DEFAULT NULL, #administrator
+  `contact` varchar(64) DEFAULT NULL, #contact information
   `memo` varchar(128) DEFAULT NULL,
   `rectime` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
