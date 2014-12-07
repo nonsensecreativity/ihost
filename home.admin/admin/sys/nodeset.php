@@ -9,7 +9,7 @@ $orgname = "node";
 
 $mac = $_POST['mac'];   
 $ip = $_POST['ip']; 
-$rpttype = $_POST['rpttyep'];
+$rpttype = $_POST['rpttype'];
 $apptype = $_POST['apptype'];
 $dbinput = $_POST['dbinput'];
 $dboutput = $_POST['dboutput'];
@@ -22,82 +22,33 @@ $admin = $_POST['admin'];
 $contact = $_POST['contact'];
 $memo = $_POST['memo'];
 
-
 $strline1 = "mac="  . $mac;
-$strline2 = "ip="  . $ip;
-$strline3 = "rpttype="  . $rpttype;
-$strline4 = "apptype="  . $apptype;
-$strline5 = "dbinput="  . $dbinput;
-$strline6 = "dboutput="  . $dboutput;
-$strline7 = "location="  . $location;
-$strline8 = "company="  . $company;
-$strline9 = "owner="  . $owner;
-$strline10 = "latitude="  . $latitude;
-$strline11 = "longitude="  . $longitude;
-$strline12 = "admin="  . $admin;
-$strline13 = "contact="  . $contact;
-$strline14 = "memo="  . $memo;
+$strline1 = $strline1 . "\nip="  . $ip;
+$strline1 = $strline1 . "\nrpttype="  . $rpttype;
+$strline1 = $strline1 . "\napptype="  . $apptype;
+$strline1 = $strline1 . "\ndbinput="  . $dbinput;
+$strline1 = $strline1 . "\ndboutput="  . $dboutput;
+$strline1 = $strline1 . "\nlocation="  . $location;
+$strline1 = $strline1 . "\ncompany="  . $company;
+$strline1 = $strline1 . "\nowner="  . $owner;
+$strline1 = $strline1 . "\nlatitude="  . $latitude;
+$strline1 = $strline1 . "\nlongitude="  . $longitude;
+$strline1 = $strline1 . "\nadmin="  . $admin;
+$strline1 = $strline1 . "\ncontact="  . $contact;
+$strline1 = $strline1 . "\nmemo="  . $memo;
 
-$str = "sudo sed -i '1s/.*/" . $strline1  . "/' " . $orgpath . $orgname;
-//echo $str;
-$output = shell_exec($str);
-//echo "<br />";
+//echo $strline1 . "<br />";
 
-$str = "sudo sed -i '2s/.*/" . $strline2  . "/' " . $orgpath . $orgname;
+$str = "sudo echo \"" . $strline1  . "\" > " . $fpath . $fname;
 //echo $str;
 $output = shell_exec($str);
 //echo "<br />";
 
-$str = "sudo sed -i '3s/.*/" . $strline3  . "/' " . $orgpath . $orgname;
+$str = "sudo cp "  . $fpath . $fname . " "  . $orgpath . $orgname;    
 //echo $str;
 $output = shell_exec($str);
 //echo "<br />";
 
-$str = "sudo sed -i '4s/.*/" . $strline4  . "/' " . $orgpath . $orgname;
-//echo $str;
-$output = shell_exec($str);
-//echo "<br />";
-
-$str = "sudo sed -i '5s/.*/" . $strline5  . "/' " . $orgpath . $orgname;
-//echo $str;
-$output = shell_exec($str);
-//echo "<br />";
-$str = "sudo sed -i '6s/.*/" . $strline6  . "/' " . $orgpath . $orgname;
-//echo $str;
-$output = shell_exec($str);
-//echo "<br />";
-$str = "sudo sed -i '7s/.*/" . $strline7  . "/' " . $orgpath . $orgname;
-//echo $str;
-$output = shell_exec($str);
-//echo "<br />";
-$str = "sudo sed -i '8s/.*/" . $strline8  . "/' " . $orgpath . $orgname;
-//echo $str;
-$output = shell_exec($str);
-//echo "<br />";
-$str = "sudo sed -i '9s/.*/" . $strline9  . "/' " . $orgpath . $orgname;
-//echo $str;
-$output = shell_exec($str);
-//echo "<br />";
-$str = "sudo sed -i '10s/.*/" . $strline10  . "/' " . $orgpath . $orgname;
-//echo $str;
-$output = shell_exec($str);
-//echo "<br />";
-$str = "sudo sed -i '11s/.*/" . $strline11  . "/' " . $orgpath . $orgname;
-//echo $str;
-$output = shell_exec($str);
-//echo "<br />";
-$str = "sudo sed -i '12s/.*/" . $strline12  . "/' " . $orgpath . $orgname;
-//echo $str;
-$output = shell_exec($str);
-//echo "<br />";
-$str = "sudo sed -i '13s/.*/" . $strline13  . "/' " . $orgpath . $orgname;
-//echo $str;
-$output = shell_exec($str);
-//echo "<br />";
-$str = "sudo sed -i '14s/.*/" . $strline14  . "/' " . $orgpath . $orgname;
-//echo $str;
-$output = shell_exec($str);
-//echo "<br />";
 
 echo "<br />";
 echo "Local Done! <br />";
@@ -138,6 +89,3 @@ echo "Remote Done! <br />";
 ?> 
 </body>
 </html>
-
-
-
