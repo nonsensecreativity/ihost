@@ -66,7 +66,7 @@ echo "<pre>$output</pre>";
 // Push ihost node info to iserver
 echo "<br />Push to iserver... <br />";
 $url = "http://182.92.195.40:8080/";
-$url = $url . "face-detection/detection/123/";
+$url = $url . "ihostloc";
 
 // Initialize the cURL session with the request URL
 $session = curl_init($url);
@@ -84,25 +84,25 @@ curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
 
 // Prepare payload
 $payload = array("id" => 0,
-				 "mac" => $mac,
-				 "priip" => $ip,
-				 "pubip" => null,
-				 "rpttype" => $rpttype,
-				 "apptype" => $apptype,
-				 "dbinput" => $dbinput,
-				 "dboutput" => $dboutput,
-		 		 "city" => $city,
-				 "location" => $location,
-				 "company" => $company,
-				 "owner" => $owner,
-				 "latitude" => $latitude,
-				 "longitude" => $longitude,
-				 "admin" => $admin,
-				 "phone" => $phone,
-				 "wechatid" => $wechatid,
-				 "memo" => $memo,
-				 "progid" => "php manual"
-				 );
+                                 "mac" => $mac,
+                                 "priip" => $ip,
+                                 "pubip" => null,
+                                 "rpttype" => $rpttype,
+                                 "apptype" => $apptype,
+                                 "dbinput" => $dbinput,
+                                 "dboutput" => $dboutput,
+                                 "city" => $city,
+                                 "location" => $location,
+                                 "company" => $company,
+                                 "owner" => $owner,
+                                 "latitude" => $latitude,
+                                 "longitude" => $longitude,
+                                 "admin" => $admin,
+                                 "phone" => $phone,
+                                 "wechatid" => $wechatid,
+                                 "memo" => $memo,
+                                 "progid" => "php manual"
+                                 );
 
 //print_r($payload);
 //echo "<br />";
@@ -112,15 +112,19 @@ $payload = array("id" => 0,
 curl_setopt($session, CURLOPT_POSTFIELDS, json_encode($payload,JSON_UNESCAPED_UNICODE));
 
 // Execute cURL on the session handle
-//$response = curl_exec($session);
-
+$response = curl_exec($session);
+$httpcode = curl_getinfo($session, CURLINFO_HTTP_CODE);
 // Close the cURL session
 curl_close($session);
 
-echo $response . "<br />";
-echo "<br />";
-echo "Remote Done! <br />";
-
+//echo $response . "<br />";
+echo "<br /><br />";
+if ($httpcode == 201) {
+    echo "Success!";
+}
+else {
+    echo "FAILED!";  
+}
 
 ?> 
 </body>
