@@ -303,7 +303,8 @@ if __name__ == '__main__':
                 cursor.close()          
 
             #prepare useractive list
-            str_sql = "select id,mac,phone,userrole,userid,onsite,online,macfirst,maclast,pagefirst,pagelast,updtime,rectime "
+            str_sql = "select id,mac,phone,userrole,userid,onsite,\
+            online,macfirst,maclast,pagefirst,pagelast,updtime,rectime "
             str_sql = str_sql + " from " + tbl3
             str_sql = str_sql + " where  (id >= '" + start3 +"'"
             str_sql = str_sql + " and  id < '" + end3 +"')"
@@ -324,20 +325,24 @@ if __name__ == '__main__':
                     payload = payload + '"userid":' + ('null' if datarow[4] == None else ('"' + str(datarow[4]) +'"') ) + ','
                     payload = payload + '"onsite":' + ('null' if datarow[5] == None else ('"' + str(datarow[5]) +'"') ) + ','
                     payload = payload + '"online":' + ('null' if datarow[6] == None else ('"' + str(datarow[6]) +'"') ) + ','
-                    payload = payload + '"macfirst":' + ('null' if datarow[7] == None else ('"' + str(datarow[7]) +'"') ) + ','
+                    #payload = payload + '"macfirst":' + ('null' if datarow[7] == None else ('"' + str(datarow[7]) +'"') ) + ','
+                    payload = payload + '"macfirst":' + ('null' if datarow[7] == None else ('"' + str(datarow[7]).replace(' ','T') + str(tzone3) +'"') ) + ','
                     payload = payload + '"macmark":' + 'null' + ','
-                    payload = payload + '"maclast":' + ('null' if datarow[8] == None else ('"' + str(datarow[8]) +'"') ) + ','
-                    payload = payload + '"pagefirst":' + ('null' if datarow[9] == None else ('"' + str(datarow[9]) +'"') ) + ','
+                    #payload = payload + '"maclast":' + ('null' if datarow[8] == None else ('"' + str(datarow[8]) +'"') ) + ','
+                    payload = payload + '"maclast":' + ('null' if datarow[8] == None else ('"' + str(datarow[8]).replace(' ','T') + str(tzone3) +'"') ) + ','
+                    #payload = payload + '"pagefirst":' + ('null' if datarow[9] == None else ('"' + str(datarow[9]) +'"') ) + ','
+                    payload = payload + '"pagefirst":' + ('null' if datarow[9] == None else ('"' + str(datarow[9]).replace(' ','T') + str(tzone3) +'"') ) + ','
                     payload = payload + '"pagemark":' + 'null' + ','
-                    payload = payload + '"pagelast":' + ('null' if datarow[10] == None else ('"' + str(datarow[10]) +'"') ) + ','
+                    #payload = payload + '"pagelast":' + ('null' if datarow[10] == None else ('"' + str(datarow[10]) +'"') ) + ','
+                    payload = payload + '"pagelast":' + ('null' if datarow[10] == None else ('"' + str(datarow[10]).replace(' ','T') + str(tzone3) +'"') ) + ','
                     payload = payload + '"updby":' + 'null' + ','
                     payload = payload + '"insby":' + 'null' + ','
                     payload = payload + '"srcip":' + 'null' + ','
                     payload = payload + '"sender":"' + macaddr + '",'
                     payload = payload + '"netid":"' + netid  + '",'
                     payload = payload + '"progid":"' + progid + '",'
-                    payload = payload + '"updtime":' + ('null' if datarow[11] == None else ('"' + str(datarow[11]).replace(' ','T') + str(tzone3) +'"') ) + ''
-                    payload = payload + '"rectime":' + ('null' if datarow[12] == None else ('"' + str(datarow[12]).replace(' ','T') + str(tzone3) +'"') ) + ''
+                    payload = payload + '"updtime":' + ('null' if datarow[11] == None else ('"' + str(datarow[11]).replace(' ','T') + str(tzone3) +'"') ) + ','
+                    payload = payload + '"rectime":' + ('null' if datarow[12] == None else ('"' + str(datarow[12]).replace(' ','T') + str(tzone3) +'"') ) 
                     payload = payload + '}' 
                     
                     print payload
