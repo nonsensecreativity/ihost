@@ -52,7 +52,8 @@ if __name__ == '__main__':
                         if tdelta > 10: # maclast is later than lastseen 
                             upd_str = "update useractive set \
                             onsite='1', maclast = '" + lastseen.strftime('%Y-%m-%d %H:%M:%S') + "', \
-                            updby='onsite.py' \
+                            updby='onsite.py',\
+                            updtime=now() \
                             where id = '" + str(macid[0]) + "'"
                             #print  upd_str
 
@@ -90,7 +91,8 @@ if __name__ == '__main__':
                             " + ("null" if userdata[2] == None else ("'" + str(userdata[2]) +"'") ) + ", \
                             onsite='1', maclast = '" + lastseen.strftime('%Y-%m-%d %H:%M:%S') + "',\
                             insby='onsite.py', \
-                            macfirst = '" + lastseen.strftime('%Y-%m-%d %H:%M:%S') + "'"
+                            macfirst = '" + lastseen.strftime('%Y-%m-%d %H:%M:%S') + "',\
+                            rectime = now()"
                                 #print  ins_str
 
                                 try:
