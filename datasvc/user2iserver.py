@@ -32,19 +32,19 @@ if __name__ == '__main__':
         url1 = node.getAttribute("uri")
         tzone1 = node.getAttribute("tzone")
         interv1 = node.getAttribute("interv")
-        start1 = node.getAttribute("start")
+        #start1 = node.getAttribute("start")
     for node in dom.getElementsByTagName("table2"):
         tbl2 = node.getAttribute("tblname")
         url2 = node.getAttribute("uri")
         tzone2 = node.getAttribute("tzone")
         interv2 = node.getAttribute("interv")
-        start2 = node.getAttribute("start")
+        #start2 = node.getAttribute("start")
     for node in dom.getElementsByTagName("table3"):
         tbl3 = node.getAttribute("tblname")
         url3 = node.getAttribute("uri")
         tzone3 = node.getAttribute("tzone")
         interv3 = node.getAttribute("interv")
-        start3 = node.getAttribute("start")
+        #start3 = node.getAttribute("start")
     
 
     # connection for  mysqldb, global
@@ -63,6 +63,7 @@ if __name__ == '__main__':
         #for k in range(1, 60, timeinterval): # for loop 4 times erery minutes
         while True: # while loop
             print "loop "
+            '''
             dom = minidom.parse("userupload.xml")
             for node in dom.getElementsByTagName("table3"):
                 start3 = node.getAttribute("start")
@@ -108,7 +109,7 @@ if __name__ == '__main__':
             f = open(tmp_config, 'w')
             dom.writexml( f )
             f.close()
-
+            '''
             # scriptname & macaddress
             progid = os.path.basename(__file__)
             macaddr = open('/sys/class/net/eth0/address').read()[0:17]
@@ -137,7 +138,7 @@ if __name__ == '__main__':
                 cursor = cnx.cursor()
                 cursor.execute(str_sql)
                 cnx.commit()
-                upd_sql = "update useraccounts set pushflag = '0' "
+                upd_sql = "update useraccounts set pushflag = '0' where pushflag >='1'"
                 try:
                     cursor1 = cnx.cursor()
                     cursor1.execute(upd_sql)
@@ -238,7 +239,7 @@ if __name__ == '__main__':
                 cursor = cnx.cursor()
                 cursor.execute(str_sql)
                 cnx.commit()
-                upd_sql = "update usermacs set pushflag = '0' "
+                upd_sql = "update usermacs set pushflag = '0' where pushflag >='1'"
                 try:
                     cursor1 = cnx.cursor()
                     cursor1.execute(upd_sql)
@@ -304,15 +305,26 @@ if __name__ == '__main__':
 
             #prepare useractive list
             str_sql = "select id,mac,phone,userrole,userid,onsite,\
-            online,macfirst,maclast,pagefirst,pagelast,updtime,rectime "
+            online,macfirst,maclast,pagefirst,pagelast,updtime,rectime,pushflag "
             str_sql = str_sql + " from " + tbl3
-            str_sql = str_sql + " where  (id >= '" + start3 +"'"
-            str_sql = str_sql + " and  id < '" + end3 +"')"
+            str_sql = str_sql + " where  pushflag >= '1'"
+            #str_sql = str_sql + " where  (id >= '" + start3 +"'"
+            #str_sql = str_sql + " and  id < '" + end3 +"')"
             #print str_sql
             try:
                 cursor = cnx.cursor()
                 cursor.execute(str_sql)
                 cnx.commit()
+                upd_sql = "update useractive set pushflag = '0' where pushflag >='1'"
+                try:
+                    cursor1 = cnx.cursor()
+                    cursor1.execute(upd_sql)
+                    cnx.commit()
+                except MySQLdb.Error as err:
+                    print("update 'useractive' failed.")
+                    print("Error: {}".format(err.args[1]))   
+                finally:
+                    cursor1.close()     
                 for (datarow) in cursor:
                     # Push msg data to rest service
                     headers = {"content-type":"application/json;charset=UTF-8"}
@@ -342,19 +354,34 @@ if __name__ == '__main__':
                     payload = payload + '"netid":"' + netid  + '",'
                     payload = payload + '"progid":"' + progid + '",'
                     payload = payload + '"updtime":' + ('null' if datarow[11] == None else ('"' + str(datarow[11]).replace(' ','T') + str(tzone3) +'"') ) + ','
-                    payload = payload + '"rectime":' + ('null' if datarow[12] == None else ('"' + str(datarow[12]).replace(' ','T') + str(tzone3) +'"') ) 
+                    payload = payload + '"rectime":' + ('null' if datarow[12] == None else ('"' + str(datarow[12]).replace(' ','T') + str(tzone3) +'"') ) + ','
+                    payload = payload + '"pushflag":' + ('null' if datarow[13] == None else ('"' + str(datarow[13]) +'"') ) 
                     payload = payload + '}' 
                     
                     print payload
                     try:
                         #pass
                         response = requests.post(url3, data=payload, headers=headers)
-                        print response
+                        #print response.status_code
+                        if response.status_code != '201' :
+                            nflag = int(datarow[13]) if int(datarow[13]) >=64  else (int(datarow[13]) + 64) 
+                            upd_sql = "update useractive set pushflag = '" + str(nflag) +"'  where id = '" 
+                            upd_sql = upd_sql + ('' if datarow[0] == None else  str(datarow[0]))  + "'"
+                            print upd_sql
+                            try:
+                                cursor1 = cnx.cursor()
+                                cursor1.execute(upd_sql)
+                                cnx.commit()
+                            except MySQLdb.Error as err:
+                                print("update 'useractive pushflag + 64' failed.")
+                                print("Error: {}".format(err.args[1]))   
+                            finally:
+                                cursor1.close() 
                     except Exception,e:
                         print e
 
             except MySQLdb.Error as err:
-                print("select 'authmacip' failed.")
+                print("select 'useractive' failed.")
                 print("Error: {}".format(err.args[1]))   
             finally:
                 cursor.close()          
