@@ -29,7 +29,7 @@ if __name__ == '__main__':
         
     for node in dom.getElementsByTagName("smsremote"):
         smsurl = node.getAttribute("uri")
-        netid = node.getAttribute("netid")
+        #netid = node.getAttribute("netid")
         tzone = node.getAttribute("tzone")
         
 
@@ -50,7 +50,17 @@ if __name__ == '__main__':
     # scriptname & macaddress
     progid = os.path.basename(__file__)
     macaddr = open('/sys/class/net/eth0/address').read()[0:17]
-
+    # netid
+    netid = ''
+    with open("/etc/hostapd/hostapd.conf") as fin:
+        for line in fin:
+            if 'ssid=' in line:
+                #print line
+                netid = line.split('=')[1]
+                netid = netid.replace('\n', '')
+                netid = netid.replace('\r', '')
+                #print netid
+                break
     try:
         #for k in range(1, 60, timeinterval): # for loop 4 times erery minutes
         while True: # while loop
@@ -122,7 +132,8 @@ if __name__ == '__main__':
                             payload = payload + '"rectime":' + 'null' + ','
                             #payload = payload + '"rectime":' + ('null' if msgrectime == None else ('"' + str(msgrectime).replace(' ','T') + str(tzone) +'"') ) + ','
                             payload = payload + '"sender":"' + macaddr + '",'
-                            payload = payload + '"netid":' + ('null' if netid == None else ('"' + str(netid) +'"') )  + ','
+                            #payload = payload + '"netid":' + ('null' if netid == None else ('"' + str(netid) +'"') )  + ','
+                            payload = payload + '"netid":"' + netid  + '",'
                             payload = payload + '"progid":"' + progid + '",'
                             #payload = payload + '"optime":' + 'null' + ','
                             payload = payload + '"optime":' + ('null' if msgrectime == None else ('"' + str(msgrectime).replace(' ','T') + str(tzone) +'"') ) + ','

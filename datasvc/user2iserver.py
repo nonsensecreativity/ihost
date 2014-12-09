@@ -30,21 +30,18 @@ if __name__ == '__main__':
     for node in dom.getElementsByTagName("table1"):
         tbl1 = node.getAttribute("tblname")
         url1 = node.getAttribute("uri")
-        netid1 = node.getAttribute("netid")
         tzone1 = node.getAttribute("tzone")
         interv1 = node.getAttribute("interv")
         start1 = node.getAttribute("start")
     for node in dom.getElementsByTagName("table2"):
         tbl2 = node.getAttribute("tblname")
         url2 = node.getAttribute("uri")
-        netid2 = node.getAttribute("netid")
         tzone2 = node.getAttribute("tzone")
         interv2 = node.getAttribute("interv")
         start2 = node.getAttribute("start")
     for node in dom.getElementsByTagName("table3"):
         tbl3 = node.getAttribute("tblname")
         url3 = node.getAttribute("uri")
-        netid3 = node.getAttribute("netid")
         tzone3 = node.getAttribute("tzone")
         interv3 = node.getAttribute("interv")
         start3 = node.getAttribute("start")
@@ -115,6 +112,17 @@ if __name__ == '__main__':
             # scriptname & macaddress
             progid = os.path.basename(__file__)
             macaddr = open('/sys/class/net/eth0/address').read()[0:17]
+            # netid
+            netid = ''
+            with open("/etc/hostapd/hostapd.conf") as fin:
+                for line in fin:
+                    if 'ssid=' in line:
+                        #print line
+                        netid = line.split('=')[1]
+                        netid = netid.replace('\n', '')
+                        netid = netid.replace('\r', '')
+                        #print netid
+                        break
 
             #prepare useraccounts list
             str_sql = "select id,userid,srcnode,usercode,user_uuid,mac,useremail1,useremail2,fname,lname,userrole,usertype,integral,pntfactor,byear,bmonth,bday,gender,occup,orgn,title,cid,ctype,regphone,phone,address,location,memo,updtime,rectime "
@@ -180,7 +188,7 @@ if __name__ == '__main__':
                     payload = payload + '"memo":' + ('null' if datarow[27] == None else ('"' + str(datarow[27]) +'"') ) + ','
                     payload = payload + '"srcip":' + 'null' + ','
                     payload = payload + '"sender":"' + macaddr + '",'
-                    payload = payload + '"netid":' + ('null' if netid1 == None else ('"' + str(netid1) +'"') )  + ','
+                    payload = payload + '"netid":"' + netid  + '",'
                     payload = payload + '"progid":"' + progid + '",'
                     payload = payload + '"intid":' + 'null' + ','
                     payload = payload + '"updtime":' + ('null' if datarow[28] == None else ('"' + str(datarow[28]).replace(' ','T') + str(tzone1) +'"') ) + ''
@@ -252,7 +260,7 @@ if __name__ == '__main__':
                     payload = payload + '"pntmaster":' + ('null' if datarow[7] == None else ('"' + str(datarow[7]) +'"') ) + ','
                     payload = payload + '"memo":' + ('null' if datarow[8] == None else ('"' + str(datarow[8]) +'"') ) + ','
                     payload = payload + '"sender":"' + macaddr + '",'
-                    payload = payload + '"netid":' + ('null' if netid2 == None else ('"' + str(netid2) +'"') )  + ','
+                    payload = payload + '"netid":"' + netid  + '",'
                     payload = payload + '"progid":"' + progid + '",'
                     payload = payload + '"updtime":' + ('null' if datarow[9] == None else ('"' + str(datarow[9]).replace(' ','T') + str(tzone2) +'"') ) + ''
                     payload = payload + '"rectime":' + ('null' if datarow[10] == None else ('"' + str(datarow[10]).replace(' ','T') + str(tzone2) +'"') ) + ''
@@ -317,7 +325,7 @@ if __name__ == '__main__':
                     payload = payload + '"insby":' + 'null' + ','
                     payload = payload + '"srcip":' + 'null' + ','
                     payload = payload + '"sender":"' + macaddr + '",'
-                    payload = payload + '"netid":' + ('null' if netid3 == None else ('"' + str(netid3) +'"') )  + ','
+                    payload = payload + '"netid":"' + netid  + '",'
                     payload = payload + '"progid":"' + progid + '",'
                     payload = payload + '"updtime":' + ('null' if datarow[11] == None else ('"' + str(datarow[11]).replace(' ','T') + str(tzone3) +'"') ) + ''
                     payload = payload + '"rectime":' + ('null' if datarow[12] == None else ('"' + str(datarow[12]).replace(' ','T') + str(tzone3) +'"') ) + ''

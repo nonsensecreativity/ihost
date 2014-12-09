@@ -30,42 +30,42 @@ if __name__ == '__main__':
     for node in dom.getElementsByTagName("table1"):
         tbl1 = node.getAttribute("tblname")
         url1 = node.getAttribute("uri")
-        netid1 = node.getAttribute("netid")
+        #netid1 = node.getAttribute("netid")
         tzone1 = node.getAttribute("tzone")
         interv1 = node.getAttribute("interv")
         start1 = node.getAttribute("start")
     for node in dom.getElementsByTagName("table2"):
         tbl2 = node.getAttribute("tblname")
         url2 = node.getAttribute("uri")
-        netid2 = node.getAttribute("netid")
+        #netid2 = node.getAttribute("netid")
         tzone2 = node.getAttribute("tzone")
         interv2 = node.getAttribute("interv")
         start2 = node.getAttribute("start")
     for node in dom.getElementsByTagName("table3"):
         tbl3 = node.getAttribute("tblname")
         url3 = node.getAttribute("uri")
-        netid3 = node.getAttribute("netid")
+        #netid3 = node.getAttribute("netid")
         tzone3 = node.getAttribute("tzone")
         interv3 = node.getAttribute("interv")
         start3 = node.getAttribute("start")
     for node in dom.getElementsByTagName("table4"):
         tbl4 = node.getAttribute("tblname")
         url4 = node.getAttribute("uri")
-        netid4 = node.getAttribute("netid")
+        #netid4 = node.getAttribute("netid")
         tzone4 = node.getAttribute("tzone")
         interv4 = node.getAttribute("interv")
         start4 = node.getAttribute("start")   
     for node in dom.getElementsByTagName("table5"):
         tbl5 = node.getAttribute("tblname")
         url5 = node.getAttribute("uri")
-        netid5 = node.getAttribute("netid")
+        #netid5 = node.getAttribute("netid")
         tzone5 = node.getAttribute("tzone")
         interv5 = node.getAttribute("interv")
         start5 = node.getAttribute("start")
     for node in dom.getElementsByTagName("table6"):
         tbl6 = node.getAttribute("tblname")
         url6 = node.getAttribute("uri")
-        netid6 = node.getAttribute("netid")
+        #netid6 = node.getAttribute("netid")
         tzone6 = node.getAttribute("tzone")
         interv6 = node.getAttribute("interv")
         start6 = node.getAttribute("start")   
@@ -314,6 +314,17 @@ if __name__ == '__main__':
             # scriptname & macaddress
             progid = os.path.basename(__file__)
             macaddr = open('/sys/class/net/eth0/address').read()[0:17]
+            # netid
+            netid = ''
+            with open("/etc/hostapd/hostapd.conf") as fin:
+                for line in fin:
+                    if 'ssid=' in line:
+                        #print line
+                        netid = line.split('=')[1]
+                        netid = netid.replace('\n', '')
+                        netid = netid.replace('\r', '')
+                        #print netid
+                        break
 
             #prepare authclient list
             str_sql = "select id,cid,ctype,stat,phone,sphone,msg,plan,mac,optflag,srcip,rectime "
@@ -357,7 +368,7 @@ if __name__ == '__main__':
                     payload = payload + '"rectime":' + 'null' + ','
                     #payload = payload + '"rectime":' + ('null' if msgrectime == None else ('"' + str(msgrectime).replace(' ','T') + str(tzone) +'"') ) + ','
                     payload = payload + '"sender":"' + macaddr + '",'
-                    payload = payload + '"netid":' + ('null' if netid1 == None else ('"' + str(netid1) +'"') )  + ','
+                    payload = payload + '"netid":"' + netid  + '",'
                     payload = payload + '"progid":"' + progid + '",'
                     #payload = payload + '"optime":' + 'null' + ','
                     payload = payload + '"optime":' + ('null' if datarow[11] == None else ('"' + str(datarow[11]).replace(' ','T') + str(tzone1) +'"') ) + ''
@@ -410,7 +421,7 @@ if __name__ == '__main__':
                     payload = payload + '"rectime":' + 'null' + ','
                     #payload = payload + '"rectime":' + ('null' if msgrectime == None else ('"' + str(msgrectime).replace(' ','T') + str(tzone) +'"') ) + ','
                     payload = payload + '"sender":"' + macaddr + '",'
-                    payload = payload + '"netid":' + ('null' if netid2 == None else ('"' + str(netid2) +'"') )  + ','
+                    payload = payload + '"netid":"' + netid  + '",'
                     payload = payload + '"progid":"' + progid + '",'
                     #payload = payload + '"optime":' + 'null' + ','
                     payload = payload + '"optime":' + ('null' if datarow[8] == None else ('"' + str(datarow[8]).replace(' ','T') + str(tzone2) +'"') ) + ''
@@ -457,7 +468,7 @@ if __name__ == '__main__':
                     payload = payload + '"rectime":' + 'null' + ','
                     #payload = payload + '"rectime":' + ('null' if msgrectime == None else ('"' + str(msgrectime).replace(' ','T') + str(tzone) +'"') ) + ','
                     payload = payload + '"sender":"' + macaddr + '",'
-                    payload = payload + '"netid":' + ('null' if netid3 == None else ('"' + str(netid3) +'"') )  + ','
+                    payload = payload + '"netid":"' + netid  + '",'
                     payload = payload + '"progid":"' + progid + '",'
                     #payload = payload + '"optime":' + 'null' + ','
                     payload = payload + '"optime":' + ('null' if datarow[7] == None else ('"' + str(datarow[7]).replace(' ','T') + str(tzone3) +'"') ) + ''
@@ -502,7 +513,7 @@ if __name__ == '__main__':
                     payload = payload + '"rectime":' + 'null' + ','
                     #payload = payload + '"rectime":' + ('null' if msgrectime == None else ('"' + str(msgrectime).replace(' ','T') + str(tzone) +'"') ) + ','
                     payload = payload + '"sender":"' + macaddr + '",'
-                    payload = payload + '"netid":' + ('null' if netid4 == None else ('"' + str(netid4) +'"') )  + ','
+                    payload = payload + '"netid":"' + netid  + '",'
                     payload = payload + '"progid":"' + progid + '",'
                     #payload = payload + '"optime":' + 'null' + ','
                     payload = payload + '"optime":' + ('null' if datarow[7] == None else ('"' + str(datarow[7]).replace(' ','T') + str(tzone4) +'"') ) + ''
@@ -554,7 +565,7 @@ if __name__ == '__main__':
                     payload = payload + '"rectime":' + 'null' + ','
                     #payload = payload + '"rectime":' + ('null' if msgrectime == None else ('"' + str(msgrectime).replace(' ','T') + str(tzone) +'"') ) + ','
                     payload = payload + '"sender":"' + macaddr + '",'
-                    payload = payload + '"netid":' + ('null' if netid5 == None else ('"' + str(netid5) +'"') )  + ','
+                    payload = payload + '"netid":"' + netid  + '",'
                     payload = payload + '"progid":"' + progid + '",'
                     #payload = payload + '"optime":' + 'null' + ','
                     payload = payload + '"optime":' + ('null' if datarow[13] == None else ('"' + str(datarow[13]).replace(' ','T') + str(tzone5) +'"') ) + ''
@@ -610,7 +621,7 @@ if __name__ == '__main__':
                     payload = payload + '"rectime":' + 'null' + ','
                     #payload = payload + '"rectime":' + ('null' if msgrectime == None else ('"' + str(msgrectime).replace(' ','T') + str(tzone) +'"') ) + ','
                     payload = payload + '"sender":"' + macaddr + '",'
-                    payload = payload + '"netid":' + ('null' if netid6 == None else ('"' + str(netid6) +'"') )  + ','
+                    payload = payload + '"netid":"' + netid  + '",'
                     payload = payload + '"progid":"' + progid + '",'
                     #payload = payload + '"optime":' + 'null' + ','
                     payload = payload + '"optime":' + ('null' if datarow[13] == None else ('"' + str(datarow[13]).replace(' ','T') + str(tzone6) +'"') ) + ''

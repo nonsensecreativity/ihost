@@ -1,10 +1,10 @@
 <config>
     <dbconn user="root" pwd="rootatussp" host="127.0.0.1" db="wlsp" />
-    <table1 tblname="authclient" uri="http://182.92.195.40:8080/authclient" netid="SSID-B" tzone=".000+0800" interv="10" start="" />
-    <table2 tblname="authmac" uri="http://182.92.195.40:8080/authmac" netid="SSID-B" tzone=".000+0800" interv="10" start="" />
-    <table3 tblname="authmacip" uri="http://182.92.195.40:8080/authmacip" netid="SSID-B" tzone=".000+0800" interv="10" start="" />
-    <table4 tblname="actvst" uri="http://182.92.195.40:8080/actvst" netid="SSID-B" tzone=".000+0800" interv="10" start="" />
-    <table5 tblname="wlact" uri="http://182.92.195.40:8080/wlact" netid="SSID-B" tzone=".000+0800" interv="10" start="" />
-    <table6 tblname="wlsta" uri="http://182.92.195.40:8080/wlsta" netid="SSID-B" tzone=".000+0800" interv="10" start="" />
+    <table1 tblname="authclient" uri="http://182.92.195.40:8080/authclient" tzone=".000+0800" interv="10" start="" />
+    <table2 tblname="authmac" uri="http://182.92.195.40:8080/authmac" tzone=".000+0800" interv="10" start="" />
+    <table3 tblname="authmacip" uri="http://182.92.195.40:8080/authmacip" tzone=".000+0800" interv="10" start="" />
+    <table4 tblname="actvst" uri="http://182.92.195.40:8080/actvst" tzone=".000+0800" interv="10" start="" />
+    <table5 tblname="wlact" uri="http://182.92.195.40:8080/wlact" tzone=".000+0800" interv="10" start="" />
+    <table6 tblname="wlsta" uri="http://182.92.195.40:8080/wlsta" tzone=".000+0800" interv="10" start="" />
 </config>
 

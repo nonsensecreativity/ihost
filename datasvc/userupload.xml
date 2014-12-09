@@ -1,7 +1,7 @@
 <config>
     <dbconn user="root" pwd="rootatussp" host="127.0.0.1" db="wlsp" />
-    <table1 tblname="useraccounts" uri="http://182.92.195.40:8080/useraccounts" netid="SSID-B" tzone=".000+0800" interv="10" start="" />
-    <table2 tblname="usermacs" uri="http://182.92.195.40:8080/usermacs" netid="SSID-B" tzone=".000+0800" interv="10" start="" />
-    <table3 tblname="useractive" uri="http://182.92.195.40:8080/useractive" netid="SSID-B" tzone=".000+0800" interv="10" start="" />
+    <table1 tblname="useraccounts" uri="http://182.92.195.40:8080/useraccounts" tzone=".000+0800" interv="10" start="" />
+    <table2 tblname="usermacs" uri="http://182.92.195.40:8080/usermacs" tzone=".000+0800" interv="10" start="" />
+    <table3 tblname="useractive" uri="http://182.92.195.40:8080/useractive" tzone=".000+0800" interv="10" start="" />
 </config>
 
