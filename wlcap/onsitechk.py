@@ -43,8 +43,8 @@ if __name__ == '__main__':
         cursor.close()          
 
     # set onsite=0
-    str_sql = "update useractive set onsite='0' where \
-        timestampdiff(second,maclast,now())> '" + str(onsite) + "'"
+    str_sql = "update useractive set pushflag=if(onsite='0',pushflag,'4'), onsite='0'  \
+        where timestampdiff(second,maclast,now())> '" + str(onsite) + "'"
     #print str_sql
     try:
         cursor = cnx.cursor()
@@ -57,15 +57,15 @@ if __name__ == '__main__':
         cursor.close()              
 
     # set online=0
-    str_sql = "update useractive set online='0' where \
-        timestampdiff(second,pagelast,now())> '" + str(online) + "'"
+    str_sql = "update useractive set pushflag=if(online='0',pushflag,'16'), online='0' \
+        where timestampdiff(second,pagelast,now())> '" + str(online) + "'"
     #print str_sql
     try:
         cursor = cnx.cursor()
         cursor.execute(str_sql)
         cnx.commit()
     except MySQLdb.Error as err:
-        print("update onsite 'useractive' failed.")
+        print("update online 'useractive' failed.")
         print("Error: {}".format(err.args[1]))   
     finally:
         cursor.close()              

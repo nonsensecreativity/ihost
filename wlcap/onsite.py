@@ -25,7 +25,7 @@ if __name__ == '__main__':
         sys.exit(0)  
     
     timeinterval = 3
-    for k in range(1, 60, timeinterval): # 60 times erery minutes
+    for k in range(1, 60, timeinterval): # 20 times erery minutes
         print "loop " + str(k) +": "
 
         str_sql = "select replace(mac,':','-') as strmac,lastseen from wlsta where \
@@ -51,9 +51,10 @@ if __name__ == '__main__':
                         tdelta = td.days*24*3600 + td.seconds
                         if tdelta > 10: # maclast is later than lastseen 
                             upd_str = "update useractive set \
+                            pushflag=if(onsite='1',pushflag,'2'), \
                             onsite='1', maclast = '" + lastseen.strftime('%Y-%m-%d %H:%M:%S') + "', \
                             updby='onsite.py', \
-                            updtime=now()  \
+                            updtime=now()\
                             where id = '" + str(macid[0]) + "'"
                             #print  upd_str
 
