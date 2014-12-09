@@ -201,7 +201,7 @@ if __name__ == '__main__':
                         response = requests.post(url1, data=payload, headers=headers)
                         print response
                         if response != '201':
-                            upd_sql = "update useraccounts set pushflag = '2' where id = '" 
+                            upd_sql = "update useraccounts set pushflag = pushflag + '32' where id = '" 
                             upd_sql = upd_sql + ('' if datarow[0] == None else  str(datarow[0]))  + "'"
                             print upd_sql
                             try:
@@ -209,7 +209,7 @@ if __name__ == '__main__':
                                 cursor1.execute(upd_sql)
                                 cnx.commit()
                             except MySQLdb.Error as err:
-                                print("update 'useraccounts pushflag=2' failed.")
+                                print("update 'useraccounts pushflag + 32' failed.")
                                 print("Error: {}".format(err.args[1]))   
                             finally:
                                 cursor1.close()                                 
@@ -272,7 +272,7 @@ if __name__ == '__main__':
                         response = requests.post(url2, data=payload, headers=headers)
                         print response
                         if response != '201':
-                            upd_sql = "update usermacs set pushflag = '2' where id = '" 
+                            upd_sql = "update usermacs set pushflag = pushflag + '32' where id = '" 
                             upd_sql = upd_sql + ('' if datarow[0] == None else  str(datarow[0]))  + "'"
                             print upd_sql
                             try:
@@ -280,7 +280,7 @@ if __name__ == '__main__':
                                 cursor1.execute(upd_sql)
                                 cnx.commit()
                             except MySQLdb.Error as err:
-                                print("update 'usermacs pushflag=2' failed.")
+                                print("update 'usermacs pushflag + 32' failed.")
                                 print("Error: {}".format(err.args[1]))   
                             finally:
                                 cursor1.close()             

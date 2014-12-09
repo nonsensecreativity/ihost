@@ -64,7 +64,8 @@ if __name__ == '__main__':
 
                     # increase integral in useraccounts
                     upd_str1 = "update useraccounts set \
-                integral = '" + nintegral + "'  \
+                integral = '" + nintegral + "', \
+                pushflag = pushflag + '2' \
                 where id = '" + str(datarow[8]) + "'" 
                     #print  upd_str1
 
