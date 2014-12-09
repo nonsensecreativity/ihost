@@ -119,8 +119,8 @@ if __name__ == '__main__':
             #prepare useraccounts list
             str_sql = "select id,userid,srcnode,usercode,user_uuid,mac,useremail1,useremail2,fname,lname,userrole,usertype,integral,pntfactor,byear,bmonth,bday,gender,occup,orgn,title,cid,ctype,regphone,phone,address,location,memo,updtime,rectime "
             str_sql = str_sql + " from " + tbl1
-            str_sql = str_sql + " where  pushflag = '1'"
-            #print str_sql
+            str_sql = str_sql + " where  pushflag >= '1'"
+            print str_sql
             try:
                 cursor = cnx.cursor()
                 cursor.execute(str_sql)
@@ -192,6 +192,19 @@ if __name__ == '__main__':
                         #pass
                         response = requests.post(url1, data=payload, headers=headers)
                         print response
+                        if response != '201':
+                            upd_sql = "update useraccounts set pushflag = '2' where id = '" 
+                            upd_sql = upd_sql + ('' if datarow[0] == None else  str(datarow[0]))  + "'"
+                            print upd_sql
+                            try:
+                                cursor1 = cnx.cursor()
+                                cursor1.execute(upd_sql)
+                                cnx.commit()
+                            except MySQLdb.Error as err:
+                                print("update 'useraccounts pushflag=2' failed.")
+                                print("Error: {}".format(err.args[1]))   
+                            finally:
+                                cursor1.close()                                 
                     except Exception,e:
                         print e
 
@@ -204,8 +217,8 @@ if __name__ == '__main__':
             #prepare usermacs list
             str_sql = "select id,userid,srcnode,usercode,mac,phone,userrole,pntmaster,memo,updtime,rectime "
             str_sql = str_sql + " from " + tbl2
-            str_sql = str_sql + " where  pushflag = '1'"
-            #print str_sql
+            str_sql = str_sql + " where  pushflag >= '1'"
+            print str_sql
             try:
                 cursor = cnx.cursor()
                 cursor.execute(str_sql)
@@ -250,6 +263,19 @@ if __name__ == '__main__':
                         #pass
                         response = requests.post(url2, data=payload, headers=headers)
                         print response
+                        if response != '201':
+                            upd_sql = "update usermacs set pushflag = '2' where id = '" 
+                            upd_sql = upd_sql + ('' if datarow[0] == None else  str(datarow[0]))  + "'"
+                            print upd_sql
+                            try:
+                                cursor1 = cnx.cursor()
+                                cursor1.execute(upd_sql)
+                                cnx.commit()
+                            except MySQLdb.Error as err:
+                                print("update 'usermacs pushflag=2' failed.")
+                                print("Error: {}".format(err.args[1]))   
+                            finally:
+                                cursor1.close()             
                     except Exception,e:
                         print e
 
