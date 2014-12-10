@@ -30,7 +30,7 @@ if __name__ == '__main__':
     
     # remove user from useractive 
     str_sql = "delete from useractive where \
-        timestampdiff(second,maclast,now())> '" + str(leave)+ "'"
+        timestampdiff(second,if(maclast>pagelast,maclast,pagelast),now())> '" + str(leave)+ "'"
     #print str_sql
     try:
         cursor = cnx.cursor()
@@ -43,7 +43,8 @@ if __name__ == '__main__':
         cursor.close()          
 
     # set onsite=0
-    str_sql = "update useractive set pushflag=if(onsite='0',pushflag,'4'), onsite='0'  \
+    str_sql = "update useractive set pushflag=if(onsite='0',pushflag,'4'), onsite='0', \
+        updby='onsitechk.py', updtime=now()  \
         where timestampdiff(second,if(maclast>pagelast,maclast,pagelast),now())> '" + str(onsite) + "'"
     #print str_sql
     try:
@@ -58,6 +59,7 @@ if __name__ == '__main__':
 
     # set online=0
     str_sql = "update useractive set pushflag=if(online='0',pushflag,'16'), online='0' \
+        updby='onsitechk.py', updtime=now()  \
         where timestampdiff(second,pagelast,now())> '" + str(online) + "'"
     #print str_sql
     try:
