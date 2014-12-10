@@ -44,7 +44,7 @@ if __name__ == '__main__':
 
     # set onsite=0
     str_sql = "update useractive set pushflag=if(onsite='0',pushflag,'4'), onsite='0'  \
-        where timestampdiff(second,maclast,now())> '" + str(onsite) + "'"
+        where timestampdiff(second,if(maclast>pagelast,maclast,pagelast),now())> '" + str(onsite) + "'"
     #print str_sql
     try:
         cursor = cnx.cursor()
