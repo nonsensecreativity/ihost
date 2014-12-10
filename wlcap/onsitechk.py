@@ -45,7 +45,8 @@ if __name__ == '__main__':
     # set onsite=0
     str_sql = "update useractive set pushflag=if(onsite='0',pushflag,'4'), onsite='0', \
         updby='onsitechk.py', updtime=now()  \
-        where timestampdiff(second,if(maclast>pagelast,maclast,pagelast),now())> '" + str(onsite) + "'"
+        where onsite='1' and \
+        timestampdiff(second,if(maclast>pagelast,maclast,pagelast),now())> '" + str(onsite) + "'"
     #print str_sql
     try:
         cursor = cnx.cursor()
@@ -60,7 +61,8 @@ if __name__ == '__main__':
     # set online=0
     str_sql = "update useractive set pushflag=if(online='0',pushflag,'16'), online='0', \
         updby='onsitechk.py', updtime=now()  \
-        where timestampdiff(second,pagelast,now())> '" + str(online) + "'"
+        where online='1' and \
+        timestampdiff(second,pagelast,now())> '" + str(online) + "'"
     #print str_sql
     try:
         cursor = cnx.cursor()

@@ -6,5 +6,5 @@
             <wlan name="wlan1" />
         </dev>
     </auth>
-    <onsitechk onsite="360" online="600" leave="1800" />
+    <onsitechk onsite="600" online="300" leave="1200" />
 </config>
