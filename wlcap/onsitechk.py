@@ -58,7 +58,7 @@ if __name__ == '__main__':
         cursor.close()              
 
     # set online=0
-    str_sql = "update useractive set pushflag=if(online='0',pushflag,'16'), online='0' \
+    str_sql = "update useractive set pushflag=if(online='0',pushflag,'16'), online='0', \
         updby='onsitechk.py', updtime=now()  \
         where timestampdiff(second,pagelast,now())> '" + str(online) + "'"
     #print str_sql
