@@ -380,7 +380,7 @@ CREATE TABLE `wlsta` (
 DROP TABLE IF EXISTS `useraccounts`;	#	用户主记录
 CREATE TABLE `useraccounts` (	#	
   `id` int NOT NULL AUTO_INCREMENT,	#	
-  `userid` varchar(30) DEFAULT NULL,	#	为user分配一个id，默认等于上列id
+  `userid` varchar(36) DEFAULT NULL,	#	为user分配一个uuid
   `srcid` int DEFAULT NULL,	#	iserver字段
   `token` int DEFAULT NULL,	#	8位随机数，由ihost产生
   `srcnode` varchar(10) DEFAULT NULL,	#	（预留）
@@ -438,7 +438,7 @@ CREATE TABLE `useraccounts` (	#
 DROP TABLE IF EXISTS `usermacs`;	#	记录useraccount 与 终端、电话号码的多对多关系
 CREATE TABLE `usermacs` (	#	
   `id` int NOT NULL AUTO_INCREMENT,	#	
-  `userid` varchar(30) DEFAULT NULL,	#	mac对应的userid，多对多的关系
+  `userid` varchar(36) DEFAULT NULL,	#	mac对应的userid，多对多的关系
   `srcid` int DEFAULT NULL,	#	iserver字段
   `token` int DEFAULT NULL,	#	8位随机数，由ihost产生
   `srcnode` varchar(10) DEFAULT NULL,	#	（预留）
@@ -471,7 +471,7 @@ CREATE TABLE `useractive` (	#
   `mac` varchar(36) DEFAULT NULL,	#	用户的mac地址
   `phone` varchar(30) DEFAULT NULL,	#	用户的手机号（与用户多对多关系）
   `userrole` varchar(30) DEFAULT NULL,	#	不同角色，每个mac在每个userrole中有一个default userid
-  `userid` varchar(30) DEFAULT NULL,	#	mac对应的userid，多对多的关系
+  `userid` varchar(36) DEFAULT NULL,	#	mac对应的userid，多对多的关系
   `onsite` tinyint DEFAULT '0',  # 0-not on site; 1-onsite
   `online` tinyint DEFAULT '0',  # 0-not online; 1-online
   `macfirst` datetime DEFAULT '1970-1-1 00:00:00',	#	mac首次发现时间
@@ -540,7 +540,7 @@ CREATE TABLE `smsrcv` (
 DROP TABLE IF EXISTS `userpoints`;
 CREATE TABLE `userpoints` (
   `id` int(30) NOT NULL AUTO_INCREMENT,
-  `userid` varchar(30) DEFAULT NULL,	#	为user分配一个id，默认等于上列id
+  `userid` varchar(36) DEFAULT NULL,	#	为user分配一个uuid
   `srcid` int DEFAULT NULL,	#	iserver字段
   `token` int DEFAULT NULL,	#	8位随机数，由ihost产生
   `srcnode` varchar(10) DEFAULT NULL,	#	（预留）
@@ -565,7 +565,7 @@ CREATE TABLE `userpoints` (
 DROP TABLE IF EXISTS `userlog`;
 CREATE TABLE `userlog` (
   `id` int(30) NOT NULL AUTO_INCREMENT,
-  `userid` varchar(30) DEFAULT NULL,	#	为user分配一个id，默认等于上列id
+  `userid` varchar(36) DEFAULT NULL,	#	为user分配一个uuid
   `srcid` int DEFAULT NULL,	#	iserver字段
   `token` int DEFAULT NULL,	#	userpoints表ID
   `srcnode` varchar(10) DEFAULT NULL,	#	（预留）
