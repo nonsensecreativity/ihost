@@ -2,6 +2,7 @@
 ## and authentication
 ## used by
 ## local server and (or) central server
+## This file is used by both ihost and iserver to set up database.
 
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -380,12 +381,12 @@ CREATE TABLE `wlsta` (
 DROP TABLE IF EXISTS `useraccounts`;	#	用户主记录
 CREATE TABLE `useraccounts` (	#	
   `id` int NOT NULL AUTO_INCREMENT,	#	
-  `userid` varchar(36) DEFAULT NULL,	#	为user分配一个uuid
+  `userid` varchar(36) DEFAULT NULL,	#	为user分配一个uuid. It is generated in ihost by php. 
   `srcid` int DEFAULT NULL,	#	iserver字段
   `token` int DEFAULT NULL,	#	8位随机数，由ihost产生
   `srcnode` varchar(10) DEFAULT NULL,	#	（预留）
   `usercode` varchar(30) DEFAULT NULL,	#	用户编码（预留）
-  `user_uuid` varchar(36) DEFAULT NULL,	#	用户uuid
+  `user_uuid` varchar(36) DEFAULT NULL,	#	用户uuid. It is generated on iserver. Globally effective to cover cases that the user might change his phone and/or phone number.
   `mac` varchar(36) DEFAULT NULL,	#	mac地址
   `userpass` varchar(30) DEFAULT NULL,	#	用户密码
   `useremail1` varchar(64) DEFAULT NULL,	#	用户email
