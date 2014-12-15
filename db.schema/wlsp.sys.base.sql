@@ -395,8 +395,7 @@ CREATE TABLE `useraccounts` (	#
   `answer` varchar(30) DEFAULT NULL,	#	密码答案，用于找回密码
   `fname` varchar(20) DEFAULT NULL,	#	名字
   `lname` varchar(20) DEFAULT NULL,	#	姓
-  `userrole` varchar(20) default NULL, #	不同角色，每个mac在每个userrole中有一个default userid
-  										#   100-代表 200-嘉宾 300-媒体 400-会务
+  `userrole` varchar(20) default NULL, #	不同角色，每个mac在每个userrole中有一个default userid #   100-代表 200-嘉宾 300-媒体 400-会务
   `usertype` varchar(10) DEFAULT NULL,	#	用户类型：预注册/现场注册
   `integral` int DEFAULT '0',	#	userid下的积分
   `pntfactor` int DEFAULT '1000',	#	points转integral的因子，1000代表1
@@ -449,8 +448,7 @@ CREATE TABLE `usermacs` (	#
   `stat` varchar(3) DEFAULT '100',	#	数据状态 100-有效 
   `dft` varchar(3) DEFAULT '100',	#	100-此记录的mac-userid是默认值，一个mac一个userrole下同时只有一个默认userid
   `prio` varchar(3) DEFAULT '0',	#	多个mac-userrole-userid的排序优先级；大于0的最大值可用于自动签到
-  `userrole` varchar(30) DEFAULT NULL,	#	不同角色，每个mac在每个userrole中有一个default userid
-  										#   100-代表 200-嘉宾 300-媒体 400-会务
+  `userrole` varchar(30) DEFAULT NULL,	#	不同角色，每个mac在每个userrole中有一个default userid #   100-代表 200-嘉宾 300-媒体 400-会务
   `pntmaster` varchar(3) DEFAULT NULL,	#	积分主记录标识，100-此userid为主记录，一个mac只对一个userid积分
   `memo` varchar(128) DEFAULT NULL,	#	备注
   `srcip` varchar(64) DEFAULT NULL,	#	iserver字段
