@@ -417,7 +417,7 @@ CREATE TABLE `useraccounts` (	#
   `stat` varchar(3) DEFAULT '100',	#	数据状态 100-有效 
   `open1` varchar(3) DEFAULT '100',	#	数据对招聘者公开，100-公开，0-不公开
   `open2` varchar(3) DEFAULT '100',	#	数据对求职者公开，100-公开，0-不公开
-  `check` varchar(3) DEFAULT '100',	#	短信验证，100-验证，0-不验证
+  `smscheck` varchar(3) DEFAULT '100',	#	短信验证，100-验证，0-不验证
   `memo` varchar(128) DEFAULT NULL,	#	备注
   `srcip` varchar(64) DEFAULT NULL,	#	iserver字段
   `sender` varchar(36) DEFAULT NULL, 	#	iserver字段
@@ -426,7 +426,7 @@ CREATE TABLE `useraccounts` (	#
   `intid` varchar(30) DEFAULT NULL,	#	与phpyun的对应关系（记录学历等其他个人信息）
   `updtime` datetime DEFAULT NULL,	#	记录更新时间
   `rectime` datetime DEFAULT NULL,	#	记录时间
-  `pushflag` tinyint DEFAULT '1',
+  `pushflag` smallint DEFAULT '1',
   PRIMARY KEY (`id`),	#	
   KEY `userid` (`userid`),	#	
   KEY `phone` (`phone`)	#	
