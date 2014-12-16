@@ -457,7 +457,7 @@ CREATE TABLE `usermacs` (	#
   `progid` varchar(36) DEFAULT NULL, 	#	iserver字段
   `updtime` datetime DEFAULT NULL,	#	记录更新时间
   `rectime` datetime DEFAULT NULL,	#	记录时间
-  `pushflag` tinyint DEFAULT '1',
+  `pushflag` smallint DEFAULT '1',
   PRIMARY KEY (`id`),	#	
   KEY `userid` (`userid`),	#	
   KEY `usercode` (`usercode`)	#	
