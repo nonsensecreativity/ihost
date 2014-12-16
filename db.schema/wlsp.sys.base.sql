@@ -380,7 +380,7 @@ CREATE TABLE `wlsta` (
 ## ----------------------------
 DROP TABLE IF EXISTS `useraccounts`;	#	用户主记录
 CREATE TABLE `useraccounts` (	#	
-  `id` int NOT NULL AUTO_INCREMENT,	#	
+  `id` bigint NOT NULL AUTO_INCREMENT,	#	
   `userid` varchar(36) DEFAULT NULL,	#	为user分配一个uuid. It is generated in ihost by php. 
   `srcid` int DEFAULT NULL,	#	iserver字段
   `token` int DEFAULT NULL,	#	8位随机数，由ihost产生
