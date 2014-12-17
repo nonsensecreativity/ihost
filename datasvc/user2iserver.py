@@ -189,7 +189,7 @@ if __name__ == '__main__':
                     payload = payload + '"stat":' + 'null' + ','
                     payload = payload + '"open1":' + 'null' + ','
                     payload = payload + '"open2":' + 'null' + ','
-                    payload = payload + '"check":' + 'null' + ','
+                    payload = payload + '"smscheck":' + 'null' + ','
                     payload = payload + '"memo":' + ('null' if datarow[27] == None else ('"' + str(datarow[27]) +'"') ) + ','
                     payload = payload + '"srcip":' + 'null' + ','
                     payload = payload + '"sender":"' + macaddr + '",'
