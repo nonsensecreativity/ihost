@@ -206,7 +206,7 @@ if __name__ == '__main__':
                         #pass
                         response = requests.post(url1, data=payload, headers=headers)
                         #print response.status_code
-                        if response.status_code != '201' :
+                        if int(response.status_code) != 201 :
                             nflag = int(datarow[30]) if int(datarow[30]) >=64  else (int(datarow[30]) + 64) 
                             upd_sql = "update useraccounts set pushflag = '" + str(nflag) +"'  where id = '" 
                             upd_sql = upd_sql + ('' if datarow[0] == None else  str(datarow[0]))  + "'"
@@ -280,7 +280,7 @@ if __name__ == '__main__':
                         #pass
                         response = requests.post(url2, data=payload, headers=headers)
                         #print response.status_code
-                        if response.status_code != '201' :
+                        if int(response.status_code) != 201 :
                             nflag = int(datarow[11]) if int(datarow[11]) >=64  else (int(datarow[11]) + 64) 
                             upd_sql = "update usermacs set pushflag = '" + str(nflag) +"'  where id = '" 
                             upd_sql = upd_sql + ('' if datarow[0] == None else  str(datarow[0]))  + "'"
@@ -363,7 +363,7 @@ if __name__ == '__main__':
                         #pass
                         response = requests.post(url3, data=payload, headers=headers)
                         #print response.status_code
-                        if response.status_code != '201' :
+                        if int(response.status_code) != 201 :
                             nflag = int(datarow[13]) if int(datarow[13]) >=64  else (int(datarow[13]) + 64) 
                             upd_sql = "update useractive set pushflag = '" + str(nflag) +"'  where id = '" 
                             upd_sql = upd_sql + ('' if datarow[0] == None else  str(datarow[0]))  + "'"
