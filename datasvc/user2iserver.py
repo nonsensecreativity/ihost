@@ -304,8 +304,8 @@ if __name__ == '__main__':
                 cursor.close()          
 
             #prepare useractive list
-            str_sql = "select id,mac,phone,userrole,userid,onsite,\
-            online,macfirst,maclast,pagefirst,pagelast,updtime,rectime,pushflag "
+            str_sql = "select id,mac,phone,userrole,userid,IF(onsite=1,'true','false')onsite,\
+            IF(online=1,'true','false'),macfirst,maclast,pagefirst,pagelast,updtime,rectime,pushflag "
             str_sql = str_sql + " from " + tbl3
             str_sql = str_sql + " where  pushflag >= '1'"
             #str_sql = str_sql + " where  (id >= '" + start3 +"'"
