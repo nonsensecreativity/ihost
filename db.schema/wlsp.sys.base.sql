@@ -479,8 +479,8 @@ CREATE TABLE `useractive` (	#
   `pagefirst` datetime DEFAULT '1970-1-1 00:00:00',	#	首次访问站点时间
   `pagemark` datetime DEFAULT NULL,	#	站点标记时间，中途更新积分时使用
   `pagelast` datetime DEFAULT '1970-1-1 00:00:00',	#	末次访问站点时间
-  `updby` varchar(30) DEFAULT NULL,	#   更新记录的程序
-  `insby` varchar(30) DEFAULT NULL,	#   创建记录的程序
+  `updby` varchar(128) DEFAULT NULL,	#   更新记录的程序
+  `insby` varchar(128) DEFAULT NULL,	#   创建记录的程序
   `srcip` varchar(64) DEFAULT NULL,	#	iserver字段
   `sender` varchar(36) DEFAULT NULL, 	#	iserver字段
   `netid` varchar(36) DEFAULT NULL, 	#	iserver字段
