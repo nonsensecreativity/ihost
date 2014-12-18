@@ -207,7 +207,7 @@ if __name__ == '__main__':
                         response = requests.post(url1, data=payload, headers=headers)
                         #print response.status_code
                         if int(response.status_code) != 201 :
-                            nflag = int(datarow[30]) if int(datarow[30]) >=64  else (int(datarow[30]) + 64) 
+                            nflag = int(datarow[30]) if int(datarow[30]) >=32768  else (int(datarow[30]) + 32768) 
                             upd_sql = "update useraccounts set pushflag = '" + str(nflag) +"'  where id = '" 
                             upd_sql = upd_sql + ('' if datarow[0] == None else  str(datarow[0]))  + "'"
                             print upd_sql
@@ -216,7 +216,7 @@ if __name__ == '__main__':
                                 cursor1.execute(upd_sql)
                                 cnx.commit()
                             except MySQLdb.Error as err:
-                                print("update 'useraccounts pushflag + 64' failed.")
+                                print("update 'useraccounts pushflag + 32768' failed.")
                                 print("Error: {}".format(err.args[1]))   
                             finally:
                                 cursor1.close()                                 
@@ -281,7 +281,7 @@ if __name__ == '__main__':
                         response = requests.post(url2, data=payload, headers=headers)
                         #print response.status_code
                         if int(response.status_code) != 201 :
-                            nflag = int(datarow[11]) if int(datarow[11]) >=64  else (int(datarow[11]) + 64) 
+                            nflag = int(datarow[11]) if int(datarow[11]) >=32768  else (int(datarow[11]) + 32768) 
                             upd_sql = "update usermacs set pushflag = '" + str(nflag) +"'  where id = '" 
                             upd_sql = upd_sql + ('' if datarow[0] == None else  str(datarow[0]))  + "'"
                             print upd_sql
@@ -290,7 +290,7 @@ if __name__ == '__main__':
                                 cursor1.execute(upd_sql)
                                 cnx.commit()
                             except MySQLdb.Error as err:
-                                print("update 'usermacs pushflag + 64' failed.")
+                                print("update 'usermacs pushflag + 32768' failed.")
                                 print("Error: {}".format(err.args[1]))   
                             finally:
                                 cursor1.close()             
@@ -364,7 +364,7 @@ if __name__ == '__main__':
                         response = requests.post(url3, data=payload, headers=headers)
                         #print response.status_code
                         if int(response.status_code) != 201 :
-                            nflag = int(datarow[13]) if int(datarow[13]) >=64  else (int(datarow[13]) + 64) 
+                            nflag = int(datarow[13]) if int(datarow[13]) >=32768  else (int(datarow[13]) + 32768) 
                             upd_sql = "update useractive set pushflag = '" + str(nflag) +"'  where id = '" 
                             upd_sql = upd_sql + ('' if datarow[0] == None else  str(datarow[0]))  + "'"
                             print upd_sql
@@ -373,7 +373,7 @@ if __name__ == '__main__':
                                 cursor1.execute(upd_sql)
                                 cnx.commit()
                             except MySQLdb.Error as err:
-                                print("update 'useractive pushflag + 64' failed.")
+                                print("update 'useractive pushflag + 32768' failed.")
                                 print("Error: {}".format(err.args[1]))   
                             finally:
                                 cursor1.close() 
