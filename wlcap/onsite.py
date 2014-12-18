@@ -52,7 +52,9 @@ if __name__ == '__main__':
                         if tdelta > 10: # maclast is later than lastseen 
                             upd_str = "update useractive set \
                             pushflag=if(onsite='1',pushflag,pushflag+'2'), \
-                            onsite='1', maclast = '" + lastseen.strftime('%Y-%m-%d %H:%M:%S') + "', \
+                            onsite='1', \
+                            macfirst=if(macfirst='1970-01-01 00:00:00','" + lastseen.strftime('%Y-%m-%d %H:%M:%S') + "',macfirst),\
+                            maclast = '" + lastseen.strftime('%Y-%m-%d %H:%M:%S') + "', \
                             updby='onsite.py', \
                             updtime=now()\
                             where id = '" + str(macid[0]) + "'"
