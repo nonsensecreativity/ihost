@@ -50,13 +50,13 @@ if __name__ == '__main__':
                     points = str(datarow[2]) 
                     integral = "0" if datarow[10] == None else ( str(datarow[10]) )
                     pntfactor = "1000" if datarow[12] == None else ( str(datarow[12]) )
-                    nintegral = str(int(integral) + int(int(points) * int(pntfactor) / 1000))
-                    if int(nintegral) > 0 :
+                    dintegral = str(int(int(points) * int(pntfactor) / 1000))
+                    if int(dintegral) > 0 :
                         # insert record in userlog
                         ins_str = "insert into userlog set \
                     mac = '" + datarow[1] + "', \
                     token = '" + str(datarow[0]) + "', \
-                    dintegral = '" + points + "', \
+                    dintegral = '" + dintegral + "', \
                     userid = '" + str(datarow[8]) + "', \
                     integral = '" + integral + "', \
                     action = 'pnt2user', \
@@ -65,7 +65,7 @@ if __name__ == '__main__':
 
                         # increase integral in useraccounts
                         upd_str1 = "update useraccounts set \
-                    integral = '" + nintegral + "', \
+                    integral = '" + str(int(integral) + int(dintegral)) + "', \
                     pushflag = pushflag + '2' \
                     where id = '" + str(datarow[8]) + "'" 
                         #print  upd_str1
