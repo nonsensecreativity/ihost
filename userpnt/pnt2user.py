@@ -51,41 +51,42 @@ if __name__ == '__main__':
                     integral = "0" if datarow[10] == None else ( str(datarow[10]) )
                     pntfactor = "1000" if datarow[12] == None else ( str(datarow[12]) )
                     nintegral = str(int(integral) + int(int(points) * int(pntfactor) / 1000))
-                    # insert record in userlog
-                    ins_str = "insert into userlog set \
-                mac = '" + datarow[1] + "', \
-                token = '" + str(datarow[0]) + "', \
-                dintegral = '" + points + "', \
-                userid = '" + str(datarow[8]) + "', \
-                integral = '" + integral + "', \
-                action = 'pnt2user', \
-                rectime = now()"
-                    #print  ins_str
+                    if int(nintegral) > 0 :
+                        # insert record in userlog
+                        ins_str = "insert into userlog set \
+                    mac = '" + datarow[1] + "', \
+                    token = '" + str(datarow[0]) + "', \
+                    dintegral = '" + points + "', \
+                    userid = '" + str(datarow[8]) + "', \
+                    integral = '" + integral + "', \
+                    action = 'pnt2user', \
+                    rectime = now()"
+                        #print  ins_str
 
-                    # increase integral in useraccounts
-                    upd_str1 = "update useraccounts set \
-                integral = '" + nintegral + "', \
-                pushflag = pushflag + '2' \
-                where id = '" + str(datarow[8]) + "'" 
-                    #print  upd_str1
+                        # increase integral in useraccounts
+                        upd_str1 = "update useraccounts set \
+                    integral = '" + nintegral + "', \
+                    pushflag = pushflag + '2' \
+                    where id = '" + str(datarow[8]) + "'" 
+                        #print  upd_str1
 
-                    # decrease points in userpoints
-                    upd_str2 = "update userpoints set \
-                points = '0' \
-                where id = '" + str(datarow[0]) + "'" 
-                    #print  upd_str2
+                        # decrease points in userpoints
+                        upd_str2 = "update userpoints set \
+                    points = '0' \
+                    where id = '" + str(datarow[0]) + "'" 
+                        #print  upd_str2
 
-                    try:
-                        cursor1 = cnx.cursor()
-                        cursor1.execute(ins_str)
-                        cursor1.execute(upd_str1)
-                        cursor1.execute(upd_str2)
-                        cnx.commit()
-                    except MySQLdb.Error as err:
-                        print("points to integral failed.")
-                        print("Error: {}".format(err.args[1]))   
-                    finally:
-                        cursor1.close() 
+                        try:
+                            cursor1 = cnx.cursor()
+                            cursor1.execute(ins_str)
+                            cursor1.execute(upd_str1)
+                            cursor1.execute(upd_str2)
+                            cnx.commit()
+                        except MySQLdb.Error as err:
+                            print("points to integral failed.")
+                            print("Error: {}".format(err.args[1]))   
+                        finally:
+                            cursor1.close() 
 
         except MySQLdb.Error as err:
             cnx.rollback()
