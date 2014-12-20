@@ -3,6 +3,7 @@
 import os, sys, time, traceback
 import xml.dom.minidom as minidom
 import MySQLdb,  datetime
+import netifaces
 
 def line2db (linstr,sip):
     
@@ -290,9 +291,21 @@ if __name__ == '__main__':
     #read configurations here
     dom = minidom.parse("config.xml")
     for node in dom.getElementsByTagName("interface"):
+        iftype = node.getAttribute("iftype")
         sip = node.getAttribute("host")
         pktpipe =node.getAttribute("pktpipe")
         
+    if iftype == "local":
+        interfaces = netifaces.interfaces()
+
+        for i in interfaces:
+            if i == 'eth0':
+                iface = netifaces.ifaddresses(i).get(netifaces.AF_INET)
+                #print iface
+                if iface != None:
+                    sip = iface[0]['addr']
+                    #print sip
+
     for node in dom.getElementsByTagName("dbconn"):
         user = node.getAttribute("user")
         pwd =node.getAttribute("pwd")
