@@ -3,6 +3,7 @@
 #
 GRANT SELECT, INSERT, UPDATE, DELETE ON wlsp.actvst TO 'actrec'@'127.0.0.1' identified by 'actrecatussp';
 GRANT SELECT, INSERT, UPDATE, DELETE ON wlsp.actvrf TO 'actrec'@'127.0.0.1';
+GRANT SELECT, INSERT, UPDATE, DELETE ON wlsp.actvst TO 'wlcap'@'127.0.0.1' identified by 'wlcapatussp';
 
 FLUSH PRIVILEGES;
 

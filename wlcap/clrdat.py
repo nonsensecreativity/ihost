@@ -24,7 +24,10 @@ if __name__ == '__main__':
         traceback.print_exc()
         print("Error Opening mysql")
         sys.exit(0)  
-    
+
+    #wait for mysql server is ready 
+    time.sleep(45)
+
     clrwlpkt = 168
     clractvst = 1440
     
