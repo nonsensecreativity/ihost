@@ -57,7 +57,7 @@ if __name__ == '__main__':
                     mac = '" + datarow[1] + "', \
                     token = '" + str(datarow[0]) + "', \
                     dintegral = '" + dintegral + "', \
-                    userid = '" + str(datarow[8]) + "', \
+                    userid = '" + str(datarow[9]) + "', \
                     integral = '" + integral + "', \
                     action = 'pnt2user', \
                     rectime = now()"
