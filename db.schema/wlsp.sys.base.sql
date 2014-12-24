@@ -429,7 +429,8 @@ CREATE TABLE `useraccounts` (	#
   `pushflag` smallint DEFAULT '1',
   PRIMARY KEY (`id`),	#	
   KEY `userid` (`userid`),	#	
-  KEY `phone` (`phone`)	#	
+  KEY `phone` (`phone`), #	
+  KEY `usercode` (`usercode`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;	#	
 
 ## ----------------------------
@@ -460,7 +461,8 @@ CREATE TABLE `usermacs` (	#
   `pushflag` smallint DEFAULT '1',
   PRIMARY KEY (`id`),	#	
   KEY `userid` (`userid`),	#	
-  KEY `usercode` (`usercode`)	#	
+  KEY `usercode` (`usercode`),	#	
+  KEY `mac` (`mac`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;	#	
 
 DROP TABLE IF EXISTS `useractive`;	#	当前活动用户
@@ -489,7 +491,8 @@ CREATE TABLE `useractive` (	#
   `rectime` datetime DEFAULT NULL,	#	记录时间
   `pushflag` smallint DEFAULT '1',
   PRIMARY KEY (`id`),	#	
-  KEY `userid` (`mac`)	#		
+  KEY `userid` (`userid`),
+  KEY `mac` (`mac`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;	#	
 
 
@@ -580,6 +583,26 @@ CREATE TABLE `userlog` (
   `updtime` datetime DEFAULT NULL,	#	记录更新时间
   `rectime` datetime DEFAULT NULL,	#	记录时间
   PRIMARY KEY (`id`),
+  KEY `userid` (`userid`),
   KEY `usercode` (`usercode`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
+
+## ----------------------------
+## Table structure for userinfochk
+## ----------------------------
+DROP TABLE IF EXISTS `userinfochk`;
+CREATE TABLE `userinfochk` (
+  `id` int NOT NULL AUTO_INCREMENT, 
+  `obj` varchar(64) DEFAULT NULL,  # object of the rule, userid, or mac
+  `useraction` varchar(64) DEFAULT NULL, #  user action to trigger the rule, eg: IntegralExchange
+  `pagename` varchar(64) DEFAULT NULL, #  specific page name to use the rule (reserved)
+  `cnd` varchar(64) DEFAULT NULL, # other condititions for the rule to take effect (reserved)
+  `info` varchar(32) DEFAULT NULL, # information to be checked, eg: cid, identifacation card number and name
+  `op` varchar(16) DEFAULT NULL, # operator, eg: 100-forced, 200-recommended
+  `action` varchar(16) DEFAULT NULL, # , action to be taken, eg: 100-fill, 200-update
+  `stat` varchar(3) DEFAULT '100',	#	status 100-valid
+  `rectime` datetime DEFAULT NULL, 
+  PRIMARY KEY (`id`),
+  KEY `obj` (`obj`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
