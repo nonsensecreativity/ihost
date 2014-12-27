@@ -72,7 +72,7 @@ if __name__ == '__main__':
         and userid in (select distinct(userid) from userlog) \
         and pntfactor < '1000' \
         and stat >= '100'"
-        print str_sql
+        #print str_sql
         try:
             cursor = cnx.cursor()
             cursor.execute(str_sql)
