@@ -62,12 +62,16 @@ if __name__ == '__main__':
         # if one mac appears in 30 days, all the userids bound to the mac is excluded 
         # if any mac bounded to one userid is not appeared in the last 30 days, pntfactor is reset to 1000
         str_sql = "update useraccounts set pntfactor='1000' \
-        where userid not in (select distinct(userid) from userlog \
+        where userid not in (select distinct(userid) from usermacs \
                           where mac in \
                                  (select distinct(mac)  from userlog \
                                  where mac<>'' and \
                                  action='pnt2user' and \
-                                 timestampdiff(day,rectime,now())<'" + gracetime + "'))"
+                                 timestampdiff(day,rectime,now())<'" + gracetime + "') \
+                          and stat >= '100') \
+        and userid in (select distinct(userid) from userlog) \
+        and pntfactor < '1000' \
+        and stat >= '100'"
         print str_sql
         try:
             cursor = cnx.cursor()
