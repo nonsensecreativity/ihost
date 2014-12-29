@@ -622,12 +622,15 @@ CREATE TABLE `prodorder` (	#
   `prodtype` varchar(36) DEFAULT NULL,	#	product type 
   `prodspec` varchar(36) DEFAULT NULL,	#	product specification
   `proddesp` varchar(36) DEFAULT NULL,	#	product description
+  `quan` decimal(10,2) DEFAULT NULL,	#	quantity of product
+  `unit` varchar(36) DEFAULT NULL,	#	unit of product
+  `pkg` varchar(36) DEFAULT NULL,	#	package of product
   `recipaddr` varchar(128) DEFAULT NULL,	#	recipient address
   `recipname` varchar(36) DEFAULT NULL,	#	recipient name
   `recipphone1` varchar(30) DEFAULT NULL,	#	recipient phone number #1
   `recipphone2` varchar(30) DEFAULT NULL,	#	recipient phone number #2
   `recipemail` varchar(64) DEFAULT NULL,	#	recipient phone email
-  `assignto` varchar(64) DEFAULT NULL,	#	processor of the order: iserver/local
+  `assignto` varchar(64) DEFAULT 'iserver',	#	processor of the order: iserver/local
   `delicode` varchar(36) DEFAULT NULL,	#	delivery code (link to delivery table)
   `delidesp` varchar(128) DEFAULT NULL,	#	delivery description
   `delimemo` varchar(128) DEFAULT NULL,	#	delivery memo
