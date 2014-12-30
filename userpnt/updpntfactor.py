@@ -17,7 +17,10 @@ if __name__ == '__main__':
     for node in dom.getElementsByTagName("userpnt"):
         step = node.getAttribute("step")
         firstseen = node.getAttribute("firstseen")
-
+        threshold = node.getAttribute("threshold")
+        fbottom = node.getAttribute("fbottom")
+        fceiling = node.getAttribute("fceiling")
+        gracetime = node.getAttribute("gracetime")
 
     # connection for mysqldb
     try:
@@ -29,10 +32,6 @@ if __name__ == '__main__':
         sys.exit(0)  
     
     timeinterval = 60
-    threshold = '60'
-    fbottom = '10'
-    fceiling = '1000'
-    gracetime = '30'
     
     for k in range(1, 60, timeinterval): # once erery 1 minutes
         print "loop " + str(k) +": "
