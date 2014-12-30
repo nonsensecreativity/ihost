@@ -1,4 +1,4 @@
 <config>
     <dbconn user="auth" pwd="authatussp" host="127.0.0.1" db="wlsp" />
-    <userpnt step="1" firstseen="60" stage="95" timefactor="3" threshold = "90" fbottom = "10" fceiling = "1000" gracetime = "30" />
+    <userpnt step="1" firstseen="60" stage="95" timefactor="3" threshold="90" fbottom="10" fceiling="1000" gracetime="30" />
 </config> 
