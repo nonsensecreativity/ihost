@@ -17,6 +17,8 @@ if __name__ == '__main__':
     for node in dom.getElementsByTagName("userpnt"):
         step = node.getAttribute("step")
         firstseen = node.getAttribute("firstseen")
+        stage = node.getAttribute("stage")
+        timefactor = node.getAttribute("timefactor")
 
 
     # connection for mysqldb
@@ -35,7 +37,11 @@ if __name__ == '__main__':
         upd_sql = "update userpoints set points = points + " +step +" , \
                 updtime = now() , \
                 action = 'sta2pnt' where \
-                mac in (select distinct replace(mac,':','-') from wlsta)"
+                mac in (select distinct replace(mac,':','-') from wlsta) \
+                and (  \
+                ( points <= '" + stage +  "' ) or \
+                ( points > '" + stage +  "' and  timestampdiff(minute,updtime,now()) > round(points/" + timefactor + ") )\
+                 )"
         #print upd_sql
         try:
             cursor = cnx.cursor()
