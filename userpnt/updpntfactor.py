@@ -29,7 +29,7 @@ if __name__ == '__main__':
         sys.exit(0)  
     
     timeinterval = 60
-    threshold = '120'
+    threshold = '60'
     fbottom = '10'
     fceiling = '1000'
     gracetime = '30'
@@ -37,12 +37,12 @@ if __name__ == '__main__':
     for k in range(1, 60, timeinterval): # once erery 1 minutes
         print "loop " + str(k) +": "
             
-        str_sql = "update useraccounts set pntfactor=round(pntfactor/2) \
+        str_sql = "update useraccounts set pntfactor=round(1.25*pntfactor/2) \
         where userid in ( \
             select userid from \
               (select userid,mac, sum(dintegral) as sumd,week(rectime) from userlog \
                       where mac<>'' and \
-                      action='pnt2user' and \
+                      (action='pnt2user' or action='pointToIntegral') and \
                       year(rectime)=year(now()) and week(rectime)=week(now())  \
                       group by userid,mac,week(rectime) order by mac,week(rectime) ) tbl1 \
             where sumd > '" + threshold  + "') \
@@ -66,7 +66,7 @@ if __name__ == '__main__':
                           where mac in \
                                  (select distinct(mac)  from userlog \
                                  where mac<>'' and \
-                                 action='pnt2user' and \
+                                 (action='pnt2user' or action='pointToIntegral') and \
                                  timestampdiff(day,rectime,now())<'" + gracetime + "') \
                           and stat >= '100') \
         and userid in (select distinct(userid) from userlog) \
