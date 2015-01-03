@@ -44,7 +44,7 @@ if __name__ == '__main__':
         sys.exit(0)  
     
   
-    timeinterval = interv1 # inner loop interval i
+    timeinterval = int(interv1) # inner loop interval i
 
     try:
         #for k in range(1, 60, timeinterval): # for loop 4 times erery minutes
