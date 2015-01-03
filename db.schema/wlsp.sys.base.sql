@@ -59,7 +59,7 @@ CREATE TABLE `authmac` (
   `stat` smallint DEFAULT NULL,
   `fromtime` datetime DEFAULT NULL,
   `lasting` int DEFAULT NULL,
-  `pushflag` smallint DEFAULT NULL,
+  `pushflag` smallint  DEFAULT NULL,
   `pushurl` varchar(127) DEFAULT NULL,
   `pushtime` int DEFAULT NULL,
   `cid` varchar(30) DEFAULT NULL,
@@ -426,7 +426,7 @@ CREATE TABLE `useraccounts` (	#
   `intid` varchar(30) DEFAULT NULL,	#	与phpyun的对应关系（记录学历等其他个人信息）
   `updtime` datetime DEFAULT NULL,	#	记录更新时间
   `rectime` datetime DEFAULT NULL,	#	记录时间
-  `pushflag` smallint DEFAULT '1',
+  `pushflag` smallint  unsigned DEFAULT '1',
   PRIMARY KEY (`id`),	#	
   KEY `userid` (`userid`),	#	
   KEY `phone` (`phone`), #	
@@ -458,7 +458,7 @@ CREATE TABLE `usermacs` (	#
   `progid` varchar(36) DEFAULT NULL, 	#	iserver字段
   `updtime` datetime DEFAULT NULL,	#	记录更新时间
   `rectime` datetime DEFAULT NULL,	#	记录时间
-  `pushflag` smallint DEFAULT '1',
+  `pushflag` smallint  unsigned DEFAULT '1',
   PRIMARY KEY (`id`),	#	
   KEY `userid` (`userid`),	#	
   KEY `usercode` (`usercode`),	#	
@@ -489,7 +489,7 @@ CREATE TABLE `useractive` (	#
   `progid` varchar(36) DEFAULT NULL, 	#	iserver字段
   `updtime` datetime DEFAULT NULL,	#	记录更新时间
   `rectime` datetime DEFAULT NULL,	#	记录时间
-  `pushflag` smallint DEFAULT '1',
+  `pushflag` smallint  unsigned DEFAULT '1',
   PRIMARY KEY (`id`),	#	
   KEY `userid` (`userid`),
   KEY `mac` (`mac`)
@@ -640,7 +640,7 @@ CREATE TABLE `prodorder` (	#
   `progid` varchar(36) DEFAULT NULL, 	#	iserver field
   `updtime` datetime DEFAULT NULL,	#	record updated time
   `rectime` datetime DEFAULT NULL,	#	record created time
-  `pushflag` smallint DEFAULT '1',
+  `pushflag` smallint  unsigned DEFAULT '1',
   PRIMARY KEY (`id`),	#	
   KEY `userid` (`userid`),	#	
   KEY `prodcode` (`prodcode`),	#	
