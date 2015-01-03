@@ -1,4 +1,16 @@
-﻿
+# tables,views not used on iserver (created in wlsp.sys.base.sql)
+DROP TABLE IF EXISTS `authblkmac`;
+DROP TABLE IF EXISTS `authnlist`;
+DROP TABLE IF EXISTS `actvrf`;
+DROP TABLE IF EXISTS `pushrurl`;
+DROP TABLE IF EXISTS `wlpkt`;
+DROP TABLE IF EXISTS `smspool`;
+DROP TABLE IF EXISTS `userpoints`;
+DROP TABLE IF EXISTS `userlog`;
+DROP TABLE IF EXISTS `userinfochk`;
+DROP VIEW IF EXISTS `viewaction`;
+DROP VIEW IF EXISTS `viewstation`;
+
 ## ----------------------------
 ## Table structure for ihostloc
 ## ----------------------------
