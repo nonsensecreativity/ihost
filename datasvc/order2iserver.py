@@ -66,7 +66,7 @@ if __name__ == '__main__':
                         break
 
             #prepare prodorder list
-            str_sql = "id, username, prodcode, prodname, \
+            str_sql = "select id, username, prodcode, prodname, \
             prodtype, prodspec, proddesp, quan, unit, pkg, \
             recipaddr,recipname, recipphone1, recipphone2, recipemail, \
             assignto, delicode, delidesp, delimemo, \
