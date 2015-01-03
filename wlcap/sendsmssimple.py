@@ -10,7 +10,12 @@ import gammu
 
 if __name__ == '__main__':
     
+    # wait mysql is ready
     time.sleep(45)
+    
+    #set default coding utf-8
+    reload(sys)
+    sys.setdefaultencoding('utf-8')
 
     #read configurations here
     dom = minidom.parse("configauth.xml")
@@ -107,8 +112,80 @@ if __name__ == '__main__':
                 print("select 'authsms' failed.")
                 print("Error: {}".format(err.args[1]))   
             finally:
-                cursor.close()          
+                cursor.close()         
+               
+            # check & receive sms
+            mlocation = '0'
+            mfolder = '0'
+            sms = ['']
+            start = True
+            while True: # while loop
+                #print "inner loop"
+                try :
+                    if start:
+                        #print "start---"
+                        sms = sm.GetNextSMS(Start = True, Folder=0)
+                        start = False
+                    else:
+                        #print "else---"
+                        sms = sm.GetNextSMS(Location = sms[0]['Location'], Folder=0)
+                        #be careful sometimes Location is directly in the hash so you'll have to remove the [0]
+                except gammu.ERR_EMPTY:
+                    #print "empty"
+                    break
+                except :
+                    #print "except"
+                    pass
+                #print "Location:%s\t State:%s\t Folder:%s\t Text:%s" % (sms[0]['Location'],sms[0]['State'],sms[0]['Folder'],sms[0]['Text'])
+
+                try:
+                    if len(sms) > 0 :
+                        #print sms
+                        mlocation = str(sms[0]['Location'])
+                        mfolder = str(sms[0]['Folder'])
+                        #print mlocation
+                        if sms[0]['Coding'] <> '8bit':
+                            print "... insert loop"
+                            phone = sms[0]['Number']
+                            msgtime = sms[0]['DateTime'].strftime( '%Y-%m-%d %H:%M:%S' )
+                            try :
+                                msg = sms[0]['Text'].encode('utf-8')
+                            except :
+                                msg = sms[0]['Text']
+                            #prepare sms list
+                            str_sql = "insert into smsrcv set \
+                                msg = '" + msg +"', \
+                                phone = '" + phone +"', \
+                                msgtime = '" + msgtime +"', \
+                                mlocation = '" + mlocation + "', \
+                                mfolder = '" + mfolder + "', \
+                                rectime = now()"
+                            #print str_sql
+                            try:
+                                cursor = cnx.cursor()
+                                cursor.execute(str_sql)
+                                cnx.commit()
                     
+                            except MySQLdb.Error as err:
+                                print("insert 'smsrcv' failed.")
+                                print("Error: {}".format(err.args[1]))   
+                            finally:
+                                cursor.close()              
+                except :
+                    #print "except"
+                    pass
+
+
+            # delete sms from stick
+            #print mlocation
+            try :
+                x = int(mlocation)
+                for x in range(int(mlocation),0,-1):
+                    sm.DeleteSMS(int(mfolder), x)
+                    print "......... delete loop" + str(x)      
+            except :
+                pass
+                                        
             time.sleep(timeinterval)
             
     except KeyboardInterrupt as err:
