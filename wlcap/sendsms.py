@@ -55,7 +55,7 @@ if __name__ == '__main__':
             strnow = str(datetime.datetime.now())
             print "loop " #+ str(k) +": "
             #prepare sms list
-            str_sql = "select distinct msgid,phone from authsms where \
+            str_sql = "select distinct msgtype,phone from authsms where \
                 TIMESTAMPDIFF(SECOND, rectime, '"+ strnow +"') < '" + str(overtime) + "' \
                 and stat*optflag = '0'  \
                 and phone <> '' \
@@ -68,15 +68,15 @@ if __name__ == '__main__':
                 cursor = cnx.cursor()
                 cursor.execute(str_sql)
                 cnx.commit()
-                for (msgid, phone) in cursor:
+                for (msgtype, phone) in cursor:
                     #print phone
-                    #print msgid
+                    #print msgtype
                     #get latest message
                     sms =""
                     str_sql = "select CONCAT(prefix,sms,postfix) as smsmix from authsms where \
                         TIMESTAMPDIFF(SECOND, rectime, '"+ strnow +"') < '" + str(overtime) + "' \
                         and phone ='" + str(phone) + "' \
-                        and msgid ='" + str(msgid) + "' \
+                        and msgtype ='" + str(msgtype) + "' \
                         and stat*optflag = '0'  \
                         and sms <> ''  \
                         and sms is not null \
@@ -124,7 +124,7 @@ if __name__ == '__main__':
                     str_sql = "update authsms set stat = stat + 1 , \
                     sendtime = now(), optflag = " + optflag + "  \
                     where phone = '" + str(phone) +"' \
-                    and msgid = '" + str(msgid) +"' \
+                    and msgtype = '" + str(msgtype) +"' \
                     and TIMESTAMPDIFF(SECOND, rectime, '"+ strnow +"') < '" + str(overtime) +"'"
                     #print str_sql
                     try:
