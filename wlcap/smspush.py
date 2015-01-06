@@ -63,7 +63,7 @@ if __name__ == '__main__':
                     cnx.commit()
                     for (mac, phone, userid) in cursor1:
                         chk_str = "select id from authsms where \
-                        msgid = '" + str(r[0]) + "' and \
+                        msgtype = '" + str(r[0]) + "' and \
                         mac = '" + mac + "' and \
                         phone = '" + phone +"'"
                         #print  chk_str
@@ -94,7 +94,7 @@ if __name__ == '__main__':
                                 ins_str = "insert into authsms set \
                             mac = '" + mac + "', \
                             phone = '" + phone +"',\
-                            msgid = '" + str(r[0]) + "',  \
+                            msgtype = '" + str(r[0]) + "',  \
                             prefix = '" + userinfo[2] + "@" + strtime +": " + r[1] +  "', \
                             sms = '" + r[2] + "', \
                             postfix = '" + r[3] + "', \

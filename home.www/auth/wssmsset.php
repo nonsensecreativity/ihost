@@ -1,7 +1,7 @@
 <?php
 
     $sql = "  insert into authsms set sms = '"  . $msg  . 
-           "',  msgid = '" . $msg  .
+           "',  msgtype = '" . $msg  .
            "',  mac = '" . $_GET['mac'] .
            "',  ip = '" . $_GET['ip'] .
            "',  phone = '" . $_POST['sphone'] .
