@@ -85,7 +85,7 @@ DROP TABLE IF EXISTS `authsms`;
 CREATE TABLE `authsms` (
   `id` int NOT NULL AUTO_INCREMENT,
   `srcid` int DEFAULT NULL,
-  `msgid` varchar(64) DEFAULT NULL,
+  `msgtype` varchar(64) DEFAULT NULL,
   `prefix` varchar(64) DEFAULT '',
   `sms` varchar(128) DEFAULT NULL,
   `postfix` varchar(64) DEFAULT '',
