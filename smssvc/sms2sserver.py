@@ -45,7 +45,7 @@ if __name__ == '__main__':
   
     timeinterval = 1 # inner loop interval i
     overtime = 180 # ignore overtime messages
-    maxretry = 3 #maximun retries for a given phone number
+    maxretry = 10 #maximun retries for a given phone number
 
     # scriptname & macaddress
     progid = os.path.basename(__file__)
@@ -72,7 +72,8 @@ if __name__ == '__main__':
             str_sql = "select id, prefix, sms, postfix, phone, rectime from authsms where \
                 TIMESTAMPDIFF(SECOND, rectime, '"+ strnow +"') < '" + str(overtime) + "' \
                 and stat*optflag = '0'  \
-                and sms <> ''  \
+                and CONCAT(prefix,sms,postfix) <> ''  \
+                and phone <> '' \
                 and stat < '" + str(maxretry) +"' order by id"
 
             #print str_sql
