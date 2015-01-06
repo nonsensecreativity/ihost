@@ -1,0 +1,5 @@
+<config>
+    <dbconn user="auth" pwd="authatussp" host="127.0.0.1" db="wlsp" />
+    <smsremote uri="http://221.239.107.13:8080/authsms" tzone=".000+0800" />
+</config>
+
