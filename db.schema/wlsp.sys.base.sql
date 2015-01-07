@@ -627,7 +627,7 @@ CREATE TABLE `prodorder` (	#
   `pkg` varchar(36) DEFAULT NULL,	#	package of product
   `recipaddr` varchar(128) DEFAULT NULL,	#	recipient address
   `recipname` varchar(36) DEFAULT NULL,	#	recipient name
-  `recipphone1` varchar(30) DEFAULT NULL,	#	recipient phone number #1
+  `recipphone1` varchar(30) NOT NULL,	#	recipient phone number #1
   `recipphone2` varchar(30) DEFAULT NULL,	#	recipient phone number #2
   `recipemail` varchar(64) DEFAULT NULL,	#	recipient phone email
   `assignto` varchar(64) DEFAULT 'iserver',	#	processor of the order: iserver/local
