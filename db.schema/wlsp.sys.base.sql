@@ -631,7 +631,7 @@ CREATE TABLE `prodorder` (	#
   `recipphone2` varchar(30) DEFAULT NULL,	#	recipient phone number #2
   `recipemail` varchar(64) DEFAULT NULL,	#	recipient phone email
   `assignto` varchar(64) DEFAULT 'iserver',	#	processor of the order: iserver/local
-  `delicode` varchar(36) DEFAULT NULL,	#	delivery code (link to delivery table)
+  `delicode` varchar(36) NULL UNIQUE,	#	delivery code (link to delivery table)
   `delidesp` varchar(128) DEFAULT NULL,	#	delivery description
   `delimemo` varchar(128) DEFAULT NULL,	#	delivery memo
   `srcip` varchar(64) DEFAULT NULL,	#	iserver field
