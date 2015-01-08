@@ -643,6 +643,5 @@ CREATE TABLE `prodorder` (	#
   `pushflag` smallint  unsigned DEFAULT '1',
   PRIMARY KEY (`id`),	#	
   KEY `userid` (`userid`),	#	
-  KEY `prodcode` (`prodcode`),	#	
-  KEY `delicode` (`delicode`)
+  KEY `prodcode` (`prodcode`)	#	
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;	
