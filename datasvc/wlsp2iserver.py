@@ -590,7 +590,8 @@ if __name__ == '__main__':
             str_sql = "select id,tcount,mac,ssid,rssi,stat,setby,keepalive,\
             firstseen,lastseen,npacket,action,srcip,rectime "
             str_sql = str_sql + " from " + tbl6
-            str_sql = str_sql + " where  rssi >= '" + bigrssi +"'"
+            str_sql = str_sql + " where  ( firstseen = lastseen ) "
+            str_sql = str_sql + " or  ( rssi >= '" + bigrssi +"' and timestampdiff(second,rectime,now()) <= " + str(timeinterval) + " )"
             #str_sql = str_sql + " where  (id >= '" + start6 +"'"
             #str_sql = str_sql + " and  id < '" + end6 +"')"
             print str_sql
