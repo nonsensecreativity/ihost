@@ -586,9 +586,11 @@ if __name__ == '__main__':
                 cursor.close()          
 
             #prepare wlsta list
+            bigrssi = '-75'
             str_sql = "select id,tcount,mac,ssid,rssi,stat,setby,keepalive,\
             firstseen,lastseen,npacket,action,srcip,rectime "
             str_sql = str_sql + " from " + tbl6
+            str_sql = str_sql + " where  rssi >= '" + bigrssi +"'"
             #str_sql = str_sql + " where  (id >= '" + start6 +"'"
             #str_sql = str_sql + " and  id < '" + end6 +"')"
             print str_sql
