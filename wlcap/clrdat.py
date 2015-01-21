@@ -26,14 +26,14 @@ if __name__ == '__main__':
         sys.exit(0)  
 
     #wait for mysql server is ready 
-    time.sleep(45)
+    #time.sleep(45)
 
     clrwlpkt = 168
     clractvst = 1440
     
     # remove user from wlpkt 
-    str_sql = "delete from wlpkt where \
-        timestampdiff(hour,rectime,now())> '" + str(clrwlpkt)+ "'"
+    str_sql = "select from wlact where \
+        timestampdiff(minute,rectime,now())> '" + str(clrwlpkt)+ "'"
     #print str_sql
     try:
         cursor = cnx.cursor()
