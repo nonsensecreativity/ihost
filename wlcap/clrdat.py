@@ -26,7 +26,7 @@ if __name__ == '__main__':
         sys.exit(0)  
 
     #wait for mysql server is ready 
-    time.sleep(45)
+    time.sleep(120)
 
     clrwlpkt = 168
     clractvst = 1440
