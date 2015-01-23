@@ -130,7 +130,7 @@ if __name__ == '__main__':
             useremail1,useremail2,fname,lname,userrole,usertype,\
             integral,pntfactor,byear,bmonth,bday,gender,occup,orgn,\
             title,cid,ctype,regphone,phone,address,location,memo,updtime,rectime,\
-            pushflag "
+            pushflag,stat "
             str_sql = str_sql + " from " + tbl1
             str_sql = str_sql + " where  pushflag >= '1'"
             #print str_sql
@@ -186,7 +186,7 @@ if __name__ == '__main__':
                     payload = payload + '"address":' + ('null' if datarow[25] == None else ('"' + str(datarow[25]) +'"') ) + ','
                     payload = payload + '"location":' + ('null' if datarow[26] == None else ('"' + str(datarow[26]) +'"') ) + ','
                     payload = payload + '"action":' + 'null' + ','
-                    payload = payload + '"stat":' + 'null' + ','
+                    payload = payload + '"stat":' + ('null' if datarow[31] == None else ('"' + str(datarow[31]) +'"') ) + ','
                     payload = payload + '"open1":' + 'null' + ','
                     payload = payload + '"open2":' + 'null' + ','
                     payload = payload + '"smscheck":' + 'null' + ','
@@ -231,7 +231,7 @@ if __name__ == '__main__':
 
             #prepare usermacs list
             str_sql = "select id,userid,srcnode,usercode,mac,phone,userrole,\
-            pntmaster,memo,updtime,rectime,pushflag "
+            pntmaster,memo,updtime,rectime,pushflag,stat "
             str_sql = str_sql + " from " + tbl2
             str_sql = str_sql + " where  pushflag >= '1'"
             #print str_sql
@@ -261,7 +261,7 @@ if __name__ == '__main__':
                     payload = payload + '"usercode":' + ('null' if datarow[3] == None else ('"' + str(datarow[3]) +'"') ) + ','
                     payload = payload + '"mac":' + ('null' if datarow[4] == None else ('"' + str(datarow[4]) +'"') ) + ','
                     payload = payload + '"phone":' + ('null' if datarow[5] == None else ('"' + str(datarow[5]) +'"') ) + ','
-                    payload = payload + '"stat":' + 'null' + ','
+                    payload = payload + '"stat":' + ('null' if datarow[12] == None else ('"' + str(datarow[12]) +'"') ) + ','
                     payload = payload + '"dft":' + 'null' + ','
                     payload = payload + '"prio":' + 'null' + ','
                     payload = payload + '"userrole":' + ('null' if datarow[6] == None else ('"' + str(datarow[6]) +'"') ) + ','
