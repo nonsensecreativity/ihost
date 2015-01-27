@@ -35,15 +35,83 @@ if __name__ == '__main__':
         print("Error Opening mysql")
         sys.exit(0)  
     
+
     # Connect to phone
     try:    
         # Create state machine object
         sm = gammu.StateMachine()
-        sm.ReadConfig() # Read ~/.gammurc
-        sm.Init()
+        sm.ReadConfig(Filename = "/root/.gammurcusb2") # Read ~/.gammurc
+        try:  
+            sm.Init()
+        except Exception,e:
+            
+            print e   
+            sm.ReadConfig(Filename = "/root/.gammurcusb0") # Read ~/.gammurc
+            try:  
+                sm.Init()
+            except Exception,e:
+                
+                print e               
+                sm.ReadConfig(Filename = "/root/.gammurcusb1") # Read ~/.gammurc
+                try:  
+                    sm.Init()
+                except Exception,e:
+                    
+                    print e   
+                    
+                    sm.ReadConfig(Filename = "/root/.gammurcusb3") # Read ~/.gammurc
+                    try:  
+                        sm.Init()
+                    except Exception,e:
+                        
+                        print e   
+                    
+                        sm.ReadConfig(Filename = "/root/.gammurcusb4") # Read ~/.gammurc
+                        try:  
+                            sm.Init()
+                        except Exception,e:
+                            
+                            print e   
+
+                            sm.ReadConfig(Filename = "/root/.gammurcusb5") # Read ~/.gammurc
+                            try:  
+                                sm.Init()
+                            except Exception,e:
+                                
+                                print e   
+                    
+                                sm.ReadConfig(Filename = "/root/.gammurcusb6") # Read ~/.gammurc
+                                try:  
+                                    sm.Init()
+                                except Exception,e:
+                                    
+                                    print e   
+ 
+                                    sm.ReadConfig(Filename = "/root/.gammurcusb7") # Read ~/.gammurc
+                                    try:  
+                                        sm.Init()
+                                    except Exception,e:
+                                        
+                                        print e   
+                    
+                                        sm.ReadConfig(Filename = "/root/.gammurcusb8") # Read ~/.gammurc
+                                        try:  
+                                            sm.Init()
+                                        except Exception,e:
+                                            
+                                            print e   
+ 
+                                            sm.ReadConfig(Filename = "/root/.gammurcusb9") # Read ~/.gammurc
+                                            try:  
+                                                sm.Init()
+                                            except Exception,e:
+                                                
+                                                print e    
+                    
     except Exception,e:
         print e
         sys.exit(0) 
+  
     
     timeinterval = 1 # inner loop interval i
     overtime = 180 # ignore overtime messages
