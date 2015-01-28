@@ -107,9 +107,9 @@ if __name__ == '__main__':
         if not cursor.rowcount:
             ins_str = "insert into smspool set \
                 msgtype = '" + 'greeting-2-' + strdate + "', \
-                prefix = '" +  '试试手气！访问' + "', \
+                prefix = '" +  '试试手气！' + "', \
                 sms = '"+ strurl + "',  \
-                postfix = '" + ' 得积分兑彩票' +"',  \
+                postfix = '" + '得积分兑彩票' +"',  \
                 cnduserrole = '0', \
                 cndfromtime = '" + strdate + " 06:00:00', \
                 cndtotime = '" + strdate + " 23:00:00', \
