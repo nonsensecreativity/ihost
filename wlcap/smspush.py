@@ -103,7 +103,7 @@ if __name__ == '__main__':
                                 strsms = r[2]
                                 strpostfix = r[3]
                                 if r[0][0:10] == 'greeting-2' :  
-                                    strsms = strsms + '?' + quote(base64.encodestring('tk='+mac))
+                                    strsms = strsms + '?x=' + quote(base64.encodestring(mac))
                                 ins_str = "insert into authsms set \
                             mac = '" + mac + "', \
                             phone = '" + phone +"',\

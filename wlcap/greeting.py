@@ -38,7 +38,7 @@ if __name__ == '__main__':
 
     strssid = 'Matrix'
     stroperator = '13701272752'
-    strurl = 'http://172.16.0.1/x.php'
+    strurl = 'http://mtxwifi.net/x.php'
     
  
     # greeting message #1
@@ -52,9 +52,9 @@ if __name__ == '__main__':
         if not cursor.rowcount:
             ins_str = "insert into smspool set \
                 msgtype = '" + 'greeting-1-' + strdate + "', \
-                prefix = '" +  '欢迎使用Matrix Wifi！ 请打开手机无线网络，连接' + "', \
+                prefix = '" +  '欢迎使用Matrix Wifi， 请打开手机无线网络，连接' + "', \
                 sms = '"+ strssid + "',  \
-                postfix = '" + ' ，并输入Internet网址。 服务电话 ' + stroperator+"',  \
+                postfix = '" + ' ，开浏览器签到上网。 服务电话 ' + stroperator+"',  \
                 cnduserrole = '0', \
                 cndfromtime = '" + strdate + " 06:00:00', \
                 cndtotime = '" + strdate + " 23:00:00', \
