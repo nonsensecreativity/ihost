@@ -40,37 +40,38 @@ if __name__ == '__main__':
     stroperator = '13701272752'
     strurl = 'http://172.16.0.1/hug.php'
     
-    if strhour == '06':
-        # greeting message
-        str_sql = "select msgtype from smspool where \
-            msgtype like 'greeting-1%' order by id desc limit 1"
-        #print str_sql
-        try:
-            cursor = cnx.cursor()
-            cursor.execute(str_sql)
-            cnx.commit()
-            if not cursor.rowcount:
-                ins_str = "insert into smspool set \
-                    msgtype = '" + 'greeting-1-' + strdate + "', \
-                    prefix = '" +  '欢迎使用Matrix Wifi！ 请打开手机无线网络，连接' + "', \
-                    sms = '"+ strssid + "',  \
-                    postfix = '" + ' ，并输入Internet网址。 服务电话 ' + stroperator+"',  \
-                    cnduserrole = '0', \
-                    cndfromtime = '" + strdate + " 06:00:00', \
-                    cndtotime = '" + strdate + " 23:00:00', \
-                    updtime = now(), \
-                    rectime = now()" 
-                #print  ins_str
-                try:
-                    cursor1 = cnx.cursor()
-                    cursor1.execute(ins_str)
-                    cnx.commit()
-                except MySQLdb.Error as err:
-                    print("insert into 'smspool' failed.")
-                    print("Error: {}".format(err.args[1]))   
-                finally:
-                    cursor1.close()
-            else:
+ 
+    # greeting message #1
+    str_sql = "select msgtype from smspool where \
+        msgtype like 'greeting-1%' order by id desc limit 1"
+    #print str_sql
+    try:
+        cursor = cnx.cursor()
+        cursor.execute(str_sql)
+        cnx.commit()
+        if not cursor.rowcount:
+            ins_str = "insert into smspool set \
+                msgtype = '" + 'greeting-1-' + strdate + "', \
+                prefix = '" +  '欢迎使用Matrix Wifi！ 请打开手机无线网络，连接' + "', \
+                sms = '"+ strssid + "',  \
+                postfix = '" + ' ，并输入Internet网址。 服务电话 ' + stroperator+"',  \
+                cnduserrole = '0', \
+                cndfromtime = '" + strdate + " 06:00:00', \
+                cndtotime = '" + strdate + " 23:00:00', \
+                updtime = now(), \
+                rectime = now()" 
+            #print  ins_str
+            try:
+                cursor1 = cnx.cursor()
+                cursor1.execute(ins_str)
+                cnx.commit()
+            except MySQLdb.Error as err:
+                print("insert into 'smspool' failed.")
+                print("Error: {}".format(err.args[1]))   
+            finally:
+                cursor1.close()
+        else:
+            if strhour == '06':
                 msgtype = cursor.fetchone()[0]
                 if msgtype != 'greeting-1-' + strdate:
                     upd_str = "update smspool set \
@@ -89,42 +90,43 @@ if __name__ == '__main__':
                         print("Error: {}".format(err.args[1]))   
                     finally:
                         cursor1.close()            
-        except MySQLdb.Error as err:
-            print("select 'smspool - greeting-1' failed.")
-            print("Error: {}".format(err.args[1]))   
-        finally:
-            cursor.close()              
+    except MySQLdb.Error as err:
+        print("select 'smspool - greeting-1' failed.")
+        print("Error: {}".format(err.args[1]))   
+    finally:
+        cursor.close()              
     
-        # greeting message
-        str_sql = "select msgtype from smspool where \
-            msgtype like 'greeting-2%' order by id desc limit 1"
-        #print str_sql
-        try:
-            cursor = cnx.cursor()
-            cursor.execute(str_sql)
-            cnx.commit()
-            if not cursor.rowcount:
-                ins_str = "insert into smspool set \
-                    msgtype = '" + 'greeting-2-' + strdate + "', \
-                    prefix = '" +  '请访问' + "', \
-                    sms = '"+ strurl + "',  \
-                    postfix = '" + ' 看看今天的手气！' +"',  \
-                    cnduserrole = '0', \
-                    cndfromtime = '" + strdate + " 06:00:00', \
-                    cndtotime = '" + strdate + " 23:00:00', \
-                    updtime = now(), \
-                    rectime = now()" 
-                #print  ins_str
-                try:
-                    cursor1 = cnx.cursor()
-                    cursor1.execute(ins_str)
-                    cnx.commit()
-                except MySQLdb.Error as err:
-                    print("insert into 'smspool' failed.")
-                    print("Error: {}".format(err.args[1]))   
-                finally:
-                    cursor1.close()
-            else:
+    # greeting message #2
+    str_sql = "select msgtype from smspool where \
+        msgtype like 'greeting-2%' order by id desc limit 1"
+    #print str_sql
+    try:
+        cursor = cnx.cursor()
+        cursor.execute(str_sql)
+        cnx.commit()
+        if not cursor.rowcount:
+            ins_str = "insert into smspool set \
+                msgtype = '" + 'greeting-2-' + strdate + "', \
+                prefix = '" +  '请访问' + "', \
+                sms = '"+ strurl + "',  \
+                postfix = '" + ' 看看今天的手气！' +"',  \
+                cnduserrole = '0', \
+                cndfromtime = '" + strdate + " 06:00:00', \
+                cndtotime = '" + strdate + " 23:00:00', \
+                updtime = now(), \
+                rectime = now()" 
+            #print  ins_str
+            try:
+                cursor1 = cnx.cursor()
+                cursor1.execute(ins_str)
+                cnx.commit()
+            except MySQLdb.Error as err:
+                print("insert into 'smspool' failed.")
+                print("Error: {}".format(err.args[1]))   
+            finally:
+                cursor1.close()
+        else:
+            if strhour == '06':
                 msgtype = cursor.fetchone()[0]
                 if msgtype != 'greeting-2-' + strdate:
                     upd_str = "update smspool set \
@@ -143,9 +145,9 @@ if __name__ == '__main__':
                         print("Error: {}".format(err.args[1]))   
                     finally:
                         cursor1.close()            
-        except MySQLdb.Error as err:
-            print("select 'smspool - greeting-2' failed.")
-            print("Error: {}".format(err.args[1]))   
-        finally:
-            cursor.close()              
+    except MySQLdb.Error as err:
+        print("select 'smspool - greeting-2' failed.")
+        print("Error: {}".format(err.args[1]))   
+    finally:
+        cursor.close()              
     
