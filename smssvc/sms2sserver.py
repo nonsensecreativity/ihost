@@ -7,6 +7,7 @@ import MySQLdb,  datetime, time
 import subprocess
 #import gammu
 import requests, json
+from urllib import quote
 
 
 if __name__ == '__main__':
@@ -100,9 +101,9 @@ if __name__ == '__main__':
                             payload = '{'
                             payload = payload + '"id":' + '0' + ','
                             payload = payload + '"srcid":' + ('null' if msgid == None else ('"' + str(msgid) +'"') ) +  ','
-                            payload = payload + '"prefix":' + ('null' if msgprefix == None else ('"' + str(msgprefix) +'"') )  + ','
-                            payload = payload + '"sms":' + ('null' if msgsms == None else ('"' + str(msgsms) +'"') ) + ','
-                            payload = payload + '"postfix":' + ('null' if msgpostfix == None else ('"' + str(msgpostfix) +'"') ) + ','
+                            payload = payload + '"prefix":' + quote(('null' if msgprefix == None else ('"' + str(msgprefix) +'"') ))  + ','
+                            payload = payload + '"sms":' + quote(('null' if msgsms == None else ('"' + str(msgsms) +'"') )) + ','
+                            payload = payload + '"postfix":' + quote(('null' if msgpostfix == None else ('"' + str(msgpostfix) +'"') )) + ','
                             payload = payload + '"mac":' + 'null' + ','
                             payload = payload + '"ip":' + 'null' + ','
                             payload = payload + '"phone":' + ('"' + str(msgphone) +'"')  + ','
