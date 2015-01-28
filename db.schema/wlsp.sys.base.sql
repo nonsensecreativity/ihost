@@ -502,7 +502,7 @@ CREATE TABLE `useractive` (	#
 DROP TABLE IF EXISTS `smspool`;
 CREATE TABLE `smspool` (
   `id` int NOT NULL AUTO_INCREMENT, 
-  `msgid` varchar(64) DEFAULT NULL, #短信id
+  `msgtype` varchar(64) DEFAULT NULL, #短信type
   `prefix` varchar(64) DEFAULT '', #短信前缀
   `sms` varchar(128) DEFAULT NULL, #短信内容
   `postfix` varchar(64) DEFAULT '', #短信后缀
