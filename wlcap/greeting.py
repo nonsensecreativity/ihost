@@ -38,7 +38,7 @@ if __name__ == '__main__':
 
     strssid = 'Matrix'
     stroperator = '13701272752'
-    strurl = 'http://172.16.0.1/hug.php'
+    strurl = 'http://172.16.0.1/x.php'
     
  
     # greeting message #1
