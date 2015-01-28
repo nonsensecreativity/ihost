@@ -5,6 +5,7 @@ import os, sys, time, traceback, pexpect
 import xml.dom.minidom as minidom
 import MySQLdb,  datetime, time
 import base64
+from urllib import quote
 
 if __name__ == '__main__':
     
@@ -101,8 +102,8 @@ if __name__ == '__main__':
                                 strprefix = r[1]
                                 strsms = r[2]
                                 strpostfix = r[3]
-                                if msgtype[0:10] == 'greeting-1' :  
-                                    strsms = strsms + '?' + base64.encodestring('tk='+mac)
+                                if r[0][0:10] == 'greeting-2' :  
+                                    strsms = strsms + '?' + quote(base64.encodestring('tk='+mac))
                                 ins_str = "insert into authsms set \
                             mac = '" + mac + "', \
                             phone = '" + phone +"',\

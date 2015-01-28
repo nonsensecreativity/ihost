@@ -50,11 +50,11 @@ if __name__ == '__main__':
             cursor.execute(str_sql)
             cnx.commit()
             if not cursor.rowcount:
-                ins_str1 = "insert into smspool set \
+                ins_str = "insert into smspool set \
                     msgtype = '" + 'greeting-1-' + strdate + "', \
-                    prefix = '" +  '欢迎使用Matrix Wifi！ 请打开WIFI，连接' + "', \
-                    sms = '"+ strssid + ",  \
-                    postfix = '" + '。使用中如遇到问题请拨打 ' + stroperator+"',  \
+                    prefix = '" +  '欢迎使用Matrix Wifi！ 请打开手机无线网络，连接' + "', \
+                    sms = '"+ strssid + "',  \
+                    postfix = '" + ' ，并输入Internet网址。 服务电话 ' + stroperator+"',  \
                     cnduserrole = '0', \
                     cndfromtime = '" + strdate + " 06:00:00', \
                     cndtotime = '" + strdate + " 23:00:00', \
@@ -104,11 +104,11 @@ if __name__ == '__main__':
             cursor.execute(str_sql)
             cnx.commit()
             if not cursor.rowcount:
-                ins_str1 = "insert into smspool set \
+                ins_str = "insert into smspool set \
                     msgtype = '" + 'greeting-2-' + strdate + "', \
                     prefix = '" +  '请访问' + "', \
-                    sms = '"+ strurl + ",  \
-                    postfix = '" + ' 试试今天的手气、免费得彩票 ' +"',  \
+                    sms = '"+ strurl + "',  \
+                    postfix = '" + ' 看看今天的手气！' +"',  \
                     cnduserrole = '0', \
                     cndfromtime = '" + strdate + " 06:00:00', \
                     cndtotime = '" + strdate + " 23:00:00', \
