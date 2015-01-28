@@ -4,8 +4,13 @@
 import os, sys, time, traceback, pexpect
 import xml.dom.minidom as minidom
 import MySQLdb,  datetime, time
+import base64
 
 if __name__ == '__main__':
+    
+    #set default coding utf-8
+    reload(sys)
+    sys.setdefaultencoding('utf-8')
     
     #read configurations here
     dom = minidom.parse("configauth.xml")
@@ -30,7 +35,7 @@ if __name__ == '__main__':
     for k in range(1, 60, timeinterval): # 12 times erery minutes
         print "loop " + str(k) +": "
 
-        str_sql = "select msgid,prefix,sms,postfix, \
+        str_sql = "select msgtype,prefix,sms,postfix, \
              cndmacfirst,cndmacstay,cndpagefirst,cndpagestay, \
              cndonsite,cndonline,cnduserrole from smspool where \
              stat='100' and \
@@ -73,7 +78,7 @@ if __name__ == '__main__':
                             cursor2.execute(chk_str)
                             cnx.commit()
                                             
-                            if not cursor2.rowcount: # msgid + mac +phone not in authsms
+                            if not cursor2.rowcount: # msgtype + mac +phone not in authsms
                                 sel_str = "select userid,fname,lname from useraccounts where\
                             userid = '" + userid + "'"
                                 #print  sel_str
@@ -84,20 +89,27 @@ if __name__ == '__main__':
                                     cnx.commit()
                                     if cursor3.rowcount:
                                         userinfo = cursor3.fetchone()
-                                        #print userinfo
+                                        #print userinfo, userinfo[0],userinfo[1],userinfo[2]
                                 except MySQLdb.Error as err:
                                     print("select 'useraccounts' failed.")
                                     print("Error: {}".format(err.args[1]))   
                                 finally:
                                     cursor3.close()                                
-                            
+                                #strprefix = '欢迎光临！'.encode('utf8')
+                                #strcontent = '请搜索并连接Matrix Wifi, 打开 '.encode('utf8')
+                                #strpostfix = ' 查看最新积分、试试今天的手气！ [客服电话 13701272752]'.encode('utf8')
+                                strprefix = r[1]
+                                strsms = r[2]
+                                strpostfix = r[3]
+                                if msgtype[0:10] == 'greeting-1' :  
+                                    strsms = strsms + '?' + base64.encodestring('tk='+mac)
                                 ins_str = "insert into authsms set \
                             mac = '" + mac + "', \
                             phone = '" + phone +"',\
                             msgtype = '" + str(r[0]) + "',  \
-                            prefix = '" + userinfo[2] + "@" + strtime +": " + r[1] +  "', \
-                            sms = '" + r[2] + "', \
-                            postfix = '" + r[3] + "', \
+                            prefix = '" + strprefix +  "', \
+                            sms = '" + strsms  +"', \
+                            postfix = '" + strpostfix + "', \
                             stat = '0', \
                             rectime = now()"
                                 #print  ins_str

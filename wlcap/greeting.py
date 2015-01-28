@@ -36,22 +36,28 @@ if __name__ == '__main__':
     strdate = time.strftime('%Y-%m-%d',time.localtime(time.time()))
     strhour = time.strftime('%H',time.localtime(time.time()))
 
+    strssid = 'Matrix'
+    stroperator = '13701272752'
+    strurl = 'http://172.16.0.1/hug.php'
+    
     if strhour == '06':
-        # morning message
-        str_sql = "select msgid from smspool where \
-            msgid like 'morning%' order by id desc limit 1"
+        # greeting message
+        str_sql = "select msgtype from smspool where \
+            msgtype like 'greeting-1%' order by id desc limit 1"
         #print str_sql
         try:
             cursor = cnx.cursor()
             cursor.execute(str_sql)
             cnx.commit()
             if not cursor.rowcount:
-                ins_str = "insert into smspool set \
-                    msgid = '" + 'morning-' + strdate + "', \
-                    sms = '" +  "开始上班啦" + "',  \
-                    cnduserrole = '100', \
+                ins_str1 = "insert into smspool set \
+                    msgtype = '" + 'greeting-1-' + strdate + "', \
+                    prefix = '" +  '欢迎使用Matrix Wifi！ 请打开WIFI，连接' + "', \
+                    sms = '"+ strssid + ",  \
+                    postfix = '" + '。使用中如遇到问题请拨打 ' + stroperator+"',  \
+                    cnduserrole = '0', \
                     cndfromtime = '" + strdate + " 06:00:00', \
-                    cndtotime = '" + strdate + " 09:00:00', \
+                    cndtotime = '" + strdate + " 23:00:00', \
                     updtime = now(), \
                     rectime = now()" 
                 #print  ins_str
@@ -65,14 +71,14 @@ if __name__ == '__main__':
                 finally:
                     cursor1.close()
             else:
-                msgid = cursor.fetchone()[0]
-                if msgid != 'morning-' + strdate:
+                msgtype = cursor.fetchone()[0]
+                if msgtype != 'greeting-1-' + strdate:
                     upd_str = "update smspool set \
-                        msgid = '" + "morning-" + strdate + "',  \
+                        msgtype = '" + "greeting-1-" + strdate + "',  \
                         cndfromtime = '" + strdate + " 06:00:00', \
-                        cndtotime = '" + strdate + " 09:00:00', \
+                        cndtotime = '" + strdate + " 23:00:00', \
                         updtime = now() \
-                        where msgid = '" + msgid + "'" 
+                        where msgtype = '" + msgtype + "'" 
                     #print  upd_str
                     try:
                         cursor1 = cnx.cursor()
@@ -84,26 +90,28 @@ if __name__ == '__main__':
                     finally:
                         cursor1.close()            
         except MySQLdb.Error as err:
-            print("select 'smspool - morining' failed.")
+            print("select 'smspool - greeting-1' failed.")
             print("Error: {}".format(err.args[1]))   
         finally:
             cursor.close()              
     
-    elif strhour == '12':
-        str_sql = "select msgid from smspool where \
-            msgid like 'noon%' order by id desc limit 1"
+        # greeting message
+        str_sql = "select msgtype from smspool where \
+            msgtype like 'greeting-2%' order by id desc limit 1"
         #print str_sql
         try:
             cursor = cnx.cursor()
             cursor.execute(str_sql)
             cnx.commit()
             if not cursor.rowcount:
-                ins_str = "insert into smspool set \
-                    msgid = '" + 'noon-' + strdate + "', \
-                    sms = '" +  "该吃午饭啦" + "',  \
-                    cnduserrole = '100', \
-                    cndfromtime = '" + strdate + " 12:00:00', \
-                    cndtotime = '" + strdate + " 12:30:00', \
+                ins_str1 = "insert into smspool set \
+                    msgtype = '" + 'greeting-2-' + strdate + "', \
+                    prefix = '" +  '请访问' + "', \
+                    sms = '"+ strurl + ",  \
+                    postfix = '" + ' 试试今天的手气、免费得彩票 ' +"',  \
+                    cnduserrole = '0', \
+                    cndfromtime = '" + strdate + " 06:00:00', \
+                    cndtotime = '" + strdate + " 23:00:00', \
                     updtime = now(), \
                     rectime = now()" 
                 #print  ins_str
@@ -117,14 +125,14 @@ if __name__ == '__main__':
                 finally:
                     cursor1.close()
             else:
-                msgid = cursor.fetchone()[0]
-                if msgid != 'noon-' + strdate:
+                msgtype = cursor.fetchone()[0]
+                if msgtype != 'greeting-2-' + strdate:
                     upd_str = "update smspool set \
-                        msgid = '" + "noon-" + strdate + "',  \
-                        cndfromtime = '" + strdate + " 12:00:00', \
-                        cndtotime = '" + strdate + " 12:30:00', \
+                        msgtype = '" + "greeting-2-" + strdate + "',  \
+                        cndfromtime = '" + strdate + " 06:00:00', \
+                        cndtotime = '" + strdate + " 23:00:00', \
                         updtime = now() \
-                        where msgid = '" + msgid + "'" 
+                        where msgtype = '" + msgtype + "'" 
                     #print  upd_str
                     try:
                         cursor1 = cnx.cursor()
@@ -136,7 +144,8 @@ if __name__ == '__main__':
                     finally:
                         cursor1.close()            
         except MySQLdb.Error as err:
-            print("select 'smspool - noon' failed.")
+            print("select 'smspool - greeting-2' failed.")
             print("Error: {}".format(err.args[1]))   
         finally:
-            cursor.close()                 
+            cursor.close()              
+    
