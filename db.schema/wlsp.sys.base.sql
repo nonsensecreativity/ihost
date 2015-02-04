@@ -406,7 +406,7 @@ CREATE TABLE `useraccounts` (	#
   `occup` varchar(30) DEFAULT NULL,	#	职业
   `orgn` varchar(64) DEFAULT NULL,	#	工作单位
   `title` varchar(32) DEFAULT NULL,	#	职务
-  `cid` varchar(30) DEFAULT NULL,	#	证件号
+  `cid` varchar(30) DEFAULT '000000',	#	证件号
   `ctype` varchar(10) DEFAULT NULL,	#	证件类别
   `regphone` varchar(30) DEFAULT NULL,	#	（预）注册所用的电话号码
   `captcha` varchar(10) DEFAULT NULL,	#	（预）注册所用的验证码
