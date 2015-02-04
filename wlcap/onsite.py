@@ -72,11 +72,17 @@ if __name__ == '__main__':
 
                     else: # mac not in useractive
                         # get user's data from usermacs by mac
-                        sel_str = "select userid, userrole, phone from usermacs where \
-                        mac ='" + strmac + "' and \
-                        userid is not null and \
-                        userid <> '' \
-                        order by pntmaster desc, dft desc, prio desc, updtime desc, id desc limit 1"
+
+                        sel_str = "select tblmacs.userid, tblaccounts.userrole,tblmacs.phone from usermacs as tblmacs \
+                        INNER JOIN  useraccounts as tblaccounts \
+                        on tblmacs.userid = tblaccounts.userid where  \
+                        tblmacs.mac ='" + strmac + "' and \
+                        tblmacs.userid is not null and \
+                        tblmacs.userid <> '' \
+                        order by tblmacs.pntmaster desc, \
+                        tblmacs.dft desc, tblmacs.prio desc, \
+                        tblmacs.updtime desc, tblmacs.id desc \
+                        limit 1"
                         #print sel_str
                         try:
                             cursor3 = cnx.cursor()
