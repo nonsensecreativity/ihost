@@ -28,8 +28,8 @@ if __name__ == '__main__':
     #wait for mysql server is ready 
     time.sleep(120)
 
-    clrwlpkt = 168
-    clractvst = 1440
+    clrwlpkt = 1440
+    clractvst = 2160
     
     # remove user from wlpkt 
     str_sql = "delete from wlpkt where \
