@@ -411,6 +411,7 @@ CREATE TABLE `useraccounts` (	#
   `regphone` varchar(30) DEFAULT NULL,	#	（预）注册所用的电话号码
   `captcha` varchar(10) DEFAULT NULL,	#	（预）注册所用的验证码
   `phone` varchar(30) DEFAULT NULL,	#	常用电话号码
+  `backphone` varchar(30) DEFAULT NULL,	#	备用电话号码
   `address` varchar(128) DEFAULT NULL,	#	地址
   `location` varchar(32) DEFAULT NULL,	#	所在区域
   `action` varchar(128) DEFAULT NULL,	#	活动（预留）
