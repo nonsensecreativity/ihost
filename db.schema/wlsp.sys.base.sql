@@ -4,7 +4,11 @@
 ## This file is used by both ihost and iserver to set up database.
 
 ###############################################################
-## start from mysql 5.5, innodb is the default storage enginer
+##1.  start from mysql 5.5, innodb is the default storage enginer
+##2.  use unsigned
+##3.  use NOT NULL if possible
+##4.  use ENUM
+## http://www.devshed.com/c/a/mysql/designing-a-mysql-database-tips-and-techniques/
 ###############################################################
 
 
