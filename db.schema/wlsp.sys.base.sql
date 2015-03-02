@@ -1,30 +1,32 @@
 ﻿## Tables for user registration
 ## and authentication
-## used by
-## local server and (or) central server
+## used by ## local server and (or) central server
 ## This file is used by both ihost and iserver to set up database.
 
+###############################################################
+## start from mysql 5.5, innodb is the default storage enginer
+###############################################################
 
 
 
 ## ----------------------------
-## Table structure for first_entry
+## Table structure for first_appearance
 ## table for local server to keep a record of the first visit of device
 ## mapping mac to local ip address in the local network
 ## ----------------------------
-DROP TABLE IF EXISTS `first_entry`;
-CREATE TABLE `first_entry` (
-  `id` int NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `first_appearance`;
+CREATE TABLE `first_appearance` (
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `device_mac` varchar(36) DEFAULT NULL,
   `device_ip` varchar(64) DEFAULT NULL,
   `from_who` varchar(36) DEFAULT NULL,
   `hotspot_ip` varchar(64) DEFAULT NULL,
   `userurl` varchar(1024) DEFAULT NULL,
-  `create` datetime DEFAULT NULL,
+  `create_t` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `mac` (`mac`),
   KEY `ip` (`ip`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+)  DEFAULT CHARSET=utf8;
 
 
 
@@ -35,25 +37,20 @@ CREATE TABLE `first_entry` (
 ##
 
 ## ----------------------------
-## Table structure for device_visit
+## Table structure for device_ipvisit
 ## ----------------------------
-DROP TABLE IF EXISTS `device_visit`;
-CREATE TABLE `actvst` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `srcid` int DEFAULT NULL,
-  `pkttime` datetime DEFAULT NULL,
-  `timefrac` float DEFAULT NULL,
-  `srcmac` varchar(64) DEFAULT NULL,
-  `srcip` varchar(64) DEFAULT NULL,
-  `destip` varchar(64) DEFAULT NULL,
+DROP TABLE IF EXISTS `device_ipvisit`;
+CREATE TABLE `device_ipvisit` (
+  `id` int UNSIGNED  NOT NULL AUTO_INCREMENT,
+  `pkt_time` datetime NOT NULL,
+  `pkt_time_ms` SMALLINT UNSIGNED DEFAULT NULL,
+  `pkt_src_mac` varchar(64) DEFAULT NULL,
+  `pkt_src_ip` varchar(64) DEFAULT NULL,
+  `pkt_target_ip` varchar(64) DEFAULT NULL,
   `url` varchar(1024) DEFAULT NULL,
-  `rectime` datetime DEFAULT NULL,
-  `sender` varchar(36) DEFAULT NULL, 
-  `netid` varchar(36) DEFAULT NULL, 
-  `progid` varchar(36) DEFAULT NULL, 
-  `optime` datetime DEFAULT NULL,
+  `create_t` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+)  DEFAULT CHARSET=utf8;
 
 
 ##
@@ -83,7 +80,7 @@ CREATE TABLE `pushrurl` (
   PRIMARY KEY (`id`),
   KEY `level` (`cnd`),
   KEY `dname` (`srcip`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+)  DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pushrurl
@@ -105,15 +102,15 @@ INSERT INTO `pushrurl` VALUES ('2', null, '0','172.16.0.100', '10', null, '2013-
 DROP TABLE IF EXISTS `device_act_history`;
 CREATE TABLE `device_act_history` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `mac` varchar(36) DEFAULT NULL,
-  `status` varchar(64) DEFAULT NULL,
-  `firstseen` datetime DEFAULT NULL,
+  `mac` varchar(36) NOT NULL,
+  `status` varchar(64) NOT NULL,
+  `firstseen` datetime NOT NULL,
   `lastseen` datetime DEFAULT NULL,
   `ssid` varchar(36) DEFAULT NULL,
-  `create` datetime DEFAULT NULL,
+  `create_t` datetime NOT NULL,             ## available in > mysql 5.6.5 DEFAULT NOW,
   PRIMARY KEY (`id`),
   KEY `mac` (`mac`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+)  DEFAULT CHARSET=utf8;
 
 
 ## ----------------------------
@@ -134,12 +131,12 @@ CREATE TABLE `802_11_packet` (
   `timefrac` float DEFAULT NULL,
   `frameproto` varchar(36) DEFAULT NULL,
   `chan` varchar(36) DEFAULT NULL,
-  `create` datetime DEFAULT NULL,
+  `create_t` datetime DEFAULT NULL,
   `src_ip_mac` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `packettime` (`pkttime`),
   KEY `mac` (`mac`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+)  DEFAULT CHARSET=utf8;
 
 
 ## ----------------------------
@@ -154,11 +151,11 @@ CREATE TABLE `device_status` (
   `status` smallint DEFAULT NULL,
   `firstseen` datetime DEFAULT NULL,
   `lastseen` datetime DEFAULT NULL,
-  `create` datetime DEFAULT NULL,
+  `create_t` datetime DEFAULT NULL,
   'modify' datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `mac` (`mac`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) DEFAULT CHARSET=utf8;
 
 ## ----------------------------
 ## Table structure for useraccounts
@@ -217,7 +214,7 @@ CREATE TABLE `useraccounts` (	#
   KEY `userid` (`userid`),	#	
   KEY `phone` (`phone`), #	
   KEY `usercode` (`usercode`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;	#	
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;	#	
 
 ## ----------------------------
 ## Table structure for usermacs
@@ -249,7 +246,7 @@ CREATE TABLE `usermacs` (	#
   KEY `userid` (`userid`),	#	
   KEY `usercode` (`usercode`),	#	
   KEY `mac` (`mac`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;	#	
+)  DEFAULT CHARSET=utf8;	#	
 
 DROP TABLE IF EXISTS `useractive`;	#	当前活动用户
 CREATE TABLE `useractive` (	#	
@@ -279,7 +276,7 @@ CREATE TABLE `useractive` (	#
   PRIMARY KEY (`id`),	#	
   KEY `userid` (`userid`),
   KEY `mac` (`mac`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;	#	
+)  DEFAULT CHARSET=utf8;	#	
 
 
 ## ----------------------------
@@ -305,7 +302,7 @@ CREATE TABLE `smspool` (
   `updtime` datetime DEFAULT NULL, #更新操作时间
   `rectime` datetime DEFAULT NULL, #写入数据库时间
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+)  DEFAULT CHARSET=utf8;
 
 ## ----------------------------
 ## Table structure for smsrcv
@@ -320,7 +317,7 @@ CREATE TABLE `smsrcv` (
   `mfolder` varchar(16) DEFAULT NULL,
   `rectime` datetime DEFAULT NULL, 
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+)  DEFAULT CHARSET=utf8;
 
 ## ----------------------------
 ## Table structure for userpoints
@@ -345,7 +342,7 @@ CREATE TABLE `userpoints` (
   PRIMARY KEY (`id`),
   KEY `userid` (`userid`),
   KEY `mac` (`mac`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 ## ----------------------------
 ## Table structure for userlog
@@ -371,7 +368,7 @@ CREATE TABLE `userlog` (
   PRIMARY KEY (`id`),
   KEY `userid` (`userid`),
   KEY `usercode` (`usercode`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) DEFAULT CHARSET=utf8;
 
 
 ## ----------------------------
@@ -391,7 +388,7 @@ CREATE TABLE `userinfochk` (
   `rectime` datetime DEFAULT NULL, 
   PRIMARY KEY (`id`),
   KEY `obj` (`obj`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) DEFAULT CHARSET=utf8;
 
 
 ## ----------------------------
@@ -430,4 +427,4 @@ CREATE TABLE `prodorder` (	#
   PRIMARY KEY (`id`),	#	
   KEY `userid` (`userid`),	#	
   KEY `prodcode` (`prodcode`)	#	
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;	
+) DEFAULT CHARSET=utf8;	
