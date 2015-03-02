@@ -1,174 +1,31 @@
-## Tables for user registration
+﻿## Tables for user registration
 ## and authentication
 ## used by
 ## local server and (or) central server
 ## This file is used by both ihost and iserver to set up database.
 
 
-SET FOREIGN_KEY_CHECKS=0;
+
+
 ## ----------------------------
-## Table structure for authclient
+## Table structure for first_entry
+## table for local server to keep a record of the first visit of device
+## mapping mac to local ip address in the local network
 ## ----------------------------
-DROP TABLE IF EXISTS `authclient`;
-CREATE TABLE `authclient` (
+DROP TABLE IF EXISTS `first_entry`;
+CREATE TABLE `first_entry` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `srcid` int DEFAULT NULL,
-  `cid` varchar(30) DEFAULT NULL,
-  `ctype` varchar(10) DEFAULT NULL,
-  `stat` varchar(3) DEFAULT '0',
-  `phone` varchar(30) DEFAULT NULL,
-  `sphone` varchar(30) DEFAULT NULL,
-  `msg` varchar(8) DEFAULT NULL,
-  `plan` varchar(20) DEFAULT NULL,
-  `question` varchar(30) DEFAULT NULL,
-  `answer` varchar(30) DEFAULT NULL,
-  `token` int DEFAULT NULL,
-  `mac` varchar(18) DEFAULT NULL,
-  `img` varchar(128) DEFAULT '',
-  `imgchk1` smallint DEFAULT '0',
-  `imgchk2` smallint DEFAULT '0',
-  `imgchk3` smallint DEFAULT '0',
-  `manstat` smallint DEFAULT '0',
-  `manchker` varchar(16) DEFAULT NULL,
-  `manid` varchar(30) DEFAULT NULL,
-  `mantype` varchar(10) DEFAULT NULL,
-  `mantime` datetime DEFAULT NULL,
-  `optflag` tinyint DEFAULT NULL,
-  `srcip` varchar(64) DEFAULT NULL,
-  `srcname` varchar(64) DEFAULT NULL,
-  `rectime` datetime DEFAULT NULL,
-  `sender` varchar(36) DEFAULT NULL, 
-  `netid` varchar(36) DEFAULT NULL, 
-  `progid` varchar(36) DEFAULT NULL, 
-  `optime` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `cid` (`cid`),
-  KEY `phone` (`phone`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-
-
-## ----------------------------
-## Table structure for authmac
-## ----------------------------
-DROP TABLE IF EXISTS `authmac`;
-CREATE TABLE `authmac` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `srcid` int DEFAULT NULL,
-  `mac` varchar(36) DEFAULT NULL,
-  `ip` varchar(64) DEFAULT NULL,
-  `stat` smallint DEFAULT NULL,
-  `fromtime` datetime DEFAULT NULL,
-  `lasting` int DEFAULT NULL,
-  `pushflag` smallint  DEFAULT NULL,
-  `pushurl` varchar(127) DEFAULT NULL,
-  `pushtime` int DEFAULT NULL,
-  `cid` varchar(30) DEFAULT NULL,
-  `phone` varchar(30) DEFAULT NULL,
-  `token` int DEFAULT NULL,
-  `base` varchar(10) DEFAULT NULL,
-  `srcip` varchar(64) DEFAULT NULL,
-  `srcname` varchar(64) DEFAULT NULL,
-  `rectime` datetime DEFAULT NULL,
-  `sender` varchar(36) DEFAULT NULL, 
-  `netid` varchar(36) DEFAULT NULL, 
-  `progid` varchar(36) DEFAULT NULL, 
-  `optime` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `mac` (`mac`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-
-
-## ----------------------------
-## Table structure for authsms
-## ----------------------------
-DROP TABLE IF EXISTS `authsms`;
-CREATE TABLE `authsms` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `srcid` int DEFAULT NULL,
-  `msgtype` varchar(64) DEFAULT NULL,
-  `prefix` varchar(64) DEFAULT '',
-  `sms` varchar(128) DEFAULT NULL,
-  `postfix` varchar(64) DEFAULT '',
-  `mac` varchar(36) DEFAULT NULL,
-  `ip` varchar(64) DEFAULT NULL,
-  `phone` varchar(30) DEFAULT '',
-  `stat` smallint DEFAULT '0',
-  `optflag` smallint DEFAULT '0',
-  `token` int DEFAULT NULL,
-  `rectime` datetime DEFAULT NULL,
-  `sender` varchar(36) DEFAULT NULL, 
-  `netid` varchar(36) DEFAULT NULL, 
-  `progid` varchar(36) DEFAULT NULL, 
-  `optime` datetime DEFAULT NULL,
-  `sendtime` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-
-
-## ----------------------------
-## Table structure for authblkmac
-## table for local server to keep a mac list to kick off
-## ----------------------------
-DROP TABLE IF EXISTS `authblkmac`;
-CREATE TABLE `authblkmac` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `srcid` int DEFAULT NULL,
-  `mac` varchar(20) DEFAULT NULL,
-  `blktime` varchar(6) DEFAULT NULL,
-  `rectime` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-
-
-## ----------------------------
-## Table structure for authmacip
-## table for local server to keep a record of each visit
-## ----------------------------
-DROP TABLE IF EXISTS `authmacip`;
-CREATE TABLE `authmacip` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `srcid` int DEFAULT NULL,
-  `mac` varchar(36) DEFAULT NULL,
-  `ip` varchar(64) DEFAULT NULL,
-  `called` varchar(36) DEFAULT NULL,
-  `srcip` varchar(64) DEFAULT NULL,
-  `procid` varchar(36) DEFAULT NULL,
+  `device_mac` varchar(36) DEFAULT NULL,
+  `device_ip` varchar(64) DEFAULT NULL,
+  `from_who` varchar(36) DEFAULT NULL,
+  `hotspot_ip` varchar(64) DEFAULT NULL,
   `userurl` varchar(1024) DEFAULT NULL,
-  `orgurl` varchar(1024) DEFAULT NULL,
-  `token` int DEFAULT NULL,
-  `rectime` datetime DEFAULT NULL,
-  `sender` varchar(36) DEFAULT NULL, 
-  `netid` varchar(36) DEFAULT NULL, 
-  `progid` varchar(36) DEFAULT NULL, 
-  `optime` datetime DEFAULT NULL,
+  `create` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `mac` (`mac`),
   KEY `ip` (`ip`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-
-## ----------------------------
-## Table structure for authnlist
-## table for central server side to keep a record
-## of who can call the webservice
-## ----------------------------
-DROP TABLE IF EXISTS `authnlist`;
-CREATE TABLE `authnlist` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `srcid` int DEFAULT NULL,
-  `mac` varchar(17) DEFAULT NULL,
-  `ip` varchar(64) DEFAULT NULL,
-  `name` varchar(64) DEFAULT NULL,
-  `passwd` varchar(64) DEFAULT NULL,
-  `secret` varchar(64) DEFAULT NULL,
-  `rectime` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-
-## ----------------------------
-## Records of authnlist
-## ----------------------------
-INSERT INTO `authnlist` VALUES ('1', null, null, '192.168.1.252', 'zgbdh001', '1234567890', 'ab', '2013-05-12 10:23:25');
 
 
 
@@ -178,9 +35,9 @@ INSERT INTO `authnlist` VALUES ('1', null, null, '192.168.1.252', 'zgbdh001', '1
 ##
 
 ## ----------------------------
-## Table structure for actvst
+## Table structure for device_visit
 ## ----------------------------
-DROP TABLE IF EXISTS `actvst`;
+DROP TABLE IF EXISTS `device_visit`;
 CREATE TABLE `actvst` (
   `id` int NOT NULL AUTO_INCREMENT,
   `srcid` int DEFAULT NULL,
@@ -197,41 +54,6 @@ CREATE TABLE `actvst` (
   `optime` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-
-
-## ----------------------------
-## Table structure for actvrf
-## ----------------------------
-DROP TABLE IF EXISTS `actvrf`;
-CREATE TABLE `actvrf` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `srcid` int DEFAULT NULL,
-  `level` varchar(16) DEFAULT NULL,
-  `dname` varchar(36) DEFAULT NULL,
-  `mlen` int DEFAULT NULL,
-  `ltime` int DEFAULT NULL,
-  `active` tinyint DEFAULT '1',
-  `rectime` datetime DEFAULT NULL,
-  `type` tinyint DEFAULT '1',
-  PRIMARY KEY (`id`),
-  KEY `level` (`level`),
-  KEY `dname` (`dname`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-
-## ----------------------------
-## Records of actvrf
-## ----------------------------
-INSERT INTO `actvrf` VALUES ('1', null, '0001.0000.0000', 'www.baidu.com', '0', '0', '1', '2013-03-13 14:05:43', '20');
-INSERT INTO `actvrf` VALUES ('2', null, '0002.0000.0000', 'www.google.com', '0', '0', '1', '2013-03-13 14:13:33', '20');
-INSERT INTO `actvrf` VALUES ('3', null, '0001.0001.0000', 'im.baidu.com', '30', '45', '1', '2013-03-13 14:17:49', '20');
-INSERT INTO `actvrf` VALUES ('4', null, '3000.0001.0000', '360.cn', '30', '1200', '1', '2013-03-13 14:18:19', '20');
-INSERT INTO `actvrf` VALUES ('5', null, '9999.9999.9999', 'default', '20', '120', '1', '2013-03-13 14:19:00', '20');
-INSERT INTO `actvrf` VALUES ('6', null, '3000.0002.0000', 'sogou.com', '20', '600', '1', '2013-03-13 14:29:41', '20');
-INSERT INTO `actvrf` VALUES ('7', null, '9999.8001.0000', '.jpg', '4', '300', '1', '2013-03-13 15:29:11', '10');
-INSERT INTO `actvrf` VALUES ('8', null, '9999.8002.0000', '.png', '4', '300', '1', '2013-03-13 15:29:11', '10');
-INSERT INTO `actvrf` VALUES ('9', null, '9999.8003.0000', '.gif', '4', '300', '1', '2013-03-13 15:29:11', '10');
-INSERT INTO `actvrf` VALUES ('10', null, '9999.8004.0000', '.js', '4', '300', '1', '2013-03-13 15:29:11', '10');
-INSERT INTO `actvrf` VALUES ('11', null, '9999.8005.0000', '.swf', '4', '300', '1', '2013-03-14 09:27:18', '10');
 
 
 ##
@@ -277,48 +99,29 @@ INSERT INTO `pushrurl` VALUES ('2', null, '0','172.16.0.100', '10', null, '2013-
 
 
 
-##
-## Tables, Views and Triggers
-## for wireless packet sniffer
-##
-
-
 ## ----------------------------
-## Table structure for wlact
+## Table structure for device_act_history (wlsta)
 ## ----------------------------
-DROP TABLE IF EXISTS `wlact`;
-CREATE TABLE `wlact` (
+DROP TABLE IF EXISTS `device_act_history`;
+CREATE TABLE `device_act_history` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `srcid` int DEFAULT NULL,
-  `event` varchar(64) DEFAULT NULL,
   `mac` varchar(36) DEFAULT NULL,
-  `subevent` varchar(64) DEFAULT NULL,
-  `oldvalue` varchar(64) DEFAULT NULL,
-  `newvalue` varchar(64) DEFAULT NULL,
+  `status` varchar(64) DEFAULT NULL,
   `firstseen` datetime DEFAULT NULL,
   `lastseen` datetime DEFAULT NULL,
-  `stat` smallint DEFAULT NULL,
   `ssid` varchar(36) DEFAULT NULL,
-  `action` smallint DEFAULT NULL,
-  `tcount` int DEFAULT NULL,
-  `rectime` datetime DEFAULT NULL,
-  `srcip` varchar(64) DEFAULT NULL,
-  `sender` varchar(36) DEFAULT NULL, 
-  `netid` varchar(36) DEFAULT NULL, 
-  `progid` varchar(36) DEFAULT NULL, 
-  `optime` datetime DEFAULT NULL,
+  `create` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `mac` (`mac`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 
 ## ----------------------------
-## Table structure for wlpkt
+## Table structure for 802_11_packet (wlpkt)
 ## ----------------------------
-DROP TABLE IF EXISTS `wlpkt`;
-CREATE TABLE `wlpkt` (
+DROP TABLE IF EXISTS `802_11_packet`;
+CREATE TABLE `802_11_packet` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `srcid` int DEFAULT NULL,
   `mac` varchar(36) DEFAULT NULL,
   `ssid` varchar(36) DEFAULT NULL,
   `rssi` smallint DEFAULT NULL,
@@ -329,14 +132,10 @@ CREATE TABLE `wlpkt` (
   `bssid` varchar(36) DEFAULT NULL,
   `pkttime` datetime DEFAULT NULL,
   `timefrac` float DEFAULT NULL,
-  `timebyminute` datetime DEFAULT NULL,
-  `timesecond` tinyint DEFAULT NULL,
-  `timebyhour` datetime DEFAULT NULL,
-  `timeminute` tinyint DEFAULT NULL,
   `frameproto` varchar(36) DEFAULT NULL,
   `chan` varchar(36) DEFAULT NULL,
-  `rectime` datetime DEFAULT NULL,
-  `srcip` varchar(64) DEFAULT NULL,
+  `create` datetime DEFAULT NULL,
+  `src_ip_mac` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `packettime` (`pkttime`),
   KEY `mac` (`mac`)
@@ -344,33 +143,19 @@ CREATE TABLE `wlpkt` (
 
 
 ## ----------------------------
-## Table structure for wlsta
+## Table structure for device_status (wlsta)
 ## ----------------------------
-DROP TABLE IF EXISTS `wlsta`;
-CREATE TABLE `wlsta` (
+DROP TABLE IF EXISTS `device_status`;
+CREATE TABLE `device_status` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `srcid` int DEFAULT NULL,
-  `tcount` int DEFAULT NULL,
   `mac` varchar(36) DEFAULT NULL,
   `ssid` varchar(36) DEFAULT NULL,
   `rssi` float DEFAULT NULL,
-  `stat` smallint DEFAULT NULL,
-  `setby` varchar(20) DEFAULT NULL,
-  `keepalive` tinyint DEFAULT NULL,
+  `status` smallint DEFAULT NULL,
   `firstseen` datetime DEFAULT NULL,
   `lastseen` datetime DEFAULT NULL,
-  `rtrend` smallint DEFAULT NULL,
-  `npacket` int DEFAULT NULL,
-  `ptrend` smallint DEFAULT NULL,
-  `action` smallint DEFAULT NULL,
-  `ostype` varchar(36) DEFAULT NULL,
-  `alivetime` int DEFAULT NULL,
-  `rectime` datetime DEFAULT NULL,
-  `srcip` varchar(64) DEFAULT NULL,
-  `sender` varchar(36) DEFAULT NULL, 
-  `netid` varchar(36) DEFAULT NULL, 
-  `progid` varchar(36) DEFAULT NULL, 
-  `optime` datetime DEFAULT NULL,
+  `create` datetime DEFAULT NULL,
+  'modify' datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `mac` (`mac`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
