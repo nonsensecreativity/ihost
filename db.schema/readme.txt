@@ -2,29 +2,29 @@
 =====================================
 radius
 =====================================
-1, ´´½¨Êı¾İ¿âradius
-echo "create database radius;" | mysql ¨Cu root ¨Cp
+1, åˆ›å»ºæ•°æ®åº“radius
+echo "create database radius;" | mysql â€“u root â€“p
 
-2, ´´½¨±í½á¹¹
-mysql ¨Cu root ¨Cp radius < /etc/freeradius/sql/mysql/schema.sql
+2, åˆ›å»ºè¡¨ç»“æ„
+mysql â€“u root â€“p radius < /etc/freeradius/sql/mysql/schema.sql
 
-3, ´´½¨Êı¾İ¿âÓÃ»§
-mysql ¨Cu root ¨Cp radius < /etc/freeradius/sql/mysql/admin.sql
+3, åˆ›å»ºæ•°æ®åº“ç”¨æˆ·
+mysql â€“u root â€“p radius < /etc/freeradius/sql/mysql/admin.sql
 
-4, ´´½¨µÇÂ¼ÓÃ»§
-echo ¡°insert into radcheck (username, attribute, op, value) values (¡®user1¡¯, ¡®Cleartext-Password¡¯, ¡®:=¡¯, ¡®password¡¯);¡± | mysql ¨Cu root ¨Cp radius
+4, åˆ›å»ºç™»å½•ç”¨æˆ·
+echo â€œinsert into radcheck (username, attribute, op, value) values (â€˜user1â€™, â€˜Cleartext-Passwordâ€™, â€˜:=â€™, â€˜passwordâ€™);â€ | mysql â€“u root â€“p radius
 
 
 
 =====================================
 wlsp
 =====================================
-1, ´´½¨Êı¾İ¿âwlsp
-echo "create database wlsp;" | mysql ¨Cu root ¨Cp
+1, åˆ›å»ºæ•°æ®åº“wlsp
+echo "create database wlsp;" | mysql â€“u root â€“p
 
-2, ´´½¨±í½á¹¹(base.sqlÎª»ù±¾±í.ihost.sqlÎªihostÉÏµÄÊÓÍ¼¡¢´¥·¢Æ÷£¨iserver²»ÓÃ£©)
-mysql ¨Cu root ¨Cp  wlsp <  db.schema/wlsp.sys.base.sql
-mysql ¨Cu root ¨Cp  wlsp <  db.schema/wlsp.sys.ihost.sql
+2, åˆ›å»ºè¡¨ç»“æ„(base.sqlä¸ºåŸºæœ¬è¡¨.ihost.sqlä¸ºihostä¸Šçš„è§†å›¾ã€è§¦å‘å™¨ï¼ˆiserverä¸ç”¨ï¼‰)
+mysql â€“u root â€“p  wlsp <  db.schema/wlsp.sys.base.sql
+mysql â€“u root â€“p  wlsp <  db.schema/wlsp.sys.ihost.sql
 
-3, ´´½¨Êı¾İ¿âÓÃ»§
-mysql ¨Cu root ¨Cp  wlsp <  db.schema/wlsp.sys.users.sql
+3, åˆ›å»ºæ•°æ®åº“ç”¨æˆ·
+mysql â€“u root â€“p  wlsp <  db.schema/wlsp.sys.users.sql
