@@ -28,8 +28,8 @@ CREATE TABLE `first_appearance` (
   `userurl` varchar(1024) DEFAULT NULL,
   `create_t` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `mac` (`mac`),
-  KEY `ip` (`ip`)
+  KEY `device_mac` (`device_mac`),
+  KEY `device_ip` (`device_ip`)
 )  DEFAULT CHARSET=utf8;
 
 
