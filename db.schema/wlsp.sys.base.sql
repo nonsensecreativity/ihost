@@ -8,9 +8,118 @@
 ##2.  use unsigned
 ##3.  use NOT NULL if possible
 ##4.  use ENUM
+##5.  table name in SINGULAR
 ## http://www.devshed.com/c/a/mysql/designing-a-mysql-database-tips-and-techniques/
 ###############################################################
 
+
+## ----------------------------
+## Table structure for useraccounts: 
+## ----------------------------
+DROP TABLE IF EXISTS `useraccounts`;	#	用户主记录
+CREATE TABLE `useraccounts` (	#	
+  `id` bigint NOT NULL AUTO_INCREMENT,	#	convert to uuid.
+  `userid` varchar(36) DEFAULT NULL,	#	为user分配一个uuid. It is generated in ihost by php. remove
+  `srcid` int DEFAULT NULL,	            #	iserver字段 remove
+  `token` int DEFAULT NULL,	            #	
+  `srcnode` varchar(10) DEFAULT NULL,	#	（预留） remove
+  `usercode` varchar(30) DEFAULT NULL,	#	用户编码（预留） remove
+  `user_uuid` varchar(36) DEFAULT NULL,	#	用户uuid. It is generated on iserver. Globally effective to cover cases that the user might change his phone andor phone number. remove
+  `mac` varchar(36) DEFAULT NULL,	    #	mac地址 remove, use phone number to identify user
+  `userpass` varchar(30) DEFAULT NULL,	#	用户密码 //remove
+  `useremail1` varchar(64) DEFAULT NULL,	#	用户email //move to a separate table, such as user_info
+  `useremail2` varchar(64) DEFAULT NULL,	#	用户备用email //remove
+  `question` varchar(30) DEFAULT NULL,	#	密码提示问题 //remove
+  `answer` varchar(30) DEFAULT NULL,	#	密码答案，用于找回密码 // remove, use user activity to verify user.
+  `fname` varchar(20) DEFAULT NULL,	#	名字 
+  `lname` varchar(20) DEFAULT NULL,	#	姓   
+  `userrole` varchar(30) default '0', #	不同角色，每个mac在每个userrole中有一个default userid #   100-代表 200-嘉宾 300-媒体 400-会务 //???
+  `usertype` varchar(10) DEFAULT NULL,	#	用户类型：预注册/现场注册 ??
+  `integral` int DEFAULT '0',	#	userid下的积分 ?? better name
+  `pntfactor` int DEFAULT '1000',	#	points转integral的因子，1000代表1 // put it together with integral in a separate table
+  `byear` smallint DEFAULT NULL,	#	生日，年 // move to user_info. It can be obtained in different ways.
+  `bmonth` smallint DEFAULT NULL,	#	生日，月
+  `bday` smallint DEFAULT NULL,	    #	生日，日
+  `gender` varchar(8) DEFAULT NULL,	#	性别  //user info.
+  `occup` varchar(30) DEFAULT NULL,	#	职业 // user info
+  `orgn` varchar(64) DEFAULT NULL,	#	工作单位 //user info
+  `title` varchar(32) DEFAULT NULL,	#	职务 // user info.
+  `cid` varchar(30) DEFAULT '000000',	#	证件号, cid + ctype
+  `ctype` varchar(10) DEFAULT NULL,	#	证件类别 //remove.
+  `regphone` varchar(30) DEFAULT NULL,	#	（预）注册所用的电话号码 
+  `captcha` varchar(10) DEFAULT NULL,	#	（预）注册所用的验证码
+  `phone` varchar(30) DEFAULT NULL,	#	常用电话号码 , phone number for receiving sms.
+  `backphone` varchar(30) DEFAULT NULL,	#	备用电话号码 //remove
+  `address` varchar(128) DEFAULT NULL,	#	地址 // to memo
+  `location` varchar(32) DEFAULT NULL,	#	所在区域 //to memo
+  `action` varchar(128) DEFAULT NULL,	#	活动（预留） //remove
+  `stat` varchar(3) DEFAULT '100',	#	数据状态 100-有效  //change it to enum
+  `open1` varchar(3) DEFAULT '100',	#	数据对招聘者公开，100-公开，0-不公开 //remove
+  `open2` varchar(3) DEFAULT '100',	#	数据对求职者公开，100-公开，0-不公开 //remove
+  `smscheck` varchar(3) DEFAULT '100',	#	短信验证，100-验证，0-不验证  // flag to verify user.
+  `memo` varchar(128) DEFAULT NULL,	#	备注//different table for unstructured info.
+  `srcip` varchar(64) DEFAULT NULL,	#	iserver字段 //remove
+  `sender` varchar(36) DEFAULT NULL, 	#	iserver字段 //remove
+  `netid` varchar(36) DEFAULT NULL, 	#	iserver字段 //remove
+  `progid` varchar(36) DEFAULT NULL, 	#	iserver字段 //remove
+  `intid` varchar(30) DEFAULT NULL,	#	与phpyun的对应关系（记录学历等其他个人信息） //remove
+  `modify_t` datetime DEFAULT NULL,	#	记录更新时间
+  `create_t` datetime DEFAULT NULL,	#	记录时间
+  `pushflag` smallint  unsigned DEFAULT '1', // ?? flag for syn with iserver
+  PRIMARY KEY (`id`),	#	
+  KEY `userid` (`userid`),	#	
+  KEY `phone` (`phone`), #	
+  KEY `usercode` (`usercode`) //remove
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;	#	
+
+###################################   account table ###########################################################################################
+##1，account base on ihost
+##2，基于业务逻辑的上传，集中到iserver（与基于统计分析的上传不同）
+##3，在另一个ihost上创建account时，可以选择下载，实现同步。如果不选择下载，则不同步（user account不同步不影响数据分析层面的identification）
+DROP TABLE IF EXISTS `account`;
+CREATE TABLE account (
+    `id` VARCHAR(36) NOT NULL,                          ##id int unsigned NOT NULL auto_increment primary key, the same user can have differennt account at different ihost
+    `mac` varchar(64) DEFAULT NULL,
+    password varchar(50) NOT NULL,
+    first_name varchar(50) NOT NULL,
+    last_name varchar(50) NOT NULL,
+    email varchar(50) NOT NULL,
+    enabled boolean NOT NULL,
+    unique index account_idx1 (mac)
+) DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `role`;
+CREATE TABLE role (
+    id smallint unsigned NOT NULL auto_increment primary key,
+    name varchar(50) NOT NULL
+) DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `permission`;
+CREATE TABLE permission (
+    id smallint unsigned NOT NULL auto_increment primary key,
+    name varchar(50) NOT NULL
+) DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `account_role`;
+CREATE TABLE account_role (
+    id int unsigned NOT NULL auto_increment primary key,
+    account_id VARCHAR(36) NOT NULL,
+    role_id smallint unsigned NOT NULL,
+    foreign key (account_id) references account (id),
+    foreign key (role_id) references role (id),
+    unique index account_role_idx1 (account_id, role_id)
+) DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `role_permission`;
+CREATE TABLE role_permission (
+    id smallint unsigned NOT NULL auto_increment primary key,
+    role_id smallint unsigned NOT NULL,
+    permission_id smallint unsigned NOT NULL,
+    foreign key (role_id) references role (id),
+    foreign key (permission_id) references permission (id),
+    unique index role_permission_idx1 (role_id, permission_id)
+) DEFAULT CHARSET=utf8;
 
 
 ## ----------------------------
@@ -156,69 +265,12 @@ CREATE TABLE `device_status` (
   `firstseen` datetime DEFAULT NULL,
   `lastseen` datetime DEFAULT NULL,
   `create_t` datetime DEFAULT NULL,
-  'modify' datetime DEFAULT NULL,
+  'modify_t' datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `mac` (`mac`)
 ) DEFAULT CHARSET=utf8;
 
-## ----------------------------
-## Table structure for useraccounts
-## ----------------------------
-DROP TABLE IF EXISTS `useraccounts`;	#	用户主记录
-CREATE TABLE `useraccounts` (	#	
-  `id` bigint NOT NULL AUTO_INCREMENT,	#	
-  `userid` varchar(36) DEFAULT NULL,	#	为user分配一个uuid. It is generated in ihost by php. 
-  `srcid` int DEFAULT NULL,	#	iserver字段
-  `token` int DEFAULT NULL,	#	8位随机数，由ihost产生
-  `srcnode` varchar(10) DEFAULT NULL,	#	（预留）
-  `usercode` varchar(30) DEFAULT NULL,	#	用户编码（预留）
-  `user_uuid` varchar(36) DEFAULT NULL,	#	用户uuid. It is generated on iserver. Globally effective to cover cases that the user might change his phone and/or phone number.
-  `mac` varchar(36) DEFAULT NULL,	#	mac地址
-  `userpass` varchar(30) DEFAULT NULL,	#	用户密码
-  `useremail1` varchar(64) DEFAULT NULL,	#	用户email
-  `useremail2` varchar(64) DEFAULT NULL,	#	用户备用email
-  `question` varchar(30) DEFAULT NULL,	#	密码提示问题
-  `answer` varchar(30) DEFAULT NULL,	#	密码答案，用于找回密码
-  `fname` varchar(20) DEFAULT NULL,	#	名字
-  `lname` varchar(20) DEFAULT NULL,	#	姓
-  `userrole` varchar(30) default '0', #	不同角色，每个mac在每个userrole中有一个default userid #   100-代表 200-嘉宾 300-媒体 400-会务
-  `usertype` varchar(10) DEFAULT NULL,	#	用户类型：预注册/现场注册
-  `integral` int DEFAULT '0',	#	userid下的积分
-  `pntfactor` int DEFAULT '1000',	#	points转integral的因子，1000代表1
-  `byear` smallint DEFAULT NULL,	#	生日，年
-  `bmonth` smallint DEFAULT NULL,	#	生日，月
-  `bday` smallint DEFAULT NULL,	#	生日，日
-  `gender` varchar(8) DEFAULT NULL,	#	性别
-  `occup` varchar(30) DEFAULT NULL,	#	职业
-  `orgn` varchar(64) DEFAULT NULL,	#	工作单位
-  `title` varchar(32) DEFAULT NULL,	#	职务
-  `cid` varchar(30) DEFAULT '000000',	#	证件号
-  `ctype` varchar(10) DEFAULT NULL,	#	证件类别
-  `regphone` varchar(30) DEFAULT NULL,	#	（预）注册所用的电话号码
-  `captcha` varchar(10) DEFAULT NULL,	#	（预）注册所用的验证码
-  `phone` varchar(30) DEFAULT NULL,	#	常用电话号码
-  `backphone` varchar(30) DEFAULT NULL,	#	备用电话号码
-  `address` varchar(128) DEFAULT NULL,	#	地址
-  `location` varchar(32) DEFAULT NULL,	#	所在区域
-  `action` varchar(128) DEFAULT NULL,	#	活动（预留）
-  `stat` varchar(3) DEFAULT '100',	#	数据状态 100-有效 
-  `open1` varchar(3) DEFAULT '100',	#	数据对招聘者公开，100-公开，0-不公开
-  `open2` varchar(3) DEFAULT '100',	#	数据对求职者公开，100-公开，0-不公开
-  `smscheck` varchar(3) DEFAULT '100',	#	短信验证，100-验证，0-不验证
-  `memo` varchar(128) DEFAULT NULL,	#	备注
-  `srcip` varchar(64) DEFAULT NULL,	#	iserver字段
-  `sender` varchar(36) DEFAULT NULL, 	#	iserver字段
-  `netid` varchar(36) DEFAULT NULL, 	#	iserver字段
-  `progid` varchar(36) DEFAULT NULL, 	#	iserver字段
-  `intid` varchar(30) DEFAULT NULL,	#	与phpyun的对应关系（记录学历等其他个人信息）
-  `updtime` datetime DEFAULT NULL,	#	记录更新时间
-  `rectime` datetime DEFAULT NULL,	#	记录时间
-  `pushflag` smallint  unsigned DEFAULT '1',
-  PRIMARY KEY (`id`),	#	
-  KEY `userid` (`userid`),	#	
-  KEY `phone` (`phone`), #	
-  KEY `usercode` (`usercode`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;	#	
+
 
 ## ----------------------------
 ## Table structure for usermacs
