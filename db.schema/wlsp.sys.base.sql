@@ -23,8 +23,8 @@ CREATE TABLE if not exists user_info (
     byear          smallint          DEFAULT NULL,	        #	生日，年 // move to user_info. It can be obtained in different ways.
     bmonth         smallint          DEFAULT NULL,	        #	生日，月
     bday           smallint          DEFAULT NULL,	        #	生日，日
-    gender         varchar(8)        NOT NULL DEFAULT 'M',	        #	性别  //user info.
-    occup          varchar(30)       NOT NULL DEFAULT '',	        #	职业 // user info
+    gender         varchar(8)        NOT NULL DEFAULT 'M',	#	性别  //user info.
+    occup          varchar(30)       NOT NULL DEFAULT '',	#	职业 // user info
     orgn           varchar(64)       DEFAULT NULL,	        #	工作单位 //user info
     title          varchar(32)       DEFAULT NULL,	        #	职务 // user info.
     cid            varchar(30)       DEFAULT '000000',	    #	证件号, cid + ctype
@@ -44,6 +44,7 @@ CREATE TABLE if not exists user_info (
 CREATE TABLE if not exists account (
     id               VARCHAR(36)     primary key,                       #   id int unsigned NOT NULL auto_increment primary key, the same user can have differennt account at different ihost
     phone            varchar(30)     DEFAULT NULL,	                    #	常用电话号码 , mobile phone number for receiving sms., one account --> one phone number
+    password         varchar(20)     DEFAULT ''                         #   password use for secure login, optional, try mac/password login first. For internal users
     point            int not null    DEFAULT '0',	                    #	userid下的积分 ?? better name
     factor           int not null    DEFAULT '1000',	                #	points转integral的因子，1000代表1 // put it together with integral in a separate table
     hint             varchar(30)     NOT NULL,                          #   required for recover or change account, for example change phone number
@@ -66,9 +67,11 @@ CREATE TABLE if not exists token (
     id            smallint unsigned  NOT NULL auto_increment primary key,
     phone         varchar(30)        NOT NULL,
     mac           BIGINT UNSIGNED    NOT NULL,
-    token         int UNSIGNED       NOT NULL,                          #history. use the latest to verify account, sms
+    token         int UNSIGNED       NOT NULL,                          #history. use the latest to verify account, sms 上网码/
     password      VARCHAR(36)        NOT NULL,
-    create_t      datetime           NOT NULL
+    enabled       boolean            NOT NULL default 0,                #if false, disable the account login with mac/password
+    create_t      datetime           NOT NULL,
+    modify_t      datetime           DEFAULT NULL
 )CHARSET=utf8;
 
 #############################################################
@@ -76,7 +79,7 @@ CREATE TABLE if not exists token (
 #############################################################
 CREATE TABLE if not exists role (
     id      smallint unsigned        NOT NULL auto_increment primary key,
-    name    varchar(50)              NOT NULL
+    name    varchar(50)              NOT NULL                               #manager, agent, service, customer  4 roles
 ) DEFAULT CHARSET=utf8;
 
 #############################################################
@@ -137,9 +140,10 @@ CREATE TABLE if not exists reception (
     result         varchar(100)          NOT NULL default '',                 #接待结果：信息留存/签单/提车；选择或者新建，可维护
     comparison     varchar(150)          NOT NULL default '',                 #竞品对比：输入内容，可口述录音, path to audio file or text??
     memo           varchar(150)          NOT NULL default '',                 #备注：输入内容，可口述录音 audio or text
-    status         set('new', 'update', 'delete') NOT NULL default 'new'       # 新建，更新，删除
-    start_t       datetime               NOT NULL,                              #when record button is pressed
-    end_t          datetime              default NULL                           #when reception ends, agent opens the app, press the "stop recording"
+    status         set('new', 'update', 'delete') NOT NULL default 'new'      # 新建，更新，删除
+    sibling        smallint unsigned,    NOT NULL default 0,                  # id of reception which occurs after current reception in time
+    start_t        datetime              NOT NULL,                            #when record button is pressed
+    end_t          datetime              default NULL                         #when reception ends, agent opens the app, press the "stop recording"
 ) DEFAULT CHARSET=utf8;
 
 #############################################################
@@ -148,8 +152,8 @@ CREATE TABLE if not exists reception (
 create table if not exists recpt_activity (
      id              smallint unsigned     NOT NULL auto_increment primary key,
      reception_id    smallint unsigned     NOT NULL auto_increment primary key,
-     resource_type   varchar(10)            NOT NULL default '',                  #mac address, photo, etc.
-     resource_info   varchar(25)            NOT NULL default ''
+     resource_type   varchar(10)            NOT NULL default '',                  #mac address, photo, audio etc.
+     resource_info   varchar(25)            NOT NULL default ''                   #possible id, description
 ) default CHARSET=utf8
 
 
