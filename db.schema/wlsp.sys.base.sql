@@ -12,9 +12,9 @@
 ## http://www.devshed.com/c/a/mysql/designing-a-mysql-database-tips-and-techniques/
 ###############################################################
 
-#############################################################
+###############################################################
 # user_info
-#############################################################
+###############################################################
 CREATE TABLE if not exists user_info (
     id             VARCHAR(36)       primary key NOT NULL,
     first_name     varchar(20)       DEFAULT NULL,	        #	名字 
@@ -25,7 +25,7 @@ CREATE TABLE if not exists user_info (
     bday           smallint          DEFAULT NULL,	        #	生日，日
     gender         varchar(8)        NOT NULL DEFAULT 'M',	#	性别  //user info.
     occupation     varchar(30)       NOT NULL DEFAULT '',	#	职业 // user info
-    company           varchar(64)       DEFAULT NULL,	        #	工作单位 //user info
+    company        varchar(64)       DEFAULT NULL,	        #	工作单位 //user info
     title          varchar(32)       DEFAULT NULL,	        #	职务 // user info.
     cid            varchar(30)       DEFAULT '000000',	    #	证件号, cid + ctype
     ctype          varchar(10)       DEFAULT NULL,	        #	证件类别 //remove.
@@ -68,10 +68,10 @@ CREATE TABLE if not exists token (
     id            smallint unsigned  NOT NULL auto_increment primary key,
     phone         varchar(30)        NOT NULL,
     mac           BIGINT UNSIGNED    NOT NULL,
-    token         int UNSIGNED       NOT NULL,                          #history. use the latest to verify account, sms 上网码/
+    token         int UNSIGNED       NOT NULL,                          #   history. use the latest to verify account, sms 上网码/
     password      VARCHAR(36)        NOT NULL,
-    smscheck      boolean         NOT NULL default 0,                   #   if the user needs to be verified by sms
-    enabled       boolean            NOT NULL default 0,                #if false, disable the account login with mac/password
+    smscheck      boolean            NOT NULL default 0,                #   if the user needs to be verified by sms
+    enabled       boolean            NOT NULL default 0,                #   if false, disable the account login with mac/password
     create_t      datetime           NOT NULL,
     modify_t      datetime           DEFAULT NULL
 )CHARSET=utf8;
