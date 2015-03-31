@@ -59,12 +59,12 @@ CREATE TABLE if not exists account (
 ) DEFAULT CHARSET=utf8;
 
 # one phone number mapping to an account, but it could be mapped to multiple mac
-# token table
+# pre_register table
 # http://www.onurguzel.com/storing-mac-address-in-a-mysql-database/
 #############################################################
-# token
+# pre_register
 #############################################################
-CREATE TABLE if not exists token (
+CREATE TABLE if not exists pre_register (
     id            smallint unsigned  NOT NULL auto_increment primary key,
     phone         varchar(30)        NOT NULL,
     mac           BIGINT UNSIGNED    NOT NULL,
@@ -74,7 +74,19 @@ CREATE TABLE if not exists token (
     enabled       boolean            NOT NULL default 0,                #   if false, disable the account login with mac/password
     create_t      datetime           NOT NULL,
     modify_t      datetime           DEFAULT NULL
-)CHARSET=utf8;
+)DEFAULT CHARSET=utf8;
+
+#############################################################
+# token
+#############################################################
+create TABLE if not exists token (
+    id            smallint unsigned  NOT NULL auto_increment primary key,
+    phone         varchar(30)        NOT NULL,
+    token         int UNSIGNED       NOT NULL,                          
+    agent_id      varchar(36)        NOT NULL,
+    create_t      datetime           NOT NULL,
+    used          boolean            NOT NULL default 0
+) DEFAULT CHARSET=utf8;
 
 #############################################################
 # role
