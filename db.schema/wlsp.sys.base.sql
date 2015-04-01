@@ -62,16 +62,16 @@ CREATE TABLE if not exists account (
 # pre_register table
 # http://www.onurguzel.com/storing-mac-address-in-a-mysql-database/
 #############################################################
-# pre_register
+# phone_mac
 #############################################################
-CREATE TABLE if not exists pre_register (
+CREATE TABLE if not exists phone_mac (
     id            smallint unsigned  NOT NULL auto_increment primary key,
     phone         varchar(30)        NOT NULL,
     mac           BIGINT UNSIGNED    NOT NULL,
-    token         int UNSIGNED       NOT NULL,                          #   history. use the latest to verify account, sms 上网码/
-    password      VARCHAR(36)        NOT NULL,
+#    token         int UNSIGNED       NOT NULL,                         #   history. use the latest to verify account, sms 上网码/
+    password      VARCHAR(36)        NOT NULL,                          #   password for mac/pw login
     smscheck      boolean            NOT NULL default 0,                #   if the user needs to be verified by sms
-    enabled       boolean            NOT NULL default 0,                #   if false, disable the account login with mac/password
+    enabled       boolean            NOT NULL default 0,                #   if false, disable the account login with mac/password, user login with phone/pw
     create_t      datetime           NOT NULL,
     modify_t      datetime           DEFAULT NULL
 )DEFAULT CHARSET=utf8;
