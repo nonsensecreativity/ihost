@@ -1,4 +1,9 @@
-﻿## Tables for user registration
+﻿drop database if exists wms;
+create database wms;
+use wms;
+
+
+## Tables for user registration
 ## and authentication
 ## used by ## local server and (or) central server
 ## This file is used by both ihost and iserver to set up database.
@@ -183,7 +188,7 @@ create table if not exists recpt_activity (
 #############################################################
 CREATE TABLE if not exists first_appearance (
     id                int UNSIGNED          NOT NULL AUTO_INCREMENT,
-    device_mac        varchar(36)           DEFAULT NULL,                   #when wms receives the url from Chili, create a record here
+    device_mac        BIGINT UNSIGNED       DEFAULT NULL,                   #when wms receives the url from Chili, create a record here
     device_ip         varchar(64)           DEFAULT NULL,
     from_who          varchar(36)           DEFAULT NULL,                   #from_who, chili
     hotspot_ip        varchar(64)           DEFAULT NULL,
@@ -204,7 +209,7 @@ CREATE TABLE if not exists device_ipvisit (
    id int             UNSIGNED              NOT NULL AUTO_INCREMENT,
    pkt_time           datetime              NOT NULL,
    pkt_time_ms        SMALLINT UNSIGNED     DEFAULT NULL,
-   pkt_src_mac        varchar(64)           DEFAULT NULL,
+   pkt_src_mac        BIGINT UNSIGNED           DEFAULT NULL,
    pkt_src_ip         varchar(64)           DEFAULT NULL,
    pkt_target_ip      varchar(64)           DEFAULT NULL,
    url                varchar(1024)         DEFAULT NULL,
@@ -221,7 +226,7 @@ CREATE TABLE if not exists device_ipvisit (
 #############################################################
 CREATE TABLE IF not EXISTS device_act_history (
   `id`          int             NOT NULL AUTO_INCREMENT primary key,
-  `mac`         varchar(36)     NOT NULL,
+  `mac`         BIGINT UNSIGNED NOT NULL,
   `status`      varchar(64)     NOT NULL,
   `firstseen`   datetime        NOT NULL,
   `lastseen`    datetime        DEFAULT NULL,
@@ -238,20 +243,20 @@ CREATE TABLE IF not EXISTS device_act_history (
 #############################################################
 CREATE TABLE if not exists `802_11_packet` (
   `id`           int            NOT NULL AUTO_INCREMENT primary key,
-  `mac`          varchar(36)    DEFAULT NULL,
+  `mac`          BIGINT UNSIGNED    DEFAULT NULL,
   `ssid`         varchar(36)    DEFAULT NULL,
   `rssi`         smallint       DEFAULT NULL,
   `stat`         tinyint        DEFAULT NULL,
   `type`         varchar(36)    DEFAULT NULL,
   `subtype`      varchar(36)    DEFAULT NULL,
-  `pmac`         varchar(36)    DEFAULT NULL,
+  `pmac`         BIGINT UNSIGNED    DEFAULT NULL,
   `bssid`        varchar(36)    DEFAULT NULL,
   `pkttime`      datetime       DEFAULT NULL,
   `timefrac`     float          DEFAULT NULL,
   `frameproto`   varchar(36)    DEFAULT NULL,
   `chan`         varchar(36)    DEFAULT NULL,
   `create_t`     datetime       DEFAULT NULL,
-  `src_ip_mac`   varchar(64)    DEFAULT NULL,
+  `src_ip_mac`   BIGINT UNSIGNED    DEFAULT NULL,
   KEY `packettime` (`pkttime`),
   KEY `mac` (`mac`)
 )  DEFAULT CHARSET=utf8;
@@ -264,7 +269,7 @@ CREATE TABLE if not exists `802_11_packet` (
 #############################################################
 CREATE TABLE if not exists device_status (
   `id`            int            NOT NULL AUTO_INCREMENT,
-  `mac`           varchar(36)    DEFAULT NULL,
+  `mac`           BIGINT UNSIGNED    DEFAULT NULL,
   `ssid`          varchar(36)    DEFAULT NULL,
   `rssi`          float          DEFAULT NULL,
   `status`        smallint       DEFAULT NULL,
