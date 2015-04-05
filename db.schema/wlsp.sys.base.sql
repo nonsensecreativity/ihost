@@ -281,3 +281,16 @@ CREATE TABLE if not exists device_status (
   KEY             `mac` (`mac`)
 ) DEFAULT CHARSET=utf8;
 
+#############################################################
+# ihost
+#############################################################
+CREATE TABLE if not exists ihost (
+   id             VARCHAR(36)       primary key NOT NULL,
+   name           varchar(20)       not null DEFAULT '',
+   city           varchar(36)       not null DEFAULT '',
+   brand          varchar(36)       not null DEFAULT '',
+   create_t       datetime          not NULL,
+   modify_t       datetime          DEFAULT NULL,
+   PRIMARY KEY     (`id`),
+) DEFAULT CHARSET=utf8;
+
