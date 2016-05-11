@@ -1,3 +1,6 @@
+May, 2016 update:
+branch out from tag v1.0 for pi-sniffer project.
+
 ====================================
 push data from ihost to iserver
 ====================================
