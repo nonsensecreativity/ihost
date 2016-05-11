@@ -80,7 +80,7 @@ if __name__ == '__main__':
         sys.exit(0)  
     
   
-    timeinterval = 10 # inner loop interval i
+    timeinterval = 1 # inner loop interval i
 
     try:
         #for k in range(1, 60, timeinterval): # for loop 4 times erery minutes
@@ -243,7 +243,7 @@ if __name__ == '__main__':
             str_sql = "select id "
             str_sql = str_sql + " from " + tbl5
             str_sql = str_sql + " order by id desc limit 1 "
-            #print str_sql
+            print str_sql
             try:
                 cursor = cnx.cursor()
                 cursor.execute(str_sql)
@@ -316,222 +316,16 @@ if __name__ == '__main__':
             macaddr = open('/sys/class/net/eth0/address').read()[0:17]
             # netid
             netid = ''
-            with open("/etc/hostapd/hostapd.conf") as fin:
-                for line in fin:
-                    if 'ssid=' in line:
+            #with open("/etc/hostapd/hostapd.conf") as fin:
+            #    for line in fin:
+            #        if 'ssid=' in line:
                         #print line
-                        netid = line.split('=')[1]
-                        netid = netid.replace('\n', '')
-                        netid = netid.replace('\r', '')
+            #            netid = line.split('=')[1]
+            #            netid = netid.replace('\n', '')
+            #            netid = netid.replace('\r', '')
                         #print netid
-                        break
-
-            #prepare authclient list
-            str_sql = "select id,cid,ctype,stat,phone,sphone,msg,plan,mac,optflag,srcip,rectime "
-            str_sql = str_sql + " from " + tbl1
-            str_sql = str_sql + " where  (id >= '" + start1 +"'"
-            str_sql = str_sql + " and  id < '" + end1 +"')"
-            print str_sql
-            try:
-                cursor = cnx.cursor()
-                cursor.execute(str_sql)
-                cnx.commit()
-                for (datarow) in cursor:
-                    # Push msg data to rest service
-                    headers = {"content-type":"application/json;charset=UTF-8"}
-                    payload = '{'
-                    payload = payload + '"id":' + '0' + ','
-                    payload = payload + '"srcid":' + ('null' if datarow[0] == None else ('"' + str(datarow[0]) +'"') ) +  ','
-                    payload = payload + '"cid":' + ('null' if datarow[1] == None else ('"' + str(datarow[1]) +'"') )  + ','
-                    payload = payload + '"ctype":' + ('null' if datarow[2] == None else ('"' + str(datarow[2]) +'"') ) + ','
-                    payload = payload + '"stat":' + ('null' if datarow[3] == None else ('"' + str(datarow[3]) +'"') ) + ','
-                    payload = payload + '"phone":' + ('null' if datarow[4] == None else ('"' + str(datarow[4]) +'"') ) + ','
-                    payload = payload + '"sphone":' + ('null' if datarow[5] == None else ('"' + str(datarow[5]) +'"') ) + ','
-                    payload = payload + '"msg":' + ('null' if datarow[6] == None else ('"' + str(datarow[6]) +'"') ) + ','
-                    payload = payload + '"plan":'+ ('null' if datarow[7] == None else ('"' + str(datarow[7]) +'"') ) + ','
-                    payload = payload + '"question":' + 'null' + ','
-                    payload = payload + '"answer":' + 'null' + ','
-                    payload = payload + '"token":' + 'null' + ','
-                    payload = payload + '"mac":' + ('null' if datarow[8] == None else ('"' + str(datarow[8]) +'"') ) + ','
-                    payload = payload + '"img":' + 'null' + ','
-                    payload = payload + '"imgchk1":' + 'null' + ','
-                    payload = payload + '"imgchk2":' + 'null' + ','
-                    payload = payload + '"imgchk3":' + 'null' + ','
-                    payload = payload + '"manstat":' + 'null' + ','
-                    payload = payload + '"manchker":' + 'null' + ','
-                    payload = payload + '"manid":' + 'null' + ','
-                    payload = payload + '"mantype":' + 'null' + ','
-                    payload = payload + '"mantime":' + 'null' + ','
-                    payload = payload + '"optflag":' + ('null' if datarow[9] == None else ('"' + str(datarow[9]) +'"') ) + ','
-                    payload = payload + '"srcip":' + ('null' if datarow[10] == None else ('"' + str(datarow[10]) +'"') ) + ','
-                    payload = payload + '"srcname":' + 'null' + ','
-                    payload = payload + '"rectime":' + 'null' + ','
-                    #payload = payload + '"rectime":' + ('null' if msgrectime == None else ('"' + str(msgrectime).replace(' ','T') + str(tzone) +'"') ) + ','
-                    payload = payload + '"sender":"' + macaddr + '",'
-                    payload = payload + '"netid":"' + netid  + '",'
-                    payload = payload + '"progid":"' + progid + '",'
-                    #payload = payload + '"optime":' + 'null' + ','
-                    payload = payload + '"optime":' + ('null' if datarow[11] == None else ('"' + str(datarow[11]).replace(' ','T') + str(tzone1) +'"') ) + ''
-                    payload = payload + '}' 
-                    
-                    print payload
-                    try:
-                        #pass
-                        response = requests.post(url1, data=payload, headers=headers)
-                        print response
-                    except Exception,e:
-                        print e
-
-            except MySQLdb.Error as err:
-                print("select 'authclient' failed.")
-                print("Error: {}".format(err.args[1]))   
-            finally:
-                cursor.close()          
-
-            #prepare authmac list
-            str_sql = "select id,mac,ip,stat,cid,phone,base,srcip,rectime "
-            str_sql = str_sql + " from " + tbl2
-            str_sql = str_sql + " where  (id >= '" + start2 +"'"
-            str_sql = str_sql + " and  id < '" + end2 +"')"
-            print str_sql
-            try:
-                cursor = cnx.cursor()
-                cursor.execute(str_sql)
-                cnx.commit()
-                for (datarow) in cursor:
-                    # Push msg data to rest service
-                    headers = {"content-type":"application/json;charset=UTF-8"}
-                    payload = '{'
-                    payload = payload + '"id":' + '0' + ','
-                    payload = payload + '"srcid":' + ('null' if datarow[0] == None else ('"' + str(datarow[0]) +'"') ) +  ','
-                    payload = payload + '"mac":' + ('null' if datarow[1] == None else ('"' + str(datarow[1]) +'"') ) +  ','
-                    payload = payload + '"ip":' + ('null' if datarow[2] == None else ('"' + str(datarow[2]) +'"') )  + ','
-                    payload = payload + '"stat":' + ('null' if datarow[3] == None else ('"' + str(datarow[3]) +'"') ) + ','
-                    payload = payload + '"fromtime":'  + 'null' + ','
-                    payload = payload + '"lasting":'  + 'null' + ','
-                    payload = payload + '"pushflag":'  + 'null' + ','
-                    payload = payload + '"pushurl":'  + 'null' + ','
-                    payload = payload + '"pushtime":'  + 'null' + ','
-                    payload = payload + '"cid":' + ('null' if datarow[4] == None else ('"' + str(datarow[4]) +'"') ) + ','
-                    payload = payload + '"phone":' + ('null' if datarow[5] == None else ('"' + str(datarow[5]) +'"') ) + ','
-                    payload = payload + '"token":' + 'null' + ','
-                    payload = payload + '"base":' + ('null' if datarow[6] == None else ('"' + str(datarow[6]) +'"') ) + ','
-                    payload = payload + '"srcip":' + ('null' if datarow[7] == None else ('"' + str(datarow[7]) +'"') ) + ','
-                    payload = payload + '"srcname":' + 'null' + ','
-                    payload = payload + '"rectime":' + 'null' + ','
-                    #payload = payload + '"rectime":' + ('null' if msgrectime == None else ('"' + str(msgrectime).replace(' ','T') + str(tzone) +'"') ) + ','
-                    payload = payload + '"sender":"' + macaddr + '",'
-                    payload = payload + '"netid":"' + netid  + '",'
-                    payload = payload + '"progid":"' + progid + '",'
-                    #payload = payload + '"optime":' + 'null' + ','
-                    payload = payload + '"optime":' + ('null' if datarow[8] == None else ('"' + str(datarow[8]).replace(' ','T') + str(tzone2) +'"') ) + ''
-                    payload = payload + '}' 
-                    
-                    print payload
-                    try:
-                        #pass
-                        response = requests.post(url2, data=payload, headers=headers)
-                        print response
-                    except Exception,e:
-                        print e
-
-            except MySQLdb.Error as err:
-                print("select 'authmac' failed.")
-                print("Error: {}".format(err.args[1]))   
-            finally:
-                cursor.close()          
-
-            #prepare authmacip list
-            str_sql = "select id,mac,ip,called,srcip,orgurl,userurl,rectime "
-            str_sql = str_sql + " from " + tbl3
-            str_sql = str_sql + " where  (id >= '" + start3 +"'"
-            str_sql = str_sql + " and  id < '" + end3 +"')"
-            print str_sql
-            try:
-                cursor = cnx.cursor()
-                cursor.execute(str_sql)
-                cnx.commit()
-                for (datarow) in cursor:
-                    # Push msg data to rest service
-                    headers = {"content-type":"application/json;charset=UTF-8"}
-                    payload = '{'
-                    payload = payload + '"id":' + '0' + ','
-                    payload = payload + '"srcid":' + ('null' if datarow[0] == None else ('"' + str(datarow[0]) +'"') ) +  ','
-                    payload = payload + '"mac":' + ('null' if datarow[1] == None else ('"' + str(datarow[1]) +'"') ) +  ','
-                    payload = payload + '"ip":' + ('null' if datarow[2] == None else ('"' + str(datarow[2]) +'"') )  + ','
-                    payload = payload + '"called":' + ('null' if datarow[3] == None else ('"' + str(datarow[3]) +'"') ) + ','
-                    payload = payload + '"srcip":' + ('null' if datarow[4] == None else ('"' + str(datarow[4]) +'"') ) + ','
-                    payload = payload + '"procid":' + 'null' + ','
-                    payload = payload + '"orgurl":' + ('null' if datarow[5] == None else ('"' + str(datarow[5]) +'"') ) + ','
-                    payload = payload + '"userurl":' + ('null' if datarow[6] == None else ('"' + str(datarow[6]) +'"') ) + ','
-                    payload = payload + '"token":' + 'null' + ','
-                    payload = payload + '"rectime":' + 'null' + ','
-                    #payload = payload + '"rectime":' + ('null' if msgrectime == None else ('"' + str(msgrectime).replace(' ','T') + str(tzone) +'"') ) + ','
-                    payload = payload + '"sender":"' + macaddr + '",'
-                    payload = payload + '"netid":"' + netid  + '",'
-                    payload = payload + '"progid":"' + progid + '",'
-                    #payload = payload + '"optime":' + 'null' + ','
-                    payload = payload + '"optime":' + ('null' if datarow[7] == None else ('"' + str(datarow[7]).replace(' ','T') + str(tzone3) +'"') ) + ''
-                    payload = payload + '}' 
-                    
-                    print payload
-                    try:
-                        #pass
-                        response = requests.post(url3, data=payload, headers=headers)
-                        print response
-                    except Exception,e:
-                        print e
-
-            except MySQLdb.Error as err:
-                print("select 'authmacip' failed.")
-                print("Error: {}".format(err.args[1]))   
-            finally:
-                cursor.close()          
-
-            #prepare actvst list
-            str_sql = "select id,pkttime,timefrac,srcmac,srcip,destip,url,rectime "
-            str_sql = str_sql + " from " + tbl4
-            str_sql = str_sql + " where  (id >= '" + start4 +"'"
-            str_sql = str_sql + " and  id < '" + end4 +"')"
-            print str_sql
-            try:
-                cursor = cnx.cursor()
-                cursor.execute(str_sql)
-                cnx.commit()
-                for (datarow) in cursor:
-                    # Push msg data to rest service
-                    headers = {"content-type":"application/json;charset=UTF-8"}
-                    payload = '{'
-                    payload = payload + '"id":' + '0' + ','
-                    payload = payload + '"srcid":' + ('null' if datarow[0] == None else ('"' + str(datarow[0]) +'"') ) +  ','
-                    payload = payload + '"pkttime":'  + ('null' if datarow[1] == None else ('"' + str(datarow[1]).replace(' ','T') + str(tzone4) +'"') ) + ','
-                    payload = payload + '"timefrac":' + ('null' if datarow[2] == None else ('"' + str(datarow[2]) +'"') )  + ','
-                    payload = payload + '"srcmac":' + ('null' if datarow[3] == None else ('"' + str(datarow[3]) +'"') ) + ','
-                    payload = payload + '"srcip":' + ('null' if datarow[4] == None else ('"' + str(datarow[4]) +'"') ) + ','
-                    payload = payload + '"destip":' + ('null' if datarow[5] == None else ('"' + str(datarow[5]) +'"') ) + ','
-                    payload = payload + '"url":' + ('null' if datarow[6] == None else ('"' + str(datarow[6]) +'"') ) + ','
-                    payload = payload + '"rectime":' + 'null' + ','
-                    #payload = payload + '"rectime":' + ('null' if msgrectime == None else ('"' + str(msgrectime).replace(' ','T') + str(tzone) +'"') ) + ','
-                    payload = payload + '"sender":"' + macaddr + '",'
-                    payload = payload + '"netid":"' + netid  + '",'
-                    payload = payload + '"progid":"' + progid + '",'
-                    #payload = payload + '"optime":' + 'null' + ','
-                    payload = payload + '"optime":' + ('null' if datarow[7] == None else ('"' + str(datarow[7]).replace(' ','T') + str(tzone4) +'"') ) + ''
-                    payload = payload + '}' 
-                    
-                    print payload
-                    try:
-                        #pass
-                        response = requests.post(url4, data=payload, headers=headers)
-                        print response
-                    except Exception,e:
-                        print e
-
-            except MySQLdb.Error as err:
-                print("select 'actvst' failed.")
-                print("Error: {}".format(err.args[1]))   
-            finally:
-                cursor.close()          
+            #            break
+        
 
             #prepare wlact list
             str_sql = "select id,event,mac,subevent,oldvalue,newvalue,\
@@ -585,65 +379,7 @@ if __name__ == '__main__':
             finally:
                 cursor.close()          
 
-            #prepare wlsta list
-            bigrssi = '-75'
-            str_sql = "select id,tcount,mac,ssid,rssi,stat,setby,keepalive,\
-            firstseen,lastseen,npacket,action,srcip,rectime "
-            str_sql = str_sql + " from " + tbl6
-            str_sql = str_sql + " where  ( firstseen = lastseen ) "
-            str_sql = str_sql + " or  ( rssi >= '" + bigrssi +"' and timestampdiff(second,rectime,now()) <= " + str(timeinterval) + " )"
-            #str_sql = str_sql + " where  (id >= '" + start6 +"'"
-            #str_sql = str_sql + " and  id < '" + end6 +"')"
-            print str_sql
-            try:
-                cursor = cnx.cursor()
-                cursor.execute(str_sql)
-                cnx.commit()
-                for (datarow) in cursor:
-                    # Push msg data to rest service
-                    headers = {"content-type":"application/json;charset=UTF-8"}
-                    payload = '{'
-                    payload = payload + '"id":' + '0' + ','
-                    payload = payload + '"srcid":' + ('null' if datarow[0] == None else ('"' + str(datarow[0]) +'"') ) +  ','
-                    payload = payload + '"tcount":' + ('null' if datarow[1] == None else ('"' + str(datarow[1]) +'"') ) +  ','
-                    payload = payload + '"mac":' + ('null' if datarow[2] == None else ('"' + str(datarow[2]) +'"') )  + ','
-                    payload = payload + '"ssid":' + ('null' if datarow[3] == None else ('"' + str(datarow[3]) +'"') ) + ','
-                    payload = payload + '"rssi":' + ('null' if datarow[4] == None else ('"' + str(datarow[4]) +'"') ) + ','
-                    payload = payload + '"stat":' + ('null' if datarow[5] == None else ('"' + str(datarow[5]) +'"') ) + ','
-                    payload = payload + '"setby":' + ('null' if datarow[6] == None else ('"' + str(datarow[6]) +'"') ) + ','
-                    payload = payload + '"keepalive":' + ('null' if datarow[7] == None else ('"' + str(datarow[7]) +'"') ) + ','
-                    payload = payload + '"firstseen":' + ('null' if datarow[8] == None else ('"' + str(datarow[8]).replace(' ','T') + str(tzone6) +'"') ) + ','
-                    payload = payload + '"lastseen":' + ('null' if datarow[9] == None else ('"' + str(datarow[9]).replace(' ','T') + str(tzone6) +'"') ) + ','
-                    payload = payload + '"rtrend":' + 'null' + ','
-                    payload = payload + '"npacket":' + ('null' if datarow[10] == None else ('"' + str(datarow[10]) +'"') ) + ','
-                    payload = payload + '"ptrend":' + 'null' + ','
-                    payload = payload + '"action":' + ('null' if datarow[11] == None else ('"' + str(datarow[11]) +'"') ) + ','
-                    payload = payload + '"ostype":' + 'null' + ','
-                    payload = payload + '"alivetime":' + 'null' + ','
-                    payload = payload + '"srcip":' + ('null' if datarow[12] == None else ('"' + str(datarow[12]) +'"') ) + ','
-                    payload = payload + '"rectime":' + 'null' + ','
-                    #payload = payload + '"rectime":' + ('null' if msgrectime == None else ('"' + str(msgrectime).replace(' ','T') + str(tzone) +'"') ) + ','
-                    payload = payload + '"sender":"' + macaddr + '",'
-                    payload = payload + '"netid":"' + netid  + '",'
-                    payload = payload + '"progid":"' + progid + '",'
-                    #payload = payload + '"optime":' + 'null' + ','
-                    payload = payload + '"optime":' + ('null' if datarow[13] == None else ('"' + str(datarow[13]).replace(' ','T') + str(tzone6) +'"') ) + ''
-                    payload = payload + '}' 
-                    
-                    print payload.encode("utf8")
-                    try:
-                        #pass
-                        response = requests.post(url6, data=payload, headers=headers)
-                        print response
-                    except Exception,e:
-                        print e
-
-            except MySQLdb.Error as err:
-                print("select 'wlsta' failed.")
-                print("Error: {}".format(err.args[1]))   
-            finally:
-                cursor.close()          
-
+ 
 
             time.sleep(timeinterval)
             
